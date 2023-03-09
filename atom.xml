@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Ev的知识杂货铺</title>
+  
+  
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2023-03-09T10:40:25.498Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>Evelynall</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>欢迎来到杂货铺！</title>
+    <link href="http://example.com/2023/03/09/%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0%E6%9D%82%E8%B4%A7%E9%93%BA%EF%BC%81/"/>
+    <id>http://example.com/2023/03/09/%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0%E6%9D%82%E8%B4%A7%E9%93%BA%EF%BC%81/</id>
+    <published>2023-03-09T10:36:14.000Z</published>
+    <updated>2023-03-09T10:40:25.498Z</updated>
+    
+    <content type="html"><![CDATA[<p>欢迎来到<a href="https://evelynall.github.io/">Ev的知识杂货铺</a>，这里(将)会上架许多好用的网址，涵盖图片、视频、字体……反正很多很多范围！如果你感兴趣的话就来逛一逛吧！哦对了，想了解更多可以查看我的<a href="https://space.bilibili.com/33374590?spm_id_from=333.1007.0.0">B站</a>，想对这个店铺供货的话可以看看我的<a href="https://github.com/Evelynall">Github</a>。</p><h3 id="一起逛逛吧！"><a href="#一起逛逛吧！" class="headerlink" title="一起逛逛吧！"></a>一起逛逛吧！</h3><h3 id="查看我们的商品分类"><a href="#查看我们的商品分类" class="headerlink" title="查看我们的商品分类"></a>查看我们的商品分类</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">你可以在左边(手机的话在顶上！)查看归档，里面会有我们所有的商品！</span><br></pre></td></tr></table></figure><p>当然你也可以直接点击<a href="https://evelynall.github.io/archives/">这里</a></p><h3 id="定向查找你需要的商品"><a href="#定向查找你需要的商品" class="headerlink" title="定向查找你需要的商品"></a>定向查找你需要的商品</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">你可以点击分类或者标签，精准找到你需要的工具！</span><br></pre></td></tr></table></figure><p>当然你也可以直接点击这里<a href="https://evelynall.github.io/categories">分类</a>或<a href="https://evelynall.github.io/tags">标签</a>。(打不开？现在也许可能大概正在施工中……)</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;欢迎来到&lt;a href=&quot;https://evelynall.github.io/&quot;&gt;Ev的知识杂货铺&lt;/a&gt;，这里(将)会上架许多好用的网址，涵盖图片、视频、字体……反正很多很多范围！如果你感兴趣的话就来逛一逛吧！哦对了，想了解更多可以查看我的&lt;a href=&quot;https</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>在线文件转换器</title>
+    <link href="http://example.com/2023/03/09/%E5%9C%A8%E7%BA%BF%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E5%99%A8/"/>
+    <id>http://example.com/2023/03/09/%E5%9C%A8%E7%BA%BF%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E5%99%A8/</id>
+    <published>2023-03-09T10:21:47.000Z</published>
+    <updated>2023-03-09T10:26:07.741Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天收到一个小需求，同事想要打开一个Dwg文件，但没有CAD咋办，在线打开呗！于是咱搜了半天找了好几家在线转换器，没想到，这个Dwg挑战还蛮大，好几家居然都没能打开，正好作为评分标准，给这篇文章一个参考系。</p><h2 id="在线文件转换器"><a href="#在线文件转换器" class="headerlink" title="在线文件转换器"></a>在线文件转换器</h2><p>由于精力有限，各个转换器并没有经过详细的测试，只会查看支持的文件类型、大小并进行简单测试，所以排行并不绝对，发现一个不能用时可以再换一个试试哦。</p><p>评分细则：<br>支持的文件类型数量<br>支持的文件大小<br>转换的速度<br>有无广告</p><h3 id="ALL-TO-ALL"><a href="#ALL-TO-ALL" class="headerlink" title="ALL TO ALL"></a><a href="https://convertio.co/zh/">ALL TO ALL</a></h3><p>本次挑战中唯一一位成功转换并打开的赢家！<br><strong>支持的文件类型：</strong>200多种<br><strong>支持的文件大小：</strong>显示10M，实际测试中同事11.8M的Dwg也成功转换了<br><strong>转换速度：</strong>快（应该是国内网站的原因，上传下载都很快）<br><strong>有无广告：</strong>有，但完全不影响（只是为生成网站的建站平台宣传，且只有较小的文字，不细看甚至不会注意到）</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">综合评价：🌟🌟🌟🌟🌟 5/5</span><br><span class="line">地址：https://www.alltoall.net/</span><br></pre></td></tr></table></figure><h3 id="Convertio"><a href="#Convertio" class="headerlink" title="Convertio"></a><a href="https://convertio.co/zh/">Convertio</a></h3><p><strong>支持的文件类型：</strong>300多种<br><strong>支持的文件大小：</strong>100M（可以付费扩容）<br><strong>转换速度：</strong>快<br><strong>有无广告：</strong>有(1个)，不大，但显眼，可以用脚本屏蔽</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">综合评价：🌟🌟🌟🌟 4/5</span><br><span class="line">地址：https://convertio.co/zh/</span><br></pre></td></tr></table></figure><h3 id="CDKM"><a href="#CDKM" class="headerlink" title="CDKM"></a><a href="https://cdkm.com/cn/">CDKM</a></h3><p><strong>支持的文件类型：</strong>57种（但自称列出的知识流行的部分，其余的可以自行尝试）<br><strong>支持的文件大小：</strong>200M（但实测Dwg只支持2M，所以部分文件会有单独限制）<br><strong>转换速度：</strong>快<br><strong>有无广告：</strong>有(3个)，很大很影响观感，但可以用脚本屏蔽</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">综合评价：🌟🌟🌟✨ 3.5/5</span><br><span class="line">地址：https://cdkm.com/cn/</span><br></pre></td></tr></table></figure><h3 id="酷Q网音乐格式转换"><a href="#酷Q网音乐格式转换" class="headerlink" title="酷Q网音乐格式转换"></a><a href="https://kqwyygszh.pages.dev/">酷Q网音乐格式转换</a></h3><p>上面的三个转换器已经可以支持绝大多数需求了，这一款则是“特殊”功能，酷狗Q音网易云的付费歌曲是特殊格式，别的音乐软件无法打开，而这个网站可以将会员文件转换为普通的mp3</p><p><strong>ps：</strong>需要关注公众号获取验证码</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">**综合评价：**🌟🌟🌟🌟🌟 5/5</span><br><span class="line">**地址：**https://kqwyygszh.pages.dev/</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;今天收到一个小需求，同事想要打开一个Dwg文件，但没有CAD咋办，在线打开呗！于是咱搜了半天找了好几家在线转换器，没想到，这个Dwg挑战还蛮大，好几家居然都没能打开，正好作为评分标准，给这篇文章一个参考系。&lt;/p&gt;
+&lt;h2 id=&quot;在线文件转换器&quot;&gt;&lt;a href=&quot;#在线</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://example.com/2023/03/09/hello-world/"/>
+    <id>http://example.com/2023/03/09/hello-world/</id>
+    <published>2023-03-09T10:06:10.387Z</published>
+    <updated>2023-03-09T10:06:10.387Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>

@@ -1,125 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Ev的知识杂货铺</title>
+<search>
   
   
-  <link href="http://example.com/atom.xml" rel="self"/>
-  
-  <link href="http://example.com/"/>
-  <updated>2023-03-09T10:40:25.498Z</updated>
-  <id>http://example.com/</id>
-  
-  <author>
-    <name>Evelynall</name>
-    
-  </author>
-  
-  <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
     <title>欢迎来到杂货铺！</title>
-    <link href="http://example.com/2023/03/09/%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0%E6%9D%82%E8%B4%A7%E9%93%BA%EF%BC%81/"/>
-    <id>http://example.com/2023/03/09/%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0%E6%9D%82%E8%B4%A7%E9%93%BA%EF%BC%81/</id>
-    <published>2023-03-09T10:36:14.000Z</published>
-    <updated>2023-03-09T10:40:25.498Z</updated>
+    <link href="/2023/03/09/%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0%E6%9D%82%E8%B4%A7%E9%93%BA%EF%BC%81/"/>
+    <url>/2023/03/09/%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0%E6%9D%82%E8%B4%A7%E9%93%BA%EF%BC%81/</url>
     
     <content type="html"><![CDATA[<p>欢迎来到<a href="https://evelynall.github.io/">Ev的知识杂货铺</a>，这里(将)会上架许多好用的网址，涵盖图片、视频、字体……反正很多很多范围！如果你感兴趣的话就来逛一逛吧！哦对了，想了解更多可以查看我的<a href="https://space.bilibili.com/33374590?spm_id_from=333.1007.0.0">B站</a>，想对这个店铺供货的话可以看看我的<a href="https://github.com/Evelynall">Github</a>。</p><h3 id="一起逛逛吧！"><a href="#一起逛逛吧！" class="headerlink" title="一起逛逛吧！"></a>一起逛逛吧！</h3><h3 id="查看我们的商品分类"><a href="#查看我们的商品分类" class="headerlink" title="查看我们的商品分类"></a>查看我们的商品分类</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">你可以在左边(手机的话在顶上！)查看归档，里面会有我们所有的商品！<br></code></pre></td></tr></table></figure><p>当然你也可以直接点击<a href="https://evelynall.github.io/archives/">这里</a></p><h3 id="定向查找你需要的商品"><a href="#定向查找你需要的商品" class="headerlink" title="定向查找你需要的商品"></a>定向查找你需要的商品</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">你可以点击分类或者标签，精准找到你需要的工具！<br></code></pre></td></tr></table></figure><p>当然你也可以直接点击这里<a href="https://evelynall.github.io/categories">分类</a>或<a href="https://evelynall.github.io/tags">标签</a>。(打不开？现在也许可能大概正在施工中……)</p>]]></content>
     
     
-      
-      
-    <summary type="html">&lt;p&gt;欢迎来到&lt;a href=&quot;https://evelynall.github.io/&quot;&gt;Ev的知识杂货铺&lt;/a&gt;，这里(将)会上架许多好用的网址，涵盖图片、视频、字体……反正很多很多范围！如果你感兴趣的话就来逛一逛吧！哦对了，想了解更多可以查看我的&lt;a href=&quot;https</summary>
-      
-    
-    
-    
     
   </entry>
   
+  
+  
   <entry>
     <title>奇怪格式打不开？或许他能帮你-在线文件转换器</title>
-    <link href="http://example.com/2023/03/09/%E5%9C%A8%E7%BA%BF%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E5%99%A8/"/>
-    <id>http://example.com/2023/03/09/%E5%9C%A8%E7%BA%BF%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E5%99%A8/</id>
-    <published>2023-03-09T10:21:47.000Z</published>
-    <updated>2023-03-09T15:16:12.130Z</updated>
+    <link href="/2023/03/09/%E5%9C%A8%E7%BA%BF%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E5%99%A8/"/>
+    <url>/2023/03/09/%E5%9C%A8%E7%BA%BF%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E5%99%A8/</url>
     
     <content type="html"><![CDATA[<p>今天收到一个小需求，同事想要打开一个Dwg文件，但没有CAD咋办，在线打开呗！于是咱搜了半天找了好几家在线转换器，没想到，这个Dwg挑战还蛮大，好几家居然都没能打开，正好作为评分标准，给这篇文章一个参考系。</p><h2 id="在线文件转换器"><a href="#在线文件转换器" class="headerlink" title="在线文件转换器"></a>在线文件转换器</h2><p>由于精力有限，各个转换器并没有经过详细的测试，只会查看支持的文件类型、大小并进行简单测试，所以排行并不绝对，发现一个不能用时可以再换一个试试哦。</p><p>评分细则：<br>支持的文件类型数量<br>支持的文件大小<br>转换的速度<br>有无广告</p><h3 id="ALL-TO-ALL"><a href="#ALL-TO-ALL" class="headerlink" title="ALL TO ALL"></a><a href="https://convertio.co/zh/">ALL TO ALL</a></h3><p>本次挑战中唯一一位成功转换并打开的赢家！<br><strong>支持的文件类型：</strong>200多种<br><strong>支持的文件大小：</strong>显示10M，实际测试中同事11.8M的Dwg也成功转换了<br><strong>转换速度：</strong>快（应该是国内网站的原因，上传下载都很快）<br><strong>有无广告：</strong>有，但完全不影响（只是为生成网站的建站平台宣传，且只有较小的文字，不细看甚至不会注意到）</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟🌟🌟🌟🌟 5/5<br>地址：https://www.alltoall.net/<br></code></pre></td></tr></table></figure><h3 id="Convertio"><a href="#Convertio" class="headerlink" title="Convertio"></a><a href="https://convertio.co/zh/">Convertio</a></h3><p><strong>支持的文件类型：</strong>300多种<br><strong>支持的文件大小：</strong>100M（可以付费扩容）<br><strong>转换速度：</strong>快<br><strong>有无广告：</strong>有(1个)，不大，但显眼，可以用脚本屏蔽</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟🌟🌟🌟 4/5<br>地址：https://convertio.co/zh/<br></code></pre></td></tr></table></figure><h3 id="CDKM"><a href="#CDKM" class="headerlink" title="CDKM"></a><a href="https://cdkm.com/cn/">CDKM</a></h3><p><strong>支持的文件类型：</strong>57种（但自称列出的知识流行的部分，其余的可以自行尝试）<br><strong>支持的文件大小：</strong>200M（但实测Dwg只支持2M，所以部分文件会有单独限制）<br><strong>转换速度：</strong>快<br><strong>有无广告：</strong>有(3个)，很大很影响观感，但可以用脚本屏蔽</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟🌟🌟✨ 3.5/5<br>地址：https://cdkm.com/cn/<br></code></pre></td></tr></table></figure><h3 id="酷Q网音乐格式转换"><a href="#酷Q网音乐格式转换" class="headerlink" title="酷Q网音乐格式转换"></a><a href="https://kqwyygszh.pages.dev/">酷Q网音乐格式转换</a></h3><p>上面的三个转换器已经可以支持绝大多数需求了，这一款则是“特殊”功能，酷狗Q音网易云的付费歌曲是特殊格式，别的音乐软件无法打开，而这个网站可以将会员文件转换为普通的mp3</p><p><strong>ps：</strong>需要关注公众号获取验证码</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">**综合评价：**🌟🌟🌟🌟🌟 5/5<br>**地址：**https://kqwyygszh.pages.dev/<br></code></pre></td></tr></table></figure>]]></content>
     
     
+    <categories>
       
+      <category>效率工具</category>
       
-    <summary type="html">&lt;p&gt;今天收到一个小需求，同事想要打开一个Dwg文件，但没有CAD咋办，在线打开呗！于是咱搜了半天找了好几家在线转换器，没想到，这个Dwg挑战还蛮大，好几家居然都没能打开，正好作为评分标准，给这篇文章一个参考系。&lt;/p&gt;
-&lt;h2 id=&quot;在线文件转换器&quot;&gt;&lt;a href=&quot;#在线</summary>
+    </categories>
+    
+    
+    <tags>
       
-    
-    
-    
-    <category term="效率工具" scheme="http://example.com/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/"/>
-    
-    
-    <category term="文件转换" scheme="http://example.com/tags/%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2/"/>
+      <tag>文件转换</tag>
+      
+    </tags>
     
   </entry>
   
+  
+  
   <entry>
     <title>超多小工具！在线工具盒-帮小忙</title>
-    <link href="http://example.com/2023/03/09/%E5%B8%AE%E5%B0%8F%E5%BF%99/"/>
-    <id>http://example.com/2023/03/09/%E5%B8%AE%E5%B0%8F%E5%BF%99/</id>
-    <published>2023-03-09T10:21:47.000Z</published>
-    <updated>2023-03-09T15:16:13.654Z</updated>
+    <link href="/2023/03/09/%E5%B8%AE%E5%B0%8F%E5%BF%99/"/>
+    <url>/2023/03/09/%E5%B8%AE%E5%B0%8F%E5%BF%99/</url>
     
     <content type="html"><![CDATA[<p>找到一个在线工具箱！功能意外的多而且全面，想玩的直接点下方链接就可以进入，当然还是得介绍下一些功能，方便后续能够被检索到。</p><h2 id="帮小忙"><a href="#帮小忙" class="headerlink" title="帮小忙"></a><a href="https://tool.browser.qq.com/">帮小忙</a></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">轻松办公，工具助你一臂之力<br>功能一应俱全、简单好用的线上工具宝<br></code></pre></td></tr></table></figure><p>这是工具箱官网的宣传语，这款工具箱是腾讯旗下QQ浏览器的功能，但确实好用而且没有广告。<br>PS：这边只推荐一些咱觉得有用的功能，类似TTS这种被微软完爆的咱就不写了，毕竟只是为了方便检索而已，用不上的就没必要了。</p><h3 id="证件照生成"><a href="#证件照生成" class="headerlink" title="证件照生成"></a><a href="https://tool.browser.qq.com/id_photo.html">证件照生成</a></h3><p>居然写着限时免费？！不过截止目前<code>2023.3.9</code>还是能用的，选择尺寸，上传照片，一键抠图，下载照片；一气呵成。<br><strong>实测效果：</strong>能用，但抠图不是很到位，咱的头发有一块被连着墙皮一起扣下来了。<br><strong>同类推荐：</strong><a href="https://picwish.cn/remove-background-id-photo">佐糖</a>（同一张照片佐糖就扣的相对干净）</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟🌟🌟 3/5<br></code></pre></td></tr></table></figure><h3 id="提取文字-OCR识别"><a href="#提取文字-OCR识别" class="headerlink" title="提取文字(OCR识别)"></a><a href="https://tool.browser.qq.com/ocr.html">提取文字(OCR识别)</a></h3><p>同样写着限时免费，话说OCR早烂大街了你要是功能差点你搞收费是不是有点过分。<br><strong>实测效果：</strong>一般，用了这篇文稿的md截图识别，文字大多对了，但对标点的识别不是很理想。<br><strong>同类推荐：</strong><a href="http://ocr.space/">ocr.space</a>（帮小忙只能上传图片，其实和普通的截图识别区别不大，所以这边推荐一个支持PDF的网站）</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟🌟 2/5<br></code></pre></td></tr></table></figure><h3 id="人脸年龄选择"><a href="#人脸年龄选择" class="headerlink" title="人脸年龄选择"></a><a href="https://tool.browser.qq.com/face_age_transformation.html">人脸年龄选择</a></h3><p>纯好玩的一个玩意，效果嘛，只要年龄不拉太大还是能认出是你滴，可以玩玩</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟🌟✨ 2.5/5<br></code></pre></td></tr></table></figure><h3 id="今天吃什么"><a href="#今天吃什么" class="headerlink" title="今天吃什么"></a><a href="https://tool.browser.qq.com/whattoeat.html">今天吃什么</a></h3><p>用之前以为是图一乐，用完发现就是图一乐。<br>咳咳，开个玩笑，效果比想象的好，大公司嘛，数据库堆的蛮全的，点了好多都不带重样的，挺适合想要尝试不一样东西的大厨。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟🌟🌟 3/5<br></code></pre></td></tr></table></figure><h3 id="亲戚关系计算"><a href="#亲戚关系计算" class="headerlink" title="亲戚关系计算"></a><a href="https://tool.browser.qq.com/relatives_name.html">亲戚关系计算</a></h3><p>爸爸的妈妈的老公的老婆的爸爸叫什么————曾外祖父</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟 3/5<br></code></pre></td></tr></table></figure><h3 id="字帖生成"><a href="#字帖生成" class="headerlink" title="字帖生成"></a><a href="https://tool.browser.qq.com/copybook.html">字帖生成</a></h3><p>一键生成各个年极段的练字字帖，也可以输入文字自定义，给孩子刚刚好</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟 3/5<br></code></pre></td></tr></table></figure><h3 id="二维码美化"><a href="#二维码美化" class="headerlink" title="二维码美化"></a><a href="https://tool.browser.qq.com/prettify_qrcode.html">二维码美化</a></h3><p>一键美化二维码，有多种样式可选<br><strong>同类推荐:</strong> <a href="https://www.meihuama.com/">美化码</a>样式更多</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟 2/5<br></code></pre></td></tr></table></figure><h3 id="九宫格切图"><a href="#九宫格切图" class="headerlink" title="九宫格切图"></a><a href="https://tool.browser.qq.com/img9grid.html">九宫格切图</a></h3><p>将一张图片切成九宫格，胜在只有一个功能，干净,朋友圈可用</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟 4/5<br></code></pre></td></tr></table></figure><p>还有更多小工具，不过大多是百度一搜就有能直接用的小工具<code>汇率计算、温度计算一类的</code>，还有一些则完全没法用，只能说想玩的可以去试试~</p>]]></content>
     
     
+    <categories>
       
+      <category>效率工具</category>
       
-    <summary type="html">&lt;p&gt;找到一个在线工具箱！功能意外的多而且全面，想玩的直接点下方链接就可以进入，当然还是得介绍下一些功能，方便后续能够被检索到。&lt;/p&gt;
-&lt;h2 id=&quot;帮小忙&quot;&gt;&lt;a href=&quot;#帮小忙&quot; class=&quot;headerlink&quot; title=&quot;帮小忙&quot;&gt;&lt;/a&gt;&lt;a href=</summary>
+    </categories>
+    
+    
+    <tags>
       
-    
-    
-    
-    <category term="效率工具" scheme="http://example.com/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/"/>
-    
-    
-    <category term="证件照" scheme="http://example.com/tags/%E8%AF%81%E4%BB%B6%E7%85%A7/"/>
-    
-    <category term="OCR文字识别" scheme="http://example.com/tags/OCR%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB/"/>
-    
-    <category term="文本转语音" scheme="http://example.com/tags/%E6%96%87%E6%9C%AC%E8%BD%AC%E8%AF%AD%E9%9F%B3/"/>
-    
-    <category term="图片处理" scheme="http://example.com/tags/%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86/"/>
-    
-    <category term="文档处理" scheme="http://example.com/tags/%E6%96%87%E6%A1%A3%E5%A4%84%E7%90%86/"/>
-    
-    <category term="视频转换" scheme="http://example.com/tags/%E8%A7%86%E9%A2%91%E8%BD%AC%E6%8D%A2/"/>
-    
-    <category term="数据换算" scheme="http://example.com/tags/%E6%95%B0%E6%8D%AE%E6%8D%A2%E7%AE%97/"/>
-    
-    <category term="生活娱乐" scheme="http://example.com/tags/%E7%94%9F%E6%B4%BB%E5%A8%B1%E4%B9%90/"/>
-    
-    <category term="开发工具" scheme="http://example.com/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
+      <tag>证件照</tag>
+      
+      <tag>OCR文字识别</tag>
+      
+      <tag>文本转语音</tag>
+      
+      <tag>图片处理</tag>
+      
+      <tag>文档处理</tag>
+      
+      <tag>视频转换</tag>
+      
+      <tag>数据换算</tag>
+      
+      <tag>生活娱乐</tag>
+      
+      <tag>开发工具</tag>
+      
+    </tags>
     
   </entry>
   
+  
+  
   <entry>
     <title>Hello World</title>
-    <link href="http://example.com/2023/03/09/hello-world/"/>
-    <id>http://example.com/2023/03/09/hello-world/</id>
-    <published>2023-03-09T10:06:10.387Z</published>
-    <updated>2023-03-09T10:06:10.387Z</updated>
+    <link href="/2023/03/09/hello-world/"/>
+    <url>/2023/03/09/hello-world/</url>
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
     
     
-      
-      
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for</summary>
-      
-    
-    
-    
     
   </entry>
   
-</feed>
+  
+  
+  
+</search>

@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>B站首页推荐纯享版！ - 油猴脚本</title>
+    <link href="/2023/04/10/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC%20-%20B%E7%AB%99%E9%A6%96%E9%A1%B5%E6%8E%A8%E8%8D%90%E7%BA%AF%E4%BA%AB%E7%89%88/"/>
+    <url>/2023/04/10/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC%20-%20B%E7%AB%99%E9%A6%96%E9%A1%B5%E6%8E%A8%E8%8D%90%E7%BA%AF%E4%BA%AB%E7%89%88/</url>
+    
+    <content type="html"><![CDATA[<p>做个小调查，你平时逛B站主页的次数多吗？<br>反正咱打开B站进到这里，下一步直奔动态，除了首页推荐会看一眼其他的都不看。<br>首页推荐毕竟是按大数据推的，戳中喜好的几率蛮大的。但首页推荐只有顶部一小块窗口还不能往回找，错过了就无了，非常的难受。</p><center><img src="https://cdnjson.com/images/2023/04/10/imagedc052b0fb517899a.png" alt="首页推荐" border="0" width="80%"/></center><br>那么，有没有这么一个功能，可以实现整个首页只有首页推荐呢？还真有！<h2 id="B站首页推荐纯享版"><a href="#B站首页推荐纯享版" class="headerlink" title="B站首页推荐纯享版"></a><a href="https://greasyfork.org/zh-CN/scripts/436341-b%E7%AB%99%E9%A6%96%E9%A1%B5%E6%8E%A8%E8%8D%90%E7%BA%AF%E4%BA%AB%E7%89%88">B站首页推荐纯享版</a></h2><h3 id="先上对比"><a href="#先上对比" class="headerlink" title="先上对比"></a>先上对比</h3><p>这是普通的B站</p><center><img src="https://cdnjson.com/images/2023/04/10/image20f709e4e1dc8116.png" alt="普通B站" border="0" width="80%"/></center><br><p>这是咱的纯享版B站</p><center><img src="https://cdnjson.com/images/2023/04/10/image.png" alt="纯享版B站" border="0" width="80%"/></center><br>乍一看好像区别不大？不就是少了个滚动的banner吗？nonono，这是表象，实际上这一整个页面全是首页推荐的内容！<p>你不再需要忍受bilibili繁复的首页，没有直播、番剧、电视剧、电影一系列让人眼花缭乱的版块，就一个首页推荐，让你能轻松的浏览。</p><p>首页可以无限下滑刷出更多首页推荐，无限下滑！看个爽！</p><h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>只有一个缺点，目前的脚本不兼容稍后再看的按钮，所以你不能在这边快速将想看的视频收录进稍后再看，只能先刷先看:(</p><h3 id="地址"><a href="#地址" class="headerlink" title="地址"></a>地址</h3><p><a href="https://greasyfork.org/zh-CN/scripts/436341-b%E7%AB%99%E9%A6%96%E9%A1%B5%E6%8E%A8%E8%8D%90%E7%BA%AF%E4%BA%AB%E7%89%88">B站首页推荐纯享版</a></p><h3 id="使用教程"><a href="#使用教程" class="headerlink" title="使用教程"></a>使用教程</h3><p>本次推荐的是油猴脚本，需要首先安装油猴插件才能使用哦！具体可以根据<a href="https://evelynall.github.io/2023/03/10/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/">油猴脚本安装教程</a>来安装！<br><code>教程打不开？可以尝试[这篇]</code></p><p>安装好脚本后打开B站首页就会自动更新至纯享版啦！</p><center>---End---</center><br><center>哦对了！想看更多知识推荐</center><center>记得关注我的公众号！</center><center><img src="https://z4a.net/images/2023/03/10/imagedfa70fe1e4485d67.png" alt="imagedfa70fe1e4485d67.png" width="20%" border="0" /></center>]]></content>
+    
+    
+    <categories>
+      
+      <category>-软件资源</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>-浏览器插件</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>UI设计必备！在线制作&amp;超多样机网址推荐！（附Adobe XD下载）</title>
     <link href="/2023/03/24/UI%E8%AE%BE%E8%AE%A1%E7%BD%91%E9%A1%B5+XD/"/>
     <url>/2023/03/24/UI%E8%AE%BE%E8%AE%A1%E7%BD%91%E9%A1%B5+XD/</url>
@@ -116,6 +141,31 @@
   
   
   <entry>
+    <title>奇怪格式打不开？或许他能帮你-在线文件转换器</title>
+    <link href="/2023/03/09/%E5%9C%A8%E7%BA%BF%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E5%99%A8/"/>
+    <url>/2023/03/09/%E5%9C%A8%E7%BA%BF%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E5%99%A8/</url>
+    
+    <content type="html"><![CDATA[<p>今天收到一个小需求，同事想要打开一个Dwg文件，但没有CAD咋办，在线打开呗！于是咱搜了半天找了好几家在线转换器，没想到，这个Dwg挑战还蛮大，好几家居然都没能打开，正好作为评分标准，给这篇文章一个参考系。</p><h2 id="在线文件转换器"><a href="#在线文件转换器" class="headerlink" title="在线文件转换器"></a>在线文件转换器</h2><p>由于精力有限，各个转换器并没有经过详细的测试，只会查看支持的文件类型、大小并进行简单测试，所以排行并不绝对，发现一个不能用时可以再换一个试试哦。</p><p>评分细则：<br>支持的文件类型数量<br>支持的文件大小<br>转换的速度<br>有无广告</p><h3 id="ALL-TO-ALL"><a href="#ALL-TO-ALL" class="headerlink" title="ALL TO ALL"></a><a href="https://www.alltoall.net/">ALL TO ALL</a></h3><p>本次挑战中唯一一位成功转换并打开的赢家！<br><strong>支持的文件类型：</strong>200多种<br><strong>支持的文件大小：</strong>显示10M，实际测试中同事11.8M的Dwg也成功转换了<br><strong>转换速度：</strong>快（应该是国内网站的原因，上传下载都很快）<br><strong>有无广告：</strong>有，但完全不影响（只是为生成网站的建站平台宣传，且只有较小的文字，不细看甚至不会注意到）</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟🌟🌟🌟🌟 5/5<br>地址：https://www.alltoall.net/<br></code></pre></td></tr></table></figure><h3 id="Convertio"><a href="#Convertio" class="headerlink" title="Convertio"></a><a href="https://convertio.co/zh/">Convertio</a></h3><p><strong>支持的文件类型：</strong>300多种<br><strong>支持的文件大小：</strong>100M（可以付费扩容）<br><strong>转换速度：</strong>快<br><strong>有无广告：</strong>有(1个)，不大，但显眼，可以用脚本屏蔽</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟🌟🌟🌟 4/5<br>地址：https://convertio.co/zh/<br></code></pre></td></tr></table></figure><h3 id="CDKM"><a href="#CDKM" class="headerlink" title="CDKM"></a><a href="https://cdkm.com/cn/">CDKM</a></h3><p><strong>支持的文件类型：</strong>57种（但自称列出的知识流行的部分，其余的可以自行尝试）<br><strong>支持的文件大小：</strong>200M（但实测Dwg只支持2M，所以部分文件会有单独限制）<br><strong>转换速度：</strong>快<br><strong>有无广告：</strong>有(3个)，很大很影响观感，但可以用脚本屏蔽</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟🌟🌟✨ 3.5/5<br>地址：https://cdkm.com/cn/<br></code></pre></td></tr></table></figure><h3 id="酷Q网音乐格式转换"><a href="#酷Q网音乐格式转换" class="headerlink" title="酷Q网音乐格式转换"></a><a href="https://kqwyygszh.pages.dev/">酷Q网音乐格式转换</a></h3><p>上面的三个转换器已经可以支持绝大多数需求了，这一款则是“特殊”功能，酷狗Q音网易云的付费歌曲是特殊格式，别的音乐软件无法打开，而这个网站可以将会员文件转换为普通的mp3</p><p><strong>ps：</strong>需要关注公众号获取验证码</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">**综合评价：**🌟🌟🌟🌟🌟 5/5<br>**地址：**https://kqwyygszh.pages.dev/<br></code></pre></td></tr></table></figure><center>---End---</center><br><center>哦对了！想看更多知识推荐</center><center>记得关注我的公众号！</center><center><img src="https://z4a.net/images/2023/03/10/129b125268aa26ffca530d9d29243b23.png" alt="关注咱喵~" width="40%" border="0" /></center>]]></content>
+    
+    
+    <categories>
+      
+      <category>效率工具</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>文件转换</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>超多小工具！在线工具盒-帮小忙</title>
     <link href="/2023/03/09/%E5%B8%AE%E5%B0%8F%E5%BF%99/"/>
     <url>/2023/03/09/%E5%B8%AE%E5%B0%8F%E5%BF%99/</url>
@@ -149,31 +199,6 @@
       <tag>生活娱乐</tag>
       
       <tag>开发工具</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>奇怪格式打不开？或许他能帮你-在线文件转换器</title>
-    <link href="/2023/03/09/%E5%9C%A8%E7%BA%BF%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E5%99%A8/"/>
-    <url>/2023/03/09/%E5%9C%A8%E7%BA%BF%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E5%99%A8/</url>
-    
-    <content type="html"><![CDATA[<p>今天收到一个小需求，同事想要打开一个Dwg文件，但没有CAD咋办，在线打开呗！于是咱搜了半天找了好几家在线转换器，没想到，这个Dwg挑战还蛮大，好几家居然都没能打开，正好作为评分标准，给这篇文章一个参考系。</p><h2 id="在线文件转换器"><a href="#在线文件转换器" class="headerlink" title="在线文件转换器"></a>在线文件转换器</h2><p>由于精力有限，各个转换器并没有经过详细的测试，只会查看支持的文件类型、大小并进行简单测试，所以排行并不绝对，发现一个不能用时可以再换一个试试哦。</p><p>评分细则：<br>支持的文件类型数量<br>支持的文件大小<br>转换的速度<br>有无广告</p><h3 id="ALL-TO-ALL"><a href="#ALL-TO-ALL" class="headerlink" title="ALL TO ALL"></a><a href="https://www.alltoall.net/">ALL TO ALL</a></h3><p>本次挑战中唯一一位成功转换并打开的赢家！<br><strong>支持的文件类型：</strong>200多种<br><strong>支持的文件大小：</strong>显示10M，实际测试中同事11.8M的Dwg也成功转换了<br><strong>转换速度：</strong>快（应该是国内网站的原因，上传下载都很快）<br><strong>有无广告：</strong>有，但完全不影响（只是为生成网站的建站平台宣传，且只有较小的文字，不细看甚至不会注意到）</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟🌟🌟🌟🌟 5/5<br>地址：https://www.alltoall.net/<br></code></pre></td></tr></table></figure><h3 id="Convertio"><a href="#Convertio" class="headerlink" title="Convertio"></a><a href="https://convertio.co/zh/">Convertio</a></h3><p><strong>支持的文件类型：</strong>300多种<br><strong>支持的文件大小：</strong>100M（可以付费扩容）<br><strong>转换速度：</strong>快<br><strong>有无广告：</strong>有(1个)，不大，但显眼，可以用脚本屏蔽</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟🌟🌟🌟 4/5<br>地址：https://convertio.co/zh/<br></code></pre></td></tr></table></figure><h3 id="CDKM"><a href="#CDKM" class="headerlink" title="CDKM"></a><a href="https://cdkm.com/cn/">CDKM</a></h3><p><strong>支持的文件类型：</strong>57种（但自称列出的知识流行的部分，其余的可以自行尝试）<br><strong>支持的文件大小：</strong>200M（但实测Dwg只支持2M，所以部分文件会有单独限制）<br><strong>转换速度：</strong>快<br><strong>有无广告：</strong>有(3个)，很大很影响观感，但可以用脚本屏蔽</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟🌟🌟✨ 3.5/5<br>地址：https://cdkm.com/cn/<br></code></pre></td></tr></table></figure><h3 id="酷Q网音乐格式转换"><a href="#酷Q网音乐格式转换" class="headerlink" title="酷Q网音乐格式转换"></a><a href="https://kqwyygszh.pages.dev/">酷Q网音乐格式转换</a></h3><p>上面的三个转换器已经可以支持绝大多数需求了，这一款则是“特殊”功能，酷狗Q音网易云的付费歌曲是特殊格式，别的音乐软件无法打开，而这个网站可以将会员文件转换为普通的mp3</p><p><strong>ps：</strong>需要关注公众号获取验证码</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">**综合评价：**🌟🌟🌟🌟🌟 5/5<br>**地址：**https://kqwyygszh.pages.dev/<br></code></pre></td></tr></table></figure><center>---End---</center><br><center>哦对了！想看更多知识推荐</center><center>记得关注我的公众号！</center><center><img src="https://z4a.net/images/2023/03/10/129b125268aa26ffca530d9d29243b23.png" alt="关注咱喵~" width="40%" border="0" /></center>]]></content>
-    
-    
-    <categories>
-      
-      <category>效率工具</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>文件转换</tag>
       
     </tags>
     

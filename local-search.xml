@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>开源！【摸鱼写作🐟】，自定义背景色融入任何界面，码字神器！</title>
+    <link href="/2023/06/18/%E6%91%B8%E9%B1%BC%E5%86%99%E4%BD%9C/"/>
+    <url>/2023/06/18/%E6%91%B8%E9%B1%BC%E5%86%99%E4%BD%9C/</url>
+    
+    <content type="html"><![CDATA[<p><strong>此项目已在GitHub开源：<a href="https://github.com/Evelynall/SecretlyWriting-moyuxz">地址</a></strong></p><h2 id="摸鱼写作🐟"><a href="#摸鱼写作🐟" class="headerlink" title="摸鱼写作🐟"></a>摸鱼写作🐟</h2><p>🐟：一款可以上班摸鱼码字的神器软件~（An artifact software that can secretly write at work ~）</p><p>这是一款用Python编写的小小小软件，灵感来自于Utools的“摸鱼阅读”。</p><p>咱几乎没有Python基础，此软件是在<strong>ChatGPT</strong>的帮助下完成的。</p><p>由于一开始是为个人需求制作，并没有设置太多自定义功能，仅仅在决定打包分享的时候制作了一些基础设定。</p><h3 id="使用方法-amp-展示"><a href="#使用方法-amp-展示" class="headerlink" title="使用方法&amp;展示"></a>使用方法&amp;展示</h3><p>解压，双击“moyuxz.exe”即可，<br>打包的exe版本<strong>比较臃肿</strong>，整整<strong>9.44MB</strong>，而且启动速度偏慢，如果电脑<strong>有Python环境</strong>的话可以使用源文件，只有<strong>4kb</strong>。</p><p>默认界面为Adobe的黑色，如图</p><p><img src="https://cdnjson.com/images/2023/06/08/image.png" alt="应用界面"></p><ul><li>鼠标按住可以<strong>随意拖动位置</strong>，但暂时不支持调整大小</li><li>按下回车可以保存已经输入的内容到文件目录的<code>text.txt</code>中。</li><li>双击界面或者按 <code>Ctrl</code>+<code>w</code> 快捷键可以直接退出，退出时文本框内容会保存，同时保存软件当前位置，下次打开时会在同一位置出现。</li></ul><h3 id="自定义内容"><a href="#自定义内容" class="headerlink" title="自定义内容"></a>自定义内容</h3><p>在文件目录有一个 <code>config.txt</code> 文件，可以编辑基本的功能。</p><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">position:</span> <span class="hljs-number">53</span>,<span class="hljs-number">1012</span>  <span class="hljs-comment">//软件位置，每次退出时会更新</span><br><span class="hljs-symbol">background:</span> <span class="hljs-meta">#262626   <span class="hljs-comment">//软件背景颜色</span></span><br><span class="hljs-symbol">foreground:</span> <span class="hljs-meta">#8a8a8a    <span class="hljs-comment">//文字颜色</span></span><br><span class="hljs-symbol">exitkey:</span> <span class="hljs-params">&lt;Control-w&gt;</span>   <span class="hljs-comment">//退出快捷键</span><br></code></pre></td></tr></table></figure><p>ps:本来想做一个界面的，但Python写界面好麻烦www</p><h3 id="开源内容"><a href="#开源内容" class="headerlink" title="开源内容"></a>开源内容</h3><p>软件代码完全开源（毕竟也没几行，也没什么技术含量XD）<br>同时几乎<strong>每一行代码都有注释</strong>(菜是这样的)</p><p><img src="https://cdnjson.com/images/2023/06/08/image27d960424334db16.png" alt="开源代码"></p><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p><strong><a href="https://www.lanzoub.com/iFqzS0ylz1jg">exe打包版</a>:9.20MB</strong><br><strong>源码可前往GitHub下载：<a href="https://github.com/Evelynall/SecretlyWriting-moyuxz">地址</a></strong></p><center>---End---</center><br><center>哦对了！想看更多知识推荐</center><center>记得关注我的公众号！</center><center><img src="https://cdnjson.com/images/2023/03/12/image8749fd86705e58b5.png" alt="关注咱喵~" width="40%" border="0" /></center>]]></content>
+    
+    
+    <categories>
+      
+      <category>软件资源</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>摸鱼</tag>
+      
+      <tag>办公</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>无需登录，免费下载电子书、杂志、报纸！支持PDF和ePUB格式！</title>
     <link href="/2023/04/26/%E5%85%8D%E8%B4%B9%E7%94%B5%E5%AD%90%E4%B9%A6%E4%B8%8B%E8%BD%BD/"/>
     <url>/2023/04/26/%E5%85%8D%E8%B4%B9%E7%94%B5%E5%AD%90%E4%B9%A6%E4%B8%8B%E8%BD%BD/</url>
@@ -245,31 +272,6 @@
   
   
   <entry>
-    <title>奇怪格式打不开？或许他能帮你-在线文件转换器</title>
-    <link href="/2023/03/09/%E5%9C%A8%E7%BA%BF%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E5%99%A8/"/>
-    <url>/2023/03/09/%E5%9C%A8%E7%BA%BF%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E5%99%A8/</url>
-    
-    <content type="html"><![CDATA[<p>今天收到一个小需求，同事想要打开一个Dwg文件，但没有CAD咋办，在线打开呗！于是咱搜了半天找了好几家在线转换器，没想到，这个Dwg挑战还蛮大，好几家居然都没能打开，正好作为评分标准，给这篇文章一个参考系。</p><h2 id="在线文件转换器"><a href="#在线文件转换器" class="headerlink" title="在线文件转换器"></a>在线文件转换器</h2><p>由于精力有限，各个转换器并没有经过详细的测试，只会查看支持的文件类型、大小并进行简单测试，所以排行并不绝对，发现一个不能用时可以再换一个试试哦。</p><p>评分细则：<br>支持的文件类型数量<br>支持的文件大小<br>转换的速度<br>有无广告</p><h3 id="ALL-TO-ALL"><a href="#ALL-TO-ALL" class="headerlink" title="ALL TO ALL"></a><a href="https://www.alltoall.net/">ALL TO ALL</a></h3><p>本次挑战中唯一一位成功转换并打开的赢家！<br><strong>支持的文件类型：</strong>200多种<br><strong>支持的文件大小：</strong>显示10M，实际测试中同事11.8M的Dwg也成功转换了<br><strong>转换速度：</strong>快（应该是国内网站的原因，上传下载都很快）<br><strong>有无广告：</strong>有，但完全不影响（只是为生成网站的建站平台宣传，且只有较小的文字，不细看甚至不会注意到）</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟🌟🌟🌟🌟 5/5<br>地址：https://www.alltoall.net/<br></code></pre></td></tr></table></figure><h3 id="Convertio"><a href="#Convertio" class="headerlink" title="Convertio"></a><a href="https://convertio.co/zh/">Convertio</a></h3><p><strong>支持的文件类型：</strong>300多种<br><strong>支持的文件大小：</strong>100M（可以付费扩容）<br><strong>转换速度：</strong>快<br><strong>有无广告：</strong>有(1个)，不大，但显眼，可以用脚本屏蔽</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟🌟🌟🌟 4/5<br>地址：https://convertio.co/zh/<br></code></pre></td></tr></table></figure><h3 id="CDKM"><a href="#CDKM" class="headerlink" title="CDKM"></a><a href="https://cdkm.com/cn/">CDKM</a></h3><p><strong>支持的文件类型：</strong>57种（但自称列出的知识流行的部分，其余的可以自行尝试）<br><strong>支持的文件大小：</strong>200M（但实测Dwg只支持2M，所以部分文件会有单独限制）<br><strong>转换速度：</strong>快<br><strong>有无广告：</strong>有(3个)，很大很影响观感，但可以用脚本屏蔽</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟🌟🌟✨ 3.5/5<br>地址：https://cdkm.com/cn/<br></code></pre></td></tr></table></figure><h3 id="酷Q网音乐格式转换"><a href="#酷Q网音乐格式转换" class="headerlink" title="酷Q网音乐格式转换"></a><a href="https://kqwyygszh.pages.dev/">酷Q网音乐格式转换</a></h3><p>上面的三个转换器已经可以支持绝大多数需求了，这一款则是“特殊”功能，酷狗Q音网易云的付费歌曲是特殊格式，别的音乐软件无法打开，而这个网站可以将会员文件转换为普通的mp3</p><p><strong>ps：</strong>需要关注公众号获取验证码</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">**综合评价：**🌟🌟🌟🌟🌟 5/5<br>**地址：**https://kqwyygszh.pages.dev/<br></code></pre></td></tr></table></figure><center>---End---</center><br><center>哦对了！想看更多知识推荐</center><center>记得关注我的公众号！</center><center><img src="https://z4a.net/images/2023/03/10/129b125268aa26ffca530d9d29243b23.png" alt="关注咱喵~" width="40%" border="0" /></center>]]></content>
-    
-    
-    <categories>
-      
-      <category>效率工具</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>文件转换</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>超多小工具！在线工具盒-帮小忙</title>
     <link href="/2023/03/09/%E5%B8%AE%E5%B0%8F%E5%BF%99/"/>
     <url>/2023/03/09/%E5%B8%AE%E5%B0%8F%E5%BF%99/</url>
@@ -303,6 +305,31 @@
       <tag>生活娱乐</tag>
       
       <tag>开发工具</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>奇怪格式打不开？或许他能帮你-在线文件转换器</title>
+    <link href="/2023/03/09/%E5%9C%A8%E7%BA%BF%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E5%99%A8/"/>
+    <url>/2023/03/09/%E5%9C%A8%E7%BA%BF%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E5%99%A8/</url>
+    
+    <content type="html"><![CDATA[<p>今天收到一个小需求，同事想要打开一个Dwg文件，但没有CAD咋办，在线打开呗！于是咱搜了半天找了好几家在线转换器，没想到，这个Dwg挑战还蛮大，好几家居然都没能打开，正好作为评分标准，给这篇文章一个参考系。</p><h2 id="在线文件转换器"><a href="#在线文件转换器" class="headerlink" title="在线文件转换器"></a>在线文件转换器</h2><p>由于精力有限，各个转换器并没有经过详细的测试，只会查看支持的文件类型、大小并进行简单测试，所以排行并不绝对，发现一个不能用时可以再换一个试试哦。</p><p>评分细则：<br>支持的文件类型数量<br>支持的文件大小<br>转换的速度<br>有无广告</p><h3 id="ALL-TO-ALL"><a href="#ALL-TO-ALL" class="headerlink" title="ALL TO ALL"></a><a href="https://www.alltoall.net/">ALL TO ALL</a></h3><p>本次挑战中唯一一位成功转换并打开的赢家！<br><strong>支持的文件类型：</strong>200多种<br><strong>支持的文件大小：</strong>显示10M，实际测试中同事11.8M的Dwg也成功转换了<br><strong>转换速度：</strong>快（应该是国内网站的原因，上传下载都很快）<br><strong>有无广告：</strong>有，但完全不影响（只是为生成网站的建站平台宣传，且只有较小的文字，不细看甚至不会注意到）</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟🌟🌟🌟🌟 5/5<br>地址：https://www.alltoall.net/<br></code></pre></td></tr></table></figure><h3 id="Convertio"><a href="#Convertio" class="headerlink" title="Convertio"></a><a href="https://convertio.co/zh/">Convertio</a></h3><p><strong>支持的文件类型：</strong>300多种<br><strong>支持的文件大小：</strong>100M（可以付费扩容）<br><strong>转换速度：</strong>快<br><strong>有无广告：</strong>有(1个)，不大，但显眼，可以用脚本屏蔽</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟🌟🌟🌟 4/5<br>地址：https://convertio.co/zh/<br></code></pre></td></tr></table></figure><h3 id="CDKM"><a href="#CDKM" class="headerlink" title="CDKM"></a><a href="https://cdkm.com/cn/">CDKM</a></h3><p><strong>支持的文件类型：</strong>57种（但自称列出的知识流行的部分，其余的可以自行尝试）<br><strong>支持的文件大小：</strong>200M（但实测Dwg只支持2M，所以部分文件会有单独限制）<br><strong>转换速度：</strong>快<br><strong>有无广告：</strong>有(3个)，很大很影响观感，但可以用脚本屏蔽</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">综合评价：🌟🌟🌟✨ 3.5/5<br>地址：https://cdkm.com/cn/<br></code></pre></td></tr></table></figure><h3 id="酷Q网音乐格式转换"><a href="#酷Q网音乐格式转换" class="headerlink" title="酷Q网音乐格式转换"></a><a href="https://kqwyygszh.pages.dev/">酷Q网音乐格式转换</a></h3><p>上面的三个转换器已经可以支持绝大多数需求了，这一款则是“特殊”功能，酷狗Q音网易云的付费歌曲是特殊格式，别的音乐软件无法打开，而这个网站可以将会员文件转换为普通的mp3</p><p><strong>ps：</strong>需要关注公众号获取验证码</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">**综合评价：**🌟🌟🌟🌟🌟 5/5<br>**地址：**https://kqwyygszh.pages.dev/<br></code></pre></td></tr></table></figure><center>---End---</center><br><center>哦对了！想看更多知识推荐</center><center>记得关注我的公众号！</center><center><img src="https://z4a.net/images/2023/03/10/129b125268aa26ffca530d9d29243b23.png" alt="关注咱喵~" width="40%" border="0" /></center>]]></content>
+    
+    
+    <categories>
+      
+      <category>效率工具</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>文件转换</tag>
       
     </tags>
     

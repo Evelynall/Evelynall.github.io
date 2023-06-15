@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-04-26T08:49:15.000Z</updated>
+  <updated>2023-06-15T02:33:32.000Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>github连不上？下载龟速浪费生命？这些方法一定得看看！</title>
+    <link href="http://example.com/2023/06/15/%E8%AE%BF%E9%97%AEGithub/"/>
+    <id>http://example.com/2023/06/15/%E8%AE%BF%E9%97%AEGithub/</id>
+    <published>2023-06-15T03:28:00.000Z</published>
+    <updated>2023-06-15T02:33:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>有时候想要上github找点东西，或者看到一个好玩的项目结果作者给了一个github链接。开兴的点开链接却发现打不开，靠北啊！这时候就需要一些“小技巧”啦！</p><p><img src="https://cdnjson.com/images/2023/06/15/image.png" alt="github主页"></p><h1 id="github快速访问小技巧"><a href="#github快速访问小技巧" class="headerlink" title="[github快速访问小技巧]"></a>[github快速访问小技巧]</h1><h2 id="了解需求"><a href="#了解需求" class="headerlink" title="了解需求"></a>了解需求</h2><p>首先你需要了解自己的需求</p><ul><li>刚好看到一条github链接，只需要访问下载!   请看<a href="#1">轻度使用</a></li><li>需要登录账号或者使用git命令!             请看<a href="#2">更多需求</a></li><li>我能打开github，但下载太慢了！           请看<a href="#3">下载加速</a></li></ul><h3 id="轻度使用"><a href="#轻度使用" class="headerlink" title="轻度使用"></a>轻度使用</h3><p><span id="1">轻度使用</span></p><p>如果你只需要轻度使用，偶尔打开github啦，偶然间看到开源项目想下载啦，只需使用镜像链接即可。只需要在链接中的github，前面加上一个k，变成kgithub就能轻松访问镜像链接啦！<br>示例：</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">这是一个github链接：<br>https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/Evelynall/</span>SecretlyWriting-moyuxz<br>这是一个镜像站的github链接：<br>https:<span class="hljs-regexp">//</span>kgithub.com<span class="hljs-regexp">/Evelynall/</span>SecretlyWriting-moyuxz<br>唯一区别👆<br></code></pre></td></tr></table></figure><p>ps:<strong>请勿在镜像站登录账号</strong></p><h3 id="更多需求"><a href="#更多需求" class="headerlink" title="更多需求"></a>更多需求</h3><p><span id="2">更多需求</span></p><p>如果你有登录账号、使用git命令等需求，<del>魔法是最稳定的</del>没有魔法或者不方便使用魔法的时候，可以试试这款开源软件：</p><h4 id="Fetch-GitHub-Hosts"><a href="#Fetch-GitHub-Hosts" class="headerlink" title="Fetch GitHub Hosts"></a>Fetch GitHub Hosts</h4><p>支持版本：<code>Windows</code>&#x2F;<code>Linux</code>&#x2F;<code>MacOS</code><br>项目原理：此项目是通过部署此项目本身的服务器来获取<code>github.com</code>的<code> hosts</code>，而不是通过第三方ip地址接口来进行获取，例如<code>ipaddress.com</code>等。</p><p><img src="https://kgithub.com/Licoy/fetch-github-hosts/blob/main/assets/public/docs/client.png" alt="软件界面"></p><p>软件提供了图形化界面，运行对应平台的执行文件即可运行。</p><h3 id="下载加速"><a href="#下载加速" class="headerlink" title="下载加速"></a>下载加速</h3><p><span id="3">下载加速</span></p><p>在github下载太慢了？开以试试这款<a href="https://greasyfork.org/zh-CN/scripts/412245-github-%E5%A2%9E%E5%BC%BA-%E9%AB%98%E9%80%9F%E4%B8%8B%E8%BD%BD">油猴插件</a>！</p><ul><li>为 Github 的 Git Clone&#x2F;SSH、Release、Raw、Code(ZIP) 等任何需要下载的文件添加 高速下载（加速下载）！</li><li>在项目列表页，添加单文件快捷下载 (☁) 链接，方便单独下载某个文件！</li><li>在项目 Git 地址处，自动在开头添加 git clone 命令，默认开启！（下图不是最新因此未显示）</li></ul><p><img src="https://greasyfork.s3.us-east-2.amazonaws.com/r8prrctxxlsdsvdjwx6pb49vlrf3" alt="插件效果"></p><h4 id="如何安装？"><a href="#如何安装？" class="headerlink" title="如何安装？"></a>如何安装？</h4><p>如果安装过油猴插件，只需要点击<a href="https://greasyfork.org/zh-CN/scripts/412245-github-%E5%A2%9E%E5%BC%BA-%E9%AB%98%E9%80%9F%E4%B8%8B%E8%BD%BD">链接</a>！，打开插件界面，点击安装即可！</p><p>如果没有安装油猴插件，请看<a href="http://www.evelynal.top/2023/03/10/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/">这篇</a>文章进行安装！</p><center>---End---</center><br><center>哦对了！想看更多知识推荐</center><center>记得关注我的公众号！</center><center><img src="https://z4a.net/images/2023/03/10/imagedfa70fe1e4485d67.png" alt="imagedfa70fe1e4485d67.png" width="20%" border="0" /></center>]]></content>
+    
+    
+    <summary type="html">打不开github？一个字母轻松访问github！想用git命令？这个开源软件或许能满足你！</summary>
+    
+    
+    
+    <category term="软件资源" scheme="http://example.com/categories/%E8%BD%AF%E4%BB%B6%E8%B5%84%E6%BA%90/"/>
+    
+    
+    <category term="软件资源" scheme="http://example.com/tags/%E8%BD%AF%E4%BB%B6%E8%B5%84%E6%BA%90/"/>
+    
+    <category term="网页推荐" scheme="http://example.com/tags/%E7%BD%91%E9%A1%B5%E6%8E%A8%E8%8D%90/"/>
+    
+  </entry>
   
   <entry>
     <title>无需登录，免费下载电子书、杂志、报纸！支持PDF和ePUB格式！</title>

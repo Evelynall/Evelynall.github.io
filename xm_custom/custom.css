@@ -1,0 +1,65 @@
+/* 以下为替换鼠标光标 */
+/* 封面大图 */
+html{
+	cursor: url(/img/Arrow.cur),auto;
+	background-color: rgba(0, 0, 0, 0.0);
+}
+
+.banner {
+	cursor: url(/img/Arrow.cur),auto;
+	background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 封面向下 */
+.scroll-down-bar {
+	cursor: url(/img/Hand2.cur),auto;
+	background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 搜索框关闭按钮 */
+#local-search-close.close {
+	cursor: url(/img/Hand2.cur),auto;
+	background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 搜索框、输入框 */
+input,textarea {
+	cursor: url(/img/IBeam.cur),auto;
+	background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 所有可跳转链接 */
+a[href] {
+	cursor: url(/img/Hand2.cur),auto !important;
+	background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 按钮 */
+button[class] {
+	cursor: url(/img/Hand2.cur),auto !important;
+	background-color: rgba(0, 0, 0, 0.0);
+}
+
+/* 补充按钮 */
+svg,span.vat,span.vnick {
+	cursor: url(/img/Hand2.cur),auto !important;
+	background-color: rgba(0, 0, 0, 0.0);
+}
+
+.aplayer-list-author,
+.aplayer-list-title,
+.aplayer-list-index,
+.aplayer-list-cur,
+.aplayer .aplayer-pic,
+.aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap,
+.aplayer-volume-bar-wrap,
+.aplayer-thumb,
+ol li ,
+apan[class] {
+	cursor: url(/img/Hand2.cur),auto !important;
+	/* background-color: rgba(0, 0, 0, 0.0); */
+}
+
+.aplayer-music {
+	cursor: url(/img/Arrow.cur),auto !important;
+}

@@ -1,0 +1,100 @@
+/* 主体分类横条 */
+.web-sort {
+    font-size: 18px;
+    border-radius: 5px;
+    margin-left: 0.5%;
+    padding: 10px;
+    transition: transform .2s;
+}
+
+/* 主体按钮 */
+.web-body {
+    width: 15.5%;
+    float: left;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    margin: 0.5%;
+    padding: 10px;
+    transition: transform .2s;
+}
+
+/* 按钮动画 */
+.web-body:hover {
+    transform: scale(1.05);
+}
+
+/* 按钮图标 */
+.web-icon {
+    float: left;
+    border-radius: 8px;
+    margin-right: 10px;
+    width: 50px;
+    height: 50px;
+
+}
+
+.web-icon img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    object-fit: contain;
+    position: relative; 
+}
+
+.icon-img {
+    position: relative;
+    float: right;
+    /* 其他样式 */
+  }
+
+/* 按钮文字 */
+.web-body a {
+    font-size: 15px;
+}
+
+/* 所有小图标都右边距 5 像素 */
+i {
+    margin-right: 5px;
+}
+
+/* 侧边栏 */
+.sidebar-options {
+    width: 100%;
+    margin: 10px;
+    text-align: center;
+}
+
+.sidebar-frame {
+    text-align: left;
+    position: sticky;
+    top: 80px;
+}
+
+/* 锚点偏移 */
+:target {
+    scroll-margin-top: 20vh;
+    /* 固定偏移量 */
+}
+
+/* 搜索框 */
+.search-input {
+    height: 35px;
+    width: 60%;
+    background-color: #fff;
+    border-radius: 50px;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
+.search-input input {
+    font-size: 16px;
+    outline: none;
+    border: none;
+}
+
+.search-input input:focus {
+    outline: none;
+}
+

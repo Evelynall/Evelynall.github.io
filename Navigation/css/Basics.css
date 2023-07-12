@@ -5,6 +5,7 @@
     margin-left: 0.5%;
     padding: 10px;
     transition: transform .2s;
+    /* 动画:过度时间 */
 }
 
 /* 主体按钮 */
@@ -17,6 +18,7 @@
     margin: 0.5%;
     padding: 10px;
     transition: transform .2s;
+    /* 动画:过度时间 */
 }
 
 /* 按钮动画 */
@@ -39,14 +41,14 @@
     height: 100%;
     border-radius: 8px;
     object-fit: contain;
-    position: relative; 
+    position: relative;
 }
 
 .icon-img {
     position: relative;
     float: right;
     /* 其他样式 */
-  }
+}
 
 /* 按钮文字 */
 .web-body a {
@@ -97,3 +99,43 @@ i {
     outline: none;
 }
 
+/*   侧边栏 收起/展开   */
+summary {
+    list-style: none;
+    /* 去除三角 */
+    padding-left: 0;
+    /* 兼容老浏览器，去除三角占用的空间  */
+    cursor: url(/img/Hand2.cur), auto !important;
+}
+
+.summary-div {
+    /*    border-left: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc; */
+    display: inline-block;
+    /* 宽度根据内容自适应 */
+    border-radius: 0 0 10px 10px;
+}
+
+.summary-s {
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 10px 0 0 10px;
+}
+
+/* 网页小标签 */
+.web-tag {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.web-tag div {
+    float: left;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+    font-size: 10px;
+    white-space: nowrap;
+    /* 不换行 */
+    margin-right: 6px;
+    padding-left: 4px;
+    padding-right: 4px;
+}

@@ -55,6 +55,7 @@
 
 
   <link rel="stylesheet" href="/xm_custom/custom.css">
+  <link rel="stylesheet" href="css/sidebar.css">
 
 
   <script id="fluid-configs">
@@ -72,11 +73,12 @@
 
 
 
-
   <meta name="generator" content="Hexo 6.3.0">
   <link rel="alternate" href="/atom.xml" title="Ev的知识杂货铺" type="application/atom+xml">
   <link rel="stylesheet" href="css/Basics.css">
   <script src="js/search.js"></script>
+  <script src="js/sidebar-suspension.js"></script>
+
 </head>
 
 
@@ -85,7 +87,7 @@
 
   <header>
 
-
+    <div id = "tops"></div>
     <div class="header-inner" style="height: 100vh;">
       <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
         <div class="container">
@@ -201,7 +203,7 @@
       <div id="banner" class="banner" parallax=true
         style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
         <div class="full-bg-img">
-          <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div id="top-section" class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
             <div class="banner-text text-center fade-in-up">
               <div class="h2">
                 <!--图片位置-->
@@ -242,9 +244,35 @@
         <!--主体-->
         <div class="row" style="margin-right: 0px;">
           <!--侧边栏-->
-          <div style="width: 8%;float: left;border-right: 1px solid #cccccc;">
+
+          <!--显示&关闭侧边栏-->
+          <div id="circle" class="expand-button text-center">
+            <svg id="circlesvg" t="1689230291147" class="icon" viewBox="0 0 1024 1024" version="1.1"
+              xmlns="http://www.w3.org/2000/svg" p-id="2756" xmlns:xlink="http://www.w3.org/1999/xlink" width="15"
+              height="15">
+              <path
+                d="M66.488889 211.781818h891.022222c28.198788 0 50.980202-22.238384 50.980202-49.648485 0-27.397172-22.768485-49.648485-50.980202-49.648485H66.488889C38.341818 112.484848 15.508687 134.723232 15.508687 162.133333s22.833131 49.648485 50.980202 49.648485z m891.009293 248.242424H66.488889C38.277172 460.024242 15.508687 482.262626 15.508687 509.672727s22.768485 49.648485 50.980202 49.648485h891.022222c28.198788 0 50.980202-22.238384 50.980202-49.648485-0.012929-27.410101-22.923636-49.648485-50.993131-49.648485z m0 351.63798H66.488889c-28.134141 0-50.980202 22.238384-50.980202 49.648485s22.833131 49.648485 50.980202 49.648485h891.022222c28.198788 0 50.980202-22.238384 50.980202-49.648485-0.012929-27.397172-22.781414-49.648485-50.993131-49.648485z m0 0"
+                p-id="2757"></path>
+            </svg>
+          </div>
+
+          <!--回到顶部-->
+          <a href="#tops">
+          <div id="gotop" class="expand-button text-center" style="top:57.3vh;">
+            <svg id="circlesvg" t="1689230291147" class="icon" viewBox="0 0 1024 1024" version="1.1"
+              xmlns="http://www.w3.org/2000/svg" p-id="2756" xmlns:xlink="http://www.w3.org/1999/xlink" width="15"
+              height="15">
+              <path
+              d="M854.016 739.328l-313.344-309.248-313.344 309.248q-14.336 14.336-32.768 21.504t-37.376 7.168-36.864-7.168-32.256-21.504q-29.696-28.672-29.696-68.608t29.696-68.608l376.832-373.76q14.336-14.336 34.304-22.528t40.448-9.216 39.424 5.12 31.232 20.48l382.976 379.904q28.672 28.672 28.672 68.608t-28.672 68.608q-14.336 14.336-32.768 21.504t-37.376 7.168-36.864-7.168-32.256-21.504z"
+              p-id="3738"></path>
+            </svg>
+          </div>
+        </a>
+
+          <!--主要内容-->
+          <div id="floating" class="sidebar-main-frame floating">
             <div class="sidebar-frame">
-              <div style="padding-left: 30px;">
+              <div>
 
 
 
@@ -259,53 +287,114 @@
 
 
 
-
-                <details>
-                  <summary class="summary-s"><i class="iconfont icon-image"></i><b>图片素材</b></summary>
-                  <div class="summary-div">
-                    <div class="sidebar-options"><i class="iconfont icon-codeforces"></i><b><a href="#A1">各类素材</a></b>
+                <div class="summary-s floatingA1">
+                  <i class="iconfont icon-image"></i><b>图片素材</b>
+                  <div class="floating1 floating0">
+                    <div class="sidebar-options-vice"><i class="iconfont icon-codeforces"></i><b><a
+                          href="#A1">各类素材</a></b></div>
+                    <div class="sidebar-options-vice"><i class="iconfont icon-image"></i><b><a href="#A2">图片</a></b>
                     </div>
-                    <div class="sidebar-options"><i class="iconfont icon-image"></i><b><a href="#A2">图片</a></b></div>
-                    <div class="sidebar-options"><i class="iconfont icon-shiliangtu"></i><b><a href="#A3">矢量图</a></b>
+                    <div class="sidebar-options-vice"><i class="iconfont icon-shiliangtu"></i><b><a
+                          href="#A3">矢量图</a></b></div>
+                    <div class="sidebar-options-vice"><i class="iconfont icon-zhaopian"></i><b><a href="#A4">照片</a></b>
                     </div>
-                    <div class="sidebar-options"><i class="iconfont icon-zhaopian"></i><b><a href="#A4">照片</a></b></div>
-                    <div class="sidebar-options"><i class="iconfont icon-huafei"></i><b><a href="#A5">样机</a></b></div>
+                    <div class="sidebar-options-vice"><i class="iconfont icon-huafei"></i><b><a href="#A5">样机</a></b>
+                    </div>
                   </div>
-                </details>
-                <details>
-                  <summary class="summary-s"><i class="iconfont icon-shipin"></i><b>视频</b></summary>
-                  <div class="summary-div">
-                    <div class="sidebar-options"><i class="iconfont icon-shipin"></i><b><a href="#A6">视频</a></b></div>
-                  </div>
-                </details>
-                <details>
-                  <summary class="summary-s"><i class="iconfont icon-yinle"></i><b>音乐音效</b></summary>
-                  <div class="summary-div">
-                    <div class="sidebar-options"><i class="iconfont icon-yinle"></i><b><a href="#A7">音乐</a></b></div>
-                    <div class="sidebar-options"><i class="iconfont icon-yinxiao"></i><b><a href="#A8">音效</a></b></div>
-                  </div>
-                </details>
-                <details>
-                  <summary class="summary-s"><i class="iconfont icon-jurassic_toolkit"></i><b>各类工具</b></summary>
-                  <div class="summary-div">
-                    <div class="sidebar-options"><i class="iconfont icon-shipin"></i><b><a href="#A14">视频工具</a></b>
+                </div>
+                <style>
+                  .floating1 {
+                    top: 10.0vh;
+                  }
+
+                  .floatingA1:hover {
+                    .floating1 {
+                      display: block;
+                    }
+                  }
+                </style>
+                <div class="summary-s floatingA2">
+                  <i class="iconfont icon-shipin"></i><b>视频</b>
+                  <div class="floating2 floating0">
+                    <div class="sidebar-options-vice"><i class="iconfont icon-shipin"></i><b><a href="#A6">视频</a></b>
                     </div>
-                    <div class="sidebar-options"><i class="iconfont icon-chuangyi"></i><b><a href="#A15">设计工具</a></b>
+                  </div>
+                </div>
+                <style>
+                  .floating2 {
+                    top: 13.5vh;
+                  }
+
+                  .floatingA2:hover {
+                    .floating2 {
+                      display: block;
+                    }
+                  }
+                </style>
+                <div class="summary-s floatingA3">
+                  <i class="iconfont icon-yinle"></i><b>音乐音效</b>
+                  <div class="floating3 floating0">
+                    <div class="sidebar-options-vice"><i class="iconfont icon-yinle"></i><b><a href="#A7">音乐</a></b>
                     </div>
-                    <div class="sidebar-options"><i class="iconfont icon-jurassic_toolkit"></i><b><a
+                    <div class="sidebar-options-vice"><i class="iconfont icon-yinxiao"></i><b><a href="#A8">音效</a></b>
+                    </div>
+                  </div>
+                </div>
+                <style>
+                  .floating3 {
+                    top: 17.0vh;
+                  }
+
+                  .floatingA3:hover {
+                    .floating3 {
+                      display: block;
+                    }
+                  }
+                </style>
+                <div class="summary-s floatingA4">
+                  <i class="iconfont icon-jurassic_toolkit"></i><b>各类工具</b>
+                  <div class="floating4 floating0">
+                    <div class="sidebar-options-vice"><i class="iconfont icon-shipin"></i><b><a href="#A14">视频工具</a></b>
+                    </div>
+                    <div class="sidebar-options-vice"><i class="iconfont icon-chuangyi"></i><b><a
+                          href="#A15">设计工具</a></b></div>
+                    <div class="sidebar-options-vice"><i class="iconfont icon-jurassic_toolkit"></i><b><a
                           href="#A16">效率工具</a></b></div>
-                    <div class="sidebar-options"><i class="iconfont icon-yunxiazai"></i><b><a href="#A17">下载工具</a></b>
-                    </div>
+                    <div class="sidebar-options-vice"><i class="iconfont icon-yunxiazai"></i><b><a
+                          href="#A17">下载工具</a></b></div>
                   </div>
-                </details>
-                <details>
-                  <summary class="summary-s"><i class="iconfont icon-jiqiren"></i><b>AI领域</b></summary>
-                  <div class="summary-div">
-                    <div class="sidebar-options"><i class="iconfont icon-V"></i><b><a href="#A19">AI绘画</a></b></div>
-                    <div class="sidebar-options"><i class="iconfont icon-jiqiren"></i><b><a href="#A21">AI工具</a></b>
+                </div>
+                <style>
+                  .floating4 {
+                    top: 20.5vh;
+                  }
+
+                  .floatingA4:hover {
+                    .floating4 {
+                      display: block;
+                    }
+                  }
+                </style>
+                <div class="summary-s floatingA5">
+                  <i class="iconfont icon-jiqiren"></i><b>AI领域</b>
+                  <div class="floating5 floating0">
+                    <div class="sidebar-options-vice"><i class="iconfont icon-V"></i><b><a href="#A19">AI绘画</a></b>
                     </div>
+                    <div class="sidebar-options-vice"><i class="iconfont icon-jiqiren"></i><b><a
+                          href="#A21">AI工具</a></b></div>
                   </div>
-                </details>
+                </div>
+                <style>
+                  .floating5 {
+                    top: 24.0vh;
+                  }
+
+                  .floatingA5:hover {
+                    .floating5 {
+                      display: block;
+                    }
+                  }
+                </style>
                 <div class="sidebar-options"><i class="iconfont icon-ziti"></i><b><a href="#A9">字体</a></b></div>
                 <div class="sidebar-options"><i class="iconfont icon-suffix-aep"></i><b><a href="#A10">AE</a></b></div>
                 <div class="sidebar-options"><i class="iconfont icon-cankaoziliao"></i><b><a href="#A11">参考学习</a></b>
@@ -328,13 +417,11 @@
 
 
 
-
-
               </div>
             </div>
           </div>
           <!--核心主体-->
-          <div style="width: 89.5%;float: left;margin-left: 20px;">
+          <div class="web-body-frame">
 
 
 
@@ -2171,7 +2258,6 @@
         </div>
       </div>
     </div>
-
 
 
     <a id="scroll-top-button" aria-label="TOP" href="#" role="button">

@@ -11,5 +11,5 @@ document.addEventListener('DOMContentLoaded', function () {
       window.location.href = `https://cn.bing.com/search?pglt=163&q=${keyword}`;
     }
   });
+  
 }); 
-

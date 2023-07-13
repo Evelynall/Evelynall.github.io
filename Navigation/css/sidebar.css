@@ -1,0 +1,19 @@
+.floating0 {
+    position: fixed;
+    /* position: absolute; */
+    right: 150px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    /* display: none;*/
+    width: 120px;
+    display: none;
+}
+
+
+/* 模板 */
+/*
+.floating1 {top: 10vh;}
+
+.floatingA1:hover {.floating1{display: block;}}
+*/

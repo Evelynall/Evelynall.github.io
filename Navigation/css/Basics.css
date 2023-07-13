@@ -1,3 +1,56 @@
+html {
+    scroll-behavior: smooth;
+  }
+
+.icon{
+    transition: transform 0.3s ease-in-out;  
+}
+
+/* 设置侧边栏跟随上方大div悬浮（会随页面滚动） */
+.floating {
+    position: fixed;
+    top: 10vh;
+    right: 30px;
+    transition: opacity 0.3s ease-in-out;  
+}
+
+/* 展开按钮 */
+.expand-button{
+    width:25px;
+    height:25px;
+    background:#fff;
+    border-radius:50px;
+    position:fixed;
+    bottom:10px;
+    top: 54vh;
+    right:30px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+}
+
+.expand-button:hover {
+    transform: scale(1.1);
+}
+
+/* 主体框架 */
+.web-body-frame {
+    width: 89.5%;
+    float: left;
+    margin-left: 20px;
+}
+
+/* 侧边栏框架 */
+.sidebar-main-frame {
+    width: 120px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    opacity: 0;
+}
+
+
 /* 主体分类横条 */
 .web-sort {
     font-size: 18px;
@@ -10,7 +63,7 @@
 
 /* 主体按钮 */
 .web-body {
-    width: 15.5%;
+    width: 257px;
     float: left;
     border-radius: 5px;
     background-color: #fff;
@@ -19,12 +72,15 @@
     padding: 10px;
     transition: transform .2s;
     /* 动画:过度时间 */
+
 }
+
 
 /* 按钮动画 */
 .web-body:hover {
     transform: scale(1.05);
 }
+
 
 /* 按钮图标 */
 .web-icon {
@@ -63,13 +119,18 @@ i {
 /* 侧边栏 */
 .sidebar-options {
     width: 100%;
+    margin: 6px 10px 0 5px;
+}
+
+.sidebar-options-vice {
+    width: 100%;
     margin: 10px;
 }
 
 .sidebar-frame {
     text-align: left;
     position: sticky;
-    top: 80px;
+
 }
 
 /* 锚点偏移 */
@@ -106,14 +167,6 @@ summary {
     padding-left: 0;
     /* 兼容老浏览器，去除三角占用的空间  */
     cursor: url(/img/Hand2.cur), auto !important;
-}
-
-.summary-div {
-    /*    border-left: 1px solid #cccccc;
-    border-bottom: 1px solid #cccccc; */
-    display: inline-block;
-    /* 宽度根据内容自适应 */
-    border-radius: 0 0 10px 10px;
 }
 
 .summary-s {

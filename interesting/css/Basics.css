@@ -9,7 +9,7 @@ html {
 /* 设置侧边栏跟随上方大div悬浮（会随页面滚动） */
 .floating {
     position: fixed;
-    top: 10vh;
+    top: 39vh;
     right: 30px;
     transition: opacity 0.3s ease-in-out;  
 }

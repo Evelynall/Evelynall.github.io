@@ -59,6 +59,14 @@
   <link rel="stylesheet" href="/xm_custom/custom.css">
   <link rel="stylesheet" href="css/sidebar.css">
 
+  <!-- 宽度自适应 -->
+  <link rel="stylesheet" type="text/css" media="screen and (min-width: 870px)" href="
+    css/Widescreen.css" />
+  <link rel="stylesheet" type="text/css" media="screen and (max-device-width: 870px) and (min-device-width: 570px)"
+    href="css/Narrowscreen.css" />
+  <link rel="stylesheet" type="text/css" media="screen and (max-width: 570px)" href="css/Miniscreen.css" />
+
+
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
@@ -179,7 +187,7 @@
                   <span id="subtitle" data-typed-text="Ev的知识导航"></span>
                 </div>
                 <div style="display: flex; justify-content: center">
-                  <div class="search-input">
+                  <div class="search-input search-input-adapt">
                     <div style="float: left;width: 88%;margin-left: 10px;"><input type="text" id="searchInput"
                         style="width: 100%;margin-bottom: 15px;"></div>
                     <!--<div style="float: left;width: 12%;margin-bottom: 8px;"><i class="iconfont icon-brush" id="searchIcon" style="color: rgb(155, 153, 153);font-size: 25px;"></i></div>-->
@@ -214,7 +222,7 @@
           <!--侧边栏-->
 
           <!--显示&关闭侧边栏-->
-          <div id="circle" class="expand-button text-center">
+          <div id="circle" class="expand-button text-center sidebar-options-adapt">
             <svg id="circlesvg" t="1689230291147" class="icon" viewBox="0 0 1024 1024" version="1.1"
               xmlns="http://www.w3.org/2000/svg" p-id="2756" xmlns:xlink="http://www.w3.org/1999/xlink" width="15"
               height="15">
@@ -226,7 +234,7 @@
 
           <!--回到顶部-->
           <a href="#tops">
-            <div id="gotop" class="expand-button text-center" style="top:60vh;">
+            <div id="gotop" class="expand-button text-center" style="bottom: 34vh;">
               <svg id="circlesvg" t="1689230291147" class="icon" viewBox="0 0 1024 1024" version="1.1"
                 xmlns="http://www.w3.org/2000/svg" p-id="2756" xmlns:xlink="http://www.w3.org/1999/xlink" width="15"
                 height="15">
@@ -238,7 +246,7 @@
           </a>
 
           <!--主要内容-->
-          <div id="floating" class="sidebar-main-frame floating">
+          <div id="floating" class="sidebar-main-frame floating sidebar-options-adapt">
             <div class="sidebar-frame">
               <div>
 
@@ -409,7 +417,7 @@
                 name="A1"><b>各类素材</b><a></div>
             <!--爱给网-->
             <a href="https://www.aigei.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.aigei.com/favicon.ico">
                 </div>
@@ -427,7 +435,7 @@
             <!--爱给网结束-->
             <!--站长素材-->
             <a href="https://sc.chinaz.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://sc.chinaz.com/favicon.ico">
                 </div>
@@ -445,7 +453,7 @@
             <!--站长素材结束-->
             <!--素材解析-->
             <a href="https://www.scjx.club/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.scjx.club/favicon.ico">
                 </div>
@@ -462,7 +470,7 @@
                 name="A2"><b>图片</b><a></div>
             <!--iiisometric-->
             <a href="https://fffuel.co/iiisometric/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -487,7 +495,7 @@
             <!--iiisometric结束-->
             <!--CleanPNG-->
             <a href="https://www.cleanpng.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -514,7 +522,7 @@
                 name="A3"><b>矢量图</b><a></div>
             <!--recraft-->
             <a href="https://app.recraft.ai/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -540,7 +548,7 @@
             <!--recraft结束-->
             <!--unDraw-->
             <a href="https://undraw.co/illustrations">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -566,7 +574,7 @@
             <!--unDraw结束-->
             <!--illlustrations-->
             <a href="https://illlustrations.co/ ">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -591,7 +599,7 @@
             <!--illlustrations结束-->
             <!--Vectorizer-->
             <a href="https://vectorizer.ai/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img
                     src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20512%20512%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0D%0A%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%2250%22%20ry%3D%2250%22%20fill%3D%22%234876ff%22%2F%3E%0D%0A%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M322.5%2089h2.5c9%200%2017.5%201.9%2025.2%205.6%205.2%202.9%209.6%206.5%2013.3%2010.8%206.1%207.5%2010.5%2016.4%2013%2026.7%202.3%209%203.4%2019%203.5%2029.5.1%207%200%2013.9-.3%2020.6%200%20.2.4%200%201.3-.4%205.2-2.6%2010.2-5.5%2015-8.7%204.6-2%209-2%2012.7-.2%202%20.8%203%203%203%207%200%205-.9%209.4-2.6%2013.5-2.4%206-6.3%2011.5-11.8%2016.3-5%204.4-11%207.9-17.8%2010.5-.8.3-1.3.8-1.3%201.4l-2.4%2024.6c-2%2018.4-5%2036-9.3%2053-4.7%2016-10.5%2031.3-17.4%2046-6.3%2013.6-14.5%2026-24.8%2037-8.6%209-18%2016.5-28.4%2022.4-12.6%207.2-26.2%2012.2-40.7%2015-14.4%203-29.3%204-44.5%203.3-15.2-.6-29.3-4.3-42.4-11-7-4-13.2-8.8-18.3-14.5-7.9-9.7-12.8-21-14.9-33.6-1-5.6-1.6-11-1.7-16-.5-5-.2-10.4%201-16%202.8-14.6%206.3-29.5%2010.4-44.8l15.3-61c2.3-9.7%204.3-18.6%205.8-27%202.6-13%203.4-25.4%202.3-37-.4-7.3-2.5-13.8-6.3-19.4-2.9-3.2-6.3-5-10.2-5-4.7-.2-8.8%201-12.5%203.8l-18.8%2013.5c-3.6%202.6-7.4%204-11.4%204.3-2.9.2-5-.4-6.4-1.8-1.3-1.3-2-3.4-2.2-6.3-.7-11.8%202.4-22.2%209.3-31.2%204-5%209-9.5%2015.1-13.4%208.2-5.6%2017.2-9.6%2027.1-12%208.3-2%2017.3-2.6%2027-2.2%209.7.7%2018.3%203.6%2026%208.8%205.4%204%2010%209%2013.5%2014.8%208.7%2013.6%2012.6%2028.9%2011.8%2045.7-.3%2016.2-2.5%2032-6.5%2047.8l-15.2%2065c-2.9%2012.7-5.2%2024.8-7%2036.2-1.4%2011-1.6%2022-.8%2033.3.8%207%204.1%2012.7%209.8%2017.2%203.2%202.4%207%204%2011.2%205%203.8.8%208%201.3%2012.8%201.4%2015-.2%2028.5-4.6%2040.7-13.2%206-4.2%2011.6-9%2016.8-14.4%208-8.6%2014.5-18%2020-28.4%208.6-17%2015-35%2019-53.6%202.2-9.4%204.1-19.8%206-31.3-14.6-.7-28-4.4-40.5-11.1-5.2-3.1-10-7-14.5-11.8-5-5.5-9-11.4-11.8-17.8-4.4-10.2-6.8-21-7-32.7-.5-8.8.5-17.2%203-25.2%203.5-10.1%209.5-18.7%2018-26%206.1-5%2013.2-8.5%2021.2-10.6%205.5-1.4%2011.2-2.2%2017-2.3zm5.4%2038.5c-2.6%200-4.6%201-5.9%203.2-.5.8-.8%201.6-1.2%202.5l-.8%202.6-.4%202.8v3c0%202.2.1%204.2.3%206s.5%203.8%201%205.5l.6%203c.3%201%20.5%202%201%203%20.2%201%20.6%201.9%201%202.8l1.2%202.7%201.5%202.6c.5.9%201.1%201.6%201.7%202.4l2%202.3%202.2%202.2c1.4%201.4%203%202.6%204.4%203.7s3%202%204.6%202.9c.4-8.4.7-16.8.8-25.2v-5c0-1.6-.3-3.2-.5-4.7l-.7-4.5-1-4.3c-.2-.8-.5-1.6-1-2.4l-1.6-2.7c-1.4-2.1-3.3-3.5-5.5-4.2l-2.4-.4H328z%22%2F%3E%0D%0A%3C%2Fsvg%3E">
@@ -607,7 +615,7 @@
             <!--Vectorizer结束-->
             <!--VectorPortal-->
             <a href="https://vectorportal.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -632,7 +640,7 @@
             <!--VectorPortal结束-->
             <!--Iconfont-->
             <a href="https://www.iconfont.cn/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img
                     src="https://img.alicdn.com/imgextra/i4/O1CN01Z5paLz1O0zuCC7osS_!!6000000001644-55-tps-83-82.svg">
@@ -648,7 +656,7 @@
             <!--Iconfont结束-->
             <!--Thenounproject-->
             <a href="https://thenounproject.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -673,9 +681,10 @@
             <!--Thenounproject结束-->
             <!--Videezy-->
             <a href="https://www.videezy.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img src="https://www.videezy.com/favicon.ico">
+                  <img
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAPoSURBVFhHzVf5T1NBEPafUfFGQBEvjBcB8eASiAdaMIqiQUFFwAuRQPDCKx6Nd/BAMRA8fvBAUFFjFDQao3gLSFsoFFqopYw7y5a+fW/fazUa/ZIvwNud2W9mZ2eXAX5DdPAv+X8K8PVZCqMGEw5a0s+RjDgmsnHRF+0ktmiDP0VzkUIBk8augtkzN0JEWCZEzc6GuMhtsGj+DlgYkwPB41aDn4/SBhnouxxCpqRT28jwrD672FyImbOZjolsFAJQ8ZYMPXxvagGDwQwtpnZob+uEzs4usFq7oKLsIYwjznxlIjDq/Nxz0NhgorYmY5+dldihj9SV+6lvqQ1SKCA1uQh+/HCACB/eN8L0iancVuDvwYEpUPe8ns3i0fDNCPNmZVGR0rWQCgG4X/PnbQVzawcz59HcbIa5oZs4Zyh69fJ90NVlZ7N4nNLf4NaQUiEAo5k+aS2NVIQOiw0WknqQptN/WCJcvVzFZvAwEMGxJCC1QhQWIe5xzYNXzAUPu90Bq5bt6ReAmYgIzYSmRhObwaPkwl0qUL6Gi0IByCsXK5kLHr29vZC14TgMH5hA56GQwrxiNsrDbO6AhPidXLbkFApAg72Fl5gbJXYXXKBzcLsmBKyEp0/esBEe18prYMyIZQr/UqoISID0NQehx9HDXPE4qb/e32RW6HaR49nNRtzAY4tjWtEjVTOwIDoHLO1W5o5HWWl139yhOrhUfId95XH39jNhv5BTKABTGzIlDb58bmbueFRV1kHA8CQIn7EBvn4xsK9udHfbIS3lgMfokSoCdDDeL1l1b7HhBI1eAblbT9OilONxzWtaG9JmpUahAEpydMqv3mcueWCPwH7/oPol++KGg9RN9sbjXkWPVBWADg4VlTK3PLDfZ6QfFXbLF7X1MDVojVfRI9UFkHOekXYEnE4nc+0GdrfSknuK9DudvZCXc9br6JGaGcAmgsdJDrzl3tc3sL/cePvmK8wMXud19EhVAdhiw6atpzeZHM4eJ91rOYp2lwhvPC2qCnB1udrn75h7bXz+9B3CSWH+MQFIvERuVDxiS2hDf6Til1LvoqYAbLfHDpezJdSBL6Bo8nTTevupUVMAngR8nomajRTnz96ifUPkwxO1BZCIEhflg82mvGxcaG2x0Mfq70SP1N4CUlBzQjJIilvZckqUld6n94LI3htqCsCimjw2BV69/MiW42GxWCFpccEvNR45NQUg/YclwZkTN6Gzw0abEjYhE3lmG41t9FpWe+97S48C8GbEfhAftZ3+cxIXsQ2iwrPpy3gyeYp7uu890aMAJG4FphmJxUZJ6uN3zr2cXgn4m/zHAnTwE21eYyIOJRe7AAAAAElFTkSuQmCC">
                 </div>
                 <div>
                   <b>Videezy</b>
@@ -690,7 +699,7 @@
                 name="A4"><b>照片</b><a></div>
             <!--高图网-->
             <a href="http://www.gaoimg.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -715,7 +724,7 @@
             <!--高图网结束-->
             <!--Pexels-->
             <a href="https://www.pexels.com/zh-cn/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -741,7 +750,7 @@
             <!--Pexels结束-->
             <!--Wallhaven-->
             <a href="https://wallhaven.cc/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://wallhaven.cc/favicon.ico">
                 </div>
@@ -756,7 +765,7 @@
             <!--Wallhaven结束-->
             <!--Toptal-->
             <a href="https://www.toptal.com/designers/subtlepatterns/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -781,7 +790,7 @@
             <!--Toptal结束-->
             <!--Pixabay-->
             <a href="https://pixabay.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -806,7 +815,7 @@
             <!--Pixabay结束-->
             <!--CC0-->
             <a href="https://cc0.cn/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -831,7 +840,7 @@
             <!--CC0结束-->
             <!--GALLERIX-->
             <a href="https://gallerix.asia/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://cdn.gallerix.asia/x/src/ac/peace.png">
                 </div>
@@ -848,7 +857,7 @@
                 name="A5"><b>样机</b><a></div>
             <!--Mockup World-->
             <a href="https://www.mockupworld.co/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -873,7 +882,7 @@
             <!--Mockup World结束-->
             <!--Creativepentool-->
             <a href="https://www.creativepentool.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -898,7 +907,7 @@
             <!--Creativepentool结束-->
             <!--Graphicpear-->
             <a href="https://www.graphicpear.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.graphicpear.com/wp-content/themes/GraphicPearBeta/images/logo-icon.svg">
                 </div>
@@ -913,7 +922,7 @@
             <!--Graphicpear结束-->
             <!--LS-->
             <a href="https://www.ls.graphics/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img
                     src="https://assets-global.website-files.com/6251e30396c5bc84d2f37d19/6251e3bb96c5bc705ff380c5_Logo.svg">
@@ -929,7 +938,7 @@
             <!--LS结束-->
             <!--GRAPHICXTREME-->
             <a href="https://graphicxtreme.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://graphicxtreme.com/wp-content/uploads/2019/08/cropped-favicon-32x32.png">
                 </div>
@@ -946,7 +955,7 @@
                 name="A6"><b>视频</b><a></div>
             <!--mixkit-->
             <a href="https://mixkit.co/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -971,7 +980,7 @@
             <!--mixkit结束-->
             <!--Free video clips-->
             <a href="https://mazwai.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -996,7 +1005,7 @@
             <!--Free video clips结束-->
             <!--Videvo-->
             <a href="https://www.videvo.net/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -1021,7 +1030,7 @@
             <!--Videvo结束-->
             <!--Smash The Walls-->
             <a href="https://smashthewalls.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://smashthewalls.com/favicon.ico">
                 </div>
@@ -1036,7 +1045,7 @@
             <!--Smash The Walls结束-->
             <!--TheMatrix-->
             <a href="https://wangyasai.github.io/TheMatrix/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://wangyasai.github.io/TheMatrix/image/1.ico">
                 </div>
@@ -1053,7 +1062,7 @@
                 name="A7"><b>音乐</b><a></div>
             <!--煎饼搜-->
             <a href="https://www.jbsou.cn/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.jbsou.cn/favicon.ico">
                 </div>
@@ -1068,7 +1077,7 @@
             <!--煎饼搜结束-->
             <!--freesound-->
             <a href="https://www.freesound.cn/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -1093,7 +1102,7 @@
             <!--freesound结束-->
             <!--5sing音乐人-->
             <a href="http://5sing.kugou.com/index.html">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://5sing.kugou.com/favicon.ico">
                 </div>
@@ -1108,7 +1117,7 @@
             <!--5sing音乐人结束-->
             <!--LALAL-->
             <a href="https://www.lalal.ai/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://s.lalal.ai/icons/favicon-32x32.png">
                 </div>
@@ -1123,7 +1132,7 @@
             <!--LALAL结束-->
             <!--FreePD-->
             <a href="https://freepd.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -1148,7 +1157,7 @@
             <!--FreePD结束-->
             <!--Midishow-->
             <a href="https://www.midishow.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.midishow.com/favicon.ico">
                 </div>
@@ -1166,7 +1175,7 @@
             <!--Adobe音效包-->
             <a
               href="https://www.adobe.com/products/audition/offers/AdobeAuditionDLCSFX.html?cq_ck=1407955238126&wcmmode=disabled">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -1191,7 +1200,7 @@
             <!--Adobe音效包结束-->
             <!--耳聆网-->
             <a href="https://www.ear0.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -1216,7 +1225,7 @@
             <!--耳聆网结束-->
             <!--淘声网-->
             <a href="https://www.tosound.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -1243,7 +1252,7 @@
                 name="A14"><b>视频工具</b><a></div>
             <!--123apps-->
             <a href="https://123apps.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://123apps.com/static/i/v3/favicon.svg">
                 </div>
@@ -1258,7 +1267,7 @@
             <!--123apps结束-->
             <!--网易见外工作台-->
             <a href="https://jianwai.youdao.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://jianwai.youdao.com/favicon.ico">
                 </div>
@@ -1273,7 +1282,7 @@
             <!--网易见外工作台结束-->
             <!--录音转文字助手-->
             <a href="https://www.luyinzhushou.com/voice2text/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.luyinzhushou.com/public/voice/images/newUI/head/top_logo.png">
                 </div>
@@ -1288,7 +1297,7 @@
             <!--录音转文字助手结束-->
             <!--微软TTS-->
             <a href="https://azure.microsoft.com/en-us/services/cognitive-services/text-to-speech/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://azure.microsoft.com/favicon.ico?v2">
                 </div>
@@ -1303,7 +1312,7 @@
             <!--微软TTS结束-->
             <!--即时工具-->
             <a href="https://www.67tool.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.67tool.com/favicon.ico">
                 </div>
@@ -1318,7 +1327,7 @@
             <!--即时工具结束-->
             <!--自动剪辑神器-->
             <a href="https://autocut.video/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://autocut.video/static/favicon.svg">
                 </div>
@@ -1333,7 +1342,7 @@
             <!--自动剪辑神器结束-->
             <!--33搜帧-->
             <a href="https://fse.agilestudio.cn/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="http://oss.agilestudio.cn/pic/web_search_re_efla.svg">
                 </div>
@@ -1348,7 +1357,7 @@
             <!--33搜帧结束-->
             <!--recordcast-->
             <a href="https://www.recordcast.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.recordcast.com/favicon.ico">
                 </div>
@@ -1363,7 +1372,7 @@
             <!--recordcast结束-->
             <!--Panzoid-->
             <a href="https://panzoid.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://panzoid.com/favicon.ico">
                 </div>
@@ -1378,7 +1387,7 @@
             <!--Panzoid结束-->
             <!--MyEdit-->
             <a href="https://myedit.online/cn/audio-editor">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://myedit.online/myedit.ico">
                 </div>
@@ -1395,7 +1404,7 @@
                 name="A15"><b>设计工具</b><a></div>
             <!--知犀思维导图-->
             <a href="https://www.zhixi.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.zhixi.com/favicon.ico">
                 </div>
@@ -1410,7 +1419,7 @@
             <!--知犀思维导图结束-->
             <!--包小盒-->
             <a href="https://www.baoxiaohe.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.baoxiaohe.com/favicon.ico">
                 </div>
@@ -1425,7 +1434,7 @@
             <!--包小盒结束-->
             <!--创客贴-->
             <a href="https://beta.chuangkit.com/designtools/startdesign">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://beta.chuangkit.com/favicon.ico">
                 </div>
@@ -1440,7 +1449,7 @@
             <!--创客贴结束-->
             <!--佐糖-->
             <a href="https://picwish.cn/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://qncdn.aoscdn.com/astro/picwish/_astro/favicon@30w.77030b97.png">
                 </div>
@@ -1455,7 +1464,7 @@
             <!--佐糖结束-->
             <!--MasterGo-->
             <a href="https://mastergo.com/community/?cata_name=qb">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://mastergo.com/favicon.ico">
                 </div>
@@ -1470,9 +1479,10 @@
             <!--MasterGo结束-->
             <!--在线照片转卡通-->
             <a href="https://toonme.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img src="https://toonme.com/favicon.ico">
+                  <img
+                    src="https://ts4.cn.mm.bing.net/th?id=OIP-C.5C6nstnfpCgEXpVSZSUEkwHaEM&w=80&h=80&c=1&vt=10&bgcl=6bdab4&r=0&o=6&pid=5.1">
                 </div>
                 <div>
                   <b>在线照片转卡通</b>
@@ -1485,7 +1495,7 @@
             <!--在线照片转卡通结束-->
             <!--Pixelme-->
             <a href="https://pixel-me.tokyo/en/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://pixel-me.tokyo/favicon.ico">
                 </div>
@@ -1500,7 +1510,7 @@
             <!--Pixelme结束-->
             <!--Blobmaker-->
             <a href="https://www.blobmaker.app/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -1526,7 +1536,7 @@
             <!--Blobmaker结束-->
             <!--Glitch image generator-->
             <a href="https://glitchyimage.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img
                     src="https://ts4.cn.mm.bing.net/th?id=ODLS.f97421c1-3094-4cac-8153-4fe78852564f&w=32&h=32&qlt=92&pcl=fffffa&o=6&pid=1.2">
@@ -1544,7 +1554,7 @@
                 name="A16"><b>效率工具</b><a></div>
             <!--聚合图床-->
             <a href="https://www.superbed.cn/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.superbed.cn/favicon.ico">
                 </div>
@@ -1559,7 +1569,7 @@
             <!--聚合图床结束-->
             <!--快推易-->
             <a href="https://www.kt1.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img
                     src="https://i02.kt1.com/c298a32b-9113-47f0-b359-49783e3a6825.png?imageView2/1/w/350/h/350/q/100">
@@ -1575,7 +1585,7 @@
             <!--快推易结束-->
             <!--纪妖-->
             <a href="https://www.cbaigui.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://static.cbaigui.com/images/2021/10/cropped-512.png!full">
                 </div>
@@ -1590,7 +1600,7 @@
             <!--纪妖结束-->
             <!--酷Q网音乐转换-->
             <a href="https://kqwyygszh.pages.dev/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img
                     src="https://ts3.cn.mm.bing.net/th?id=ODLS.08f56e86-962a-4f3d-a18d-ce003b52590a&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2">
@@ -1606,7 +1616,7 @@
             <!--酷Q网音乐转换结束-->
             <!--Convertio-->
             <a href="https://convertio.co/zh/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://convertio.co/favicon.ico">
                 </div>
@@ -1621,7 +1631,7 @@
             <!--Convertio结束-->
             <!--反向词典-->
             <a href="https://wantwords.net/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://wantwords.net/static/image/zm2.ico">
                 </div>
@@ -1636,9 +1646,10 @@
             <!--反向词典结束-->
             <!--WaifuLabs-->
             <a href="https://waifulabs.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img src="https://waifulabs.com/images/favicon.png">
+                  <img
+                    src="https://ts4.cn.mm.bing.net/th?id=OIP-C.Nn8SC56umIKl1DtL01o1WwAAAA&w=80&h=80&c=1&vt=10&bgcl=00533d&r=0&o=6&pid=5.1">
                 </div>
                 <div>
                   <b>WaifuLabs</b>
@@ -1651,7 +1662,7 @@
             <!--WaifuLabs结束-->
             <!--Crypko-->
             <a href="https://crypko.ai/#/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://crypko.ai/images/404.png">
                 </div>
@@ -1666,7 +1677,7 @@
             <!--Crypko结束-->
             <!--今日热榜-->
             <a href="https://tophub.today/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://file.ipadown.com/tophub/assets/images/logo.png">
                 </div>
@@ -1681,7 +1692,7 @@
             <!--今日热榜结束-->
             <!--卡思数据-->
             <a href="https://www.caasdata.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.caasdata.com/favicon.ico">
                 </div>
@@ -1696,7 +1707,7 @@
             <!--卡思数据结束-->
             <!--ocr.space-->
             <a href="http://ocr.space/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="http://ocr.space/content/images/favicon2020.png">
                 </div>
@@ -1711,7 +1722,7 @@
             <!--ocr.space结束-->
             <!--字符画生成-->
             <a href="https://y.qq.com/m/demo/ctools/charimg.html">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="//i.gtimg.cn/music/common/upload/t_cm3_photo_publish/1445333201513143650.png">
                 </div>
@@ -1726,7 +1737,7 @@
             <!--字符画生成结束-->
             <!--ZION-->
             <a href="https://www.functorz.com/?channel=ywyj01">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.functorz.com/favicon.ico">
                 </div>
@@ -1741,7 +1752,7 @@
             <!--ZION结束-->
             <!--timeline editor-->
             <a href="https://time.graphics/editor">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://time.graphics/favicon.ico">
                 </div>
@@ -1756,7 +1767,7 @@
             <!--timeline editor结束-->
             <!--深言达意-->
             <a href="https://www.shenyandayi.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.shenyandayi.com/favicon.ico">
                 </div>
@@ -1771,7 +1782,7 @@
             <!--深言达意结束-->
             <!--小红书解析-->
             <a href="https://jy.cyou/xhs/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://jy.cyou/wp-content/uploads/2022/12/4A335112-CF51-4D99-8170-B050A29B5661.jpeg">
                 </div>
@@ -1784,11 +1795,27 @@
               </div>
             </a>
             <!--小红书解析结束-->
+            <!--Bento-->
+            <a href="https://bento.me/en/home">
+              <div class="web-body web-body-adapt">
+                <div class="web-icon">
+                  <img
+                    src="https://global-uploads.webflow.com/6335b33630f88833a92915fc/63e501246a370e0d4462f2ed_herologo.png">
+                </div>
+                <div>
+                  <b>Bento</b>
+                </div>
+                <div>
+                  <a>便当式个人作品集</a>
+                </div>
+              </div>
+            </a>
+            <!--Bento结束-->
             <div class="web-sort" style="width: 95%;float: left;"><i class="iconfont icon-V"></i><a
                 name="A19"><b>AI绘画</b><a></div>
             <!--稿定AI-->
             <a href="https://www.gaoding.com/ai/design">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.gaoding.com/favicon.ico">
                 </div>
@@ -1803,9 +1830,10 @@
             <!--稿定AI结束-->
             <!--皮卡智能-->
             <a href="https://www.picup.shop/text2image.html">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img src="https://www.picup.shop/img/sureLogo.af0da20c.png">
+                  <img
+                    src="https://ts3.cn.mm.bing.net/th?id=ODLS.ea9a9129-753a-44b5-b3b5-029c58278bb8&w=32&h=32&qlt=91&pcl=fffffa&o=6&pid=1.2">
                 </div>
                 <div>
                   <b>皮卡智能</b>
@@ -1818,7 +1846,7 @@
             <!--皮卡智能结束-->
             <!--文心一格-->
             <a href="https://yige.baidu.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://yige.baidu.com/favicon.png">
                 </div>
@@ -1833,7 +1861,7 @@
             <!--文心一格结束-->
             <!--6pen Art-->
             <a href="https://6pen.art/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://6pen.art/favicon.svg">
                 </div>
@@ -1850,7 +1878,7 @@
                 name="A21"><b>AI工具</b><a></div>
             <!--recraft-->
             <a href="https://app.recraft.ai/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -1876,7 +1904,7 @@
             <!--recraft结束-->
             <!--Media-->
             <a href="https://www.media.io/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://neveragain.allstatics.com/2019/assets/icon/logo/media-io-square.svg">
                 </div>
@@ -1891,7 +1919,7 @@
             <!--Media结束-->
             <!--Codeium-->
             <a href="https://codeium.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -1916,7 +1944,7 @@
             <!--Codeium结束-->
             <!--Vectorizer-->
             <a href="https://vectorizer.ai/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img
                     src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20512%20512%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0D%0A%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%2250%22%20ry%3D%2250%22%20fill%3D%22%234876ff%22%2F%3E%0D%0A%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M322.5%2089h2.5c9%200%2017.5%201.9%2025.2%205.6%205.2%202.9%209.6%206.5%2013.3%2010.8%206.1%207.5%2010.5%2016.4%2013%2026.7%202.3%209%203.4%2019%203.5%2029.5.1%207%200%2013.9-.3%2020.6%200%20.2.4%200%201.3-.4%205.2-2.6%2010.2-5.5%2015-8.7%204.6-2%209-2%2012.7-.2%202%20.8%203%203%203%207%200%205-.9%209.4-2.6%2013.5-2.4%206-6.3%2011.5-11.8%2016.3-5%204.4-11%207.9-17.8%2010.5-.8.3-1.3.8-1.3%201.4l-2.4%2024.6c-2%2018.4-5%2036-9.3%2053-4.7%2016-10.5%2031.3-17.4%2046-6.3%2013.6-14.5%2026-24.8%2037-8.6%209-18%2016.5-28.4%2022.4-12.6%207.2-26.2%2012.2-40.7%2015-14.4%203-29.3%204-44.5%203.3-15.2-.6-29.3-4.3-42.4-11-7-4-13.2-8.8-18.3-14.5-7.9-9.7-12.8-21-14.9-33.6-1-5.6-1.6-11-1.7-16-.5-5-.2-10.4%201-16%202.8-14.6%206.3-29.5%2010.4-44.8l15.3-61c2.3-9.7%204.3-18.6%205.8-27%202.6-13%203.4-25.4%202.3-37-.4-7.3-2.5-13.8-6.3-19.4-2.9-3.2-6.3-5-10.2-5-4.7-.2-8.8%201-12.5%203.8l-18.8%2013.5c-3.6%202.6-7.4%204-11.4%204.3-2.9.2-5-.4-6.4-1.8-1.3-1.3-2-3.4-2.2-6.3-.7-11.8%202.4-22.2%209.3-31.2%204-5%209-9.5%2015.1-13.4%208.2-5.6%2017.2-9.6%2027.1-12%208.3-2%2017.3-2.6%2027-2.2%209.7.7%2018.3%203.6%2026%208.8%205.4%204%2010%209%2013.5%2014.8%208.7%2013.6%2012.6%2028.9%2011.8%2045.7-.3%2016.2-2.5%2032-6.5%2047.8l-15.2%2065c-2.9%2012.7-5.2%2024.8-7%2036.2-1.4%2011-1.6%2022-.8%2033.3.8%207%204.1%2012.7%209.8%2017.2%203.2%202.4%207%204%2011.2%205%203.8.8%208%201.3%2012.8%201.4%2015-.2%2028.5-4.6%2040.7-13.2%206-4.2%2011.6-9%2016.8-14.4%208-8.6%2014.5-18%2020-28.4%208.6-17%2015-35%2019-53.6%202.2-9.4%204.1-19.8%206-31.3-14.6-.7-28-4.4-40.5-11.1-5.2-3.1-10-7-14.5-11.8-5-5.5-9-11.4-11.8-17.8-4.4-10.2-6.8-21-7-32.7-.5-8.8.5-17.2%203-25.2%203.5-10.1%209.5-18.7%2018-26%206.1-5%2013.2-8.5%2021.2-10.6%205.5-1.4%2011.2-2.2%2017-2.3zm5.4%2038.5c-2.6%200-4.6%201-5.9%203.2-.5.8-.8%201.6-1.2%202.5l-.8%202.6-.4%202.8v3c0%202.2.1%204.2.3%206s.5%203.8%201%205.5l.6%203c.3%201%20.5%202%201%203%20.2%201%20.6%201.9%201%202.8l1.2%202.7%201.5%202.6c.5.9%201.1%201.6%201.7%202.4l2%202.3%202.2%202.2c1.4%201.4%203%202.6%204.4%203.7s3%202%204.6%202.9c.4-8.4.7-16.8.8-25.2v-5c0-1.6-.3-3.2-.5-4.7l-.7-4.5-1-4.3c-.2-.8-.5-1.6-1-2.4l-1.6-2.7c-1.4-2.1-3.3-3.5-5.5-4.2l-2.4-.4H328z%22%2F%3E%0D%0A%3C%2Fsvg%3E">
@@ -1932,7 +1960,7 @@
             <!--Vectorizer结束-->
             <!--Pixian.ai-->
             <a href="https://pixian.ai/?utm_source=aihub.cn">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img
                     src="https://dq2gn5p12glyq.cloudfront.net/p/assets/images/logo_7a507d6a6b4a2a6c4c7578a7b88d1c19.svg">
@@ -1948,7 +1976,7 @@
             <!--Pixian.ai结束-->
             <!--Mokker-->
             <a href="https://mokker.ai/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://framerusercontent.com/images/tmzgmcd3bUoVjH0uC8rbRqt1Hto.png">
                 </div>
@@ -1963,7 +1991,7 @@
             <!--Mokker结束-->
             <!--Remini-->
             <a href="https://remini.ai/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://remini.ai/favicon.ico">
                 </div>
@@ -1978,7 +2006,7 @@
             <!--Remini结束-->
             <!--腾讯ARC-->
             <a href="https://arc.tencent.com/zh/ai-demos/faceRestoration">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://arc.tencent.com/logo.ico">
                 </div>
@@ -1993,7 +2021,7 @@
             <!--腾讯ARC结束-->
             <!--Mimic-->
             <a href="https://illustmimic.com/zh/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://storage.googleapis.com/illustmimic-public/images/favicon.ico">
                 </div>
@@ -2008,7 +2036,7 @@
             <!--Mimic结束-->
             <!--Songr-->
             <a href="https://app.songr.ai/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://app.songr.ai/assets/songr-logo2-black-beta.410a1e5f.png">
                 </div>
@@ -2025,7 +2053,7 @@
                 name="A9"><b>字体</b><a></div>
             <!--360查字体-->
             <a href="https://fonts.safe.360.cn/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="//p4.ssl.qhimg.com/t0157fa323b319adac4.png">
                 </div>
@@ -2040,7 +2068,7 @@
             <!--360查字体结束-->
             <!--100font-->
             <a href="https://www.100font.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <svg class="icon-img"
                   style="width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469">
@@ -2065,7 +2093,7 @@
             <!--100font结束-->
             <!--iFonts字体助手-->
             <a href="https://ifonts.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://ifonts.com/favicon.ico">
                 </div>
@@ -2080,7 +2108,7 @@
             <!--iFonts字体助手结束-->
             <!--字由-->
             <a href="https://www.hellofont.cn/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.hellofont.cn/favicon.ico">
                 </div>
@@ -2095,7 +2123,7 @@
             <!--字由结束-->
             <!--字体天下-->
             <a href="https://www.fonts.net.cn/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.fonts.net.cn/favicon.ico">
                 </div>
@@ -2112,7 +2140,7 @@
                 name="A10"><b>AE</b><a></div>
             <!--NEWCGER 新CG-->
             <a href="https://www.newcger.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.newcger.com/favicon.ico">
                 </div>
@@ -2127,9 +2155,10 @@
             <!--NEWCGER 新CG结束-->
             <!--Videezy-->
             <a href="https://www.videezy.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img src="https://www.videezy.com/favicon.ico">
+                  <img
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAPoSURBVFhHzVf5T1NBEPafUfFGQBEvjBcB8eASiAdaMIqiQUFFwAuRQPDCKx6Nd/BAMRA8fvBAUFFjFDQao3gLSFsoFFqopYw7y5a+fW/fazUa/ZIvwNud2W9mZ2eXAX5DdPAv+X8K8PVZCqMGEw5a0s+RjDgmsnHRF+0ktmiDP0VzkUIBk8augtkzN0JEWCZEzc6GuMhtsGj+DlgYkwPB41aDn4/SBhnouxxCpqRT28jwrD672FyImbOZjolsFAJQ8ZYMPXxvagGDwQwtpnZob+uEzs4usFq7oKLsIYwjznxlIjDq/Nxz0NhgorYmY5+dldihj9SV+6lvqQ1SKCA1uQh+/HCACB/eN8L0iancVuDvwYEpUPe8ns3i0fDNCPNmZVGR0rWQCgG4X/PnbQVzawcz59HcbIa5oZs4Zyh69fJ90NVlZ7N4nNLf4NaQUiEAo5k+aS2NVIQOiw0WknqQptN/WCJcvVzFZvAwEMGxJCC1QhQWIe5xzYNXzAUPu90Bq5bt6ReAmYgIzYSmRhObwaPkwl0qUL6Gi0IByCsXK5kLHr29vZC14TgMH5hA56GQwrxiNsrDbO6AhPidXLbkFApAg72Fl5gbJXYXXKBzcLsmBKyEp0/esBEe18prYMyIZQr/UqoISID0NQehx9HDXPE4qb/e32RW6HaR49nNRtzAY4tjWtEjVTOwIDoHLO1W5o5HWWl139yhOrhUfId95XH39jNhv5BTKABTGzIlDb58bmbueFRV1kHA8CQIn7EBvn4xsK9udHfbIS3lgMfokSoCdDDeL1l1b7HhBI1eAblbT9OilONxzWtaG9JmpUahAEpydMqv3mcueWCPwH7/oPol++KGg9RN9sbjXkWPVBWADg4VlTK3PLDfZ6QfFXbLF7X1MDVojVfRI9UFkHOekXYEnE4nc+0GdrfSknuK9DudvZCXc9br6JGaGcAmgsdJDrzl3tc3sL/cePvmK8wMXud19EhVAdhiw6atpzeZHM4eJ91rOYp2lwhvPC2qCnB1udrn75h7bXz+9B3CSWH+MQFIvERuVDxiS2hDf6Til1LvoqYAbLfHDpezJdSBL6Bo8nTTevupUVMAngR8nomajRTnz96ifUPkwxO1BZCIEhflg82mvGxcaG2x0Mfq70SP1N4CUlBzQjJIilvZckqUld6n94LI3htqCsCimjw2BV69/MiW42GxWCFpccEvNR45NQUg/YclwZkTN6Gzw0abEjYhE3lmG41t9FpWe+97S48C8GbEfhAftZ3+cxIXsQ2iwrPpy3gyeYp7uu890aMAJG4FphmJxUZJ6uN3zr2cXgn4m/zHAnTwE21eYyIOJRe7AAAAAElFTkSuQmCC">
                 </div>
                 <div>
                   <b>Videezy</b>
@@ -2144,7 +2173,7 @@
                 name="A11"><b>参考学习</b><a></div>
             <!--优优教程网-->
             <a href="https://uiiiuiii.com/tools">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://uiiiuiii.com/favicon.ico">
                 </div>
@@ -2159,7 +2188,7 @@
             <!--优优教程网结束-->
             <!--新片场-->
             <a href="https://www.xinpianchang.com/square">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.xinpianchang.com/favicon.ico">
                 </div>
@@ -2174,7 +2203,7 @@
             <!--新片场结束-->
             <!--Fotor懒设计-->
             <a href="https://www.fotor.com.cn/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img
                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAAjVBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADqhzP4AAAALnRSTlMAM8xm+knw7Nu/GgXn9tGgLt/WuKaYhYF7b2FPKSAWEvKrk3VsPgvJjFdCNyWxY5w0EAAAAa9JREFUeNrt20dyAjEQheHnQROYAEPOxiRn9/2P5/LKgJGNXJrWgved4K/q6tJCEv4tX0w2gyhLjanSXqe92U7nr6sCSuppJJeY/nBXo2n5uCe/KSdrNCjvGvlL7w5NKSaVXKFaoBmrJ7lOskIT4kSu1UYDZuJgCe9a4mIM32L5FmIG61KcZPBsJG4e4FduAgc8iwQdwWMijrrwai+uYngViQTdwlwclTm8moubtIZfW7FLBtvprDXbjUcfUSpfzHAFz9pi04+Lk22pX15eH+Fdz7rtBVSkYrGHDiMWa+gQiwRKxKIDJWIR4TIGMIABDGAAAxjAAAYw4HYCTpk0Gzwv1miAODCDWCnAbh86wCwDB0g3dEAZOkDuQwcsbz4g9AiSInDABoED3gIH7BA0oB/0MCq7MQC9gHHryHxx+F4/pQDLNTkDGMAABjCAAQxgAAMYwAAGMIABDGAAAxjAAAYwgAEMYAADvEvF4h06Mp07YvcfFqaAjmno1/VvloARtERy0QFaYrnkCXpG8tPDHRQN5VwVQ9WsOtuAGsrejz9991sF9OXzYac0SdaeHODJJ8+HrUtfB6TfAAAAAElFTkSuQmCC">
@@ -2190,7 +2219,7 @@
             <!--Fotor懒设计结束-->
             <!--标小智-->
             <a href="https://www.logosc.cn/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.logosc.cn/img/logo-icons/logosc-new.svg">
                 </div>
@@ -2205,7 +2234,7 @@
             <!--标小智结束-->
             <!--Behind the Name-->
             <a href="https://www.behindthename.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://cdnjson.com/images/2023/07/10/image15612069585cf37a.png">
                 </div>
@@ -2220,7 +2249,7 @@
             <!--Behind the Name结束-->
             <!--JCJC错别字检测-->
             <a href="http://www.cuobiezi.net/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://static.cuobiezi.net/public/static/images/logo/zigen_first_logo.jpg">
                 </div>
@@ -2235,7 +2264,7 @@
             <!--JCJC错别字检测结束-->
             <!--迅捷转换-->
             <a href="https://app.xunjiepdf.com/audio/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://app.xunjiepdf.com/ContentMain/Images/logo.png">
                 </div>
@@ -2250,7 +2279,7 @@
             <!--迅捷转换结束-->
             <!--Itmeo-->
             <a href="https://itmeo.com/market/logo-templates?ref=webgradients">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://itmeo.com/favicon.ico">
                 </div>
@@ -2265,7 +2294,7 @@
             <!--Itmeo结束-->
             <!--字体传奇-->
             <a href="http://www.ziticq.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="http://www.ziticq.com/favicon.ico">
                 </div>
@@ -2280,7 +2309,7 @@
             <!--字体传奇结束-->
             <!--iData-->
             <a href="https://www.cn-ki.net/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://user.cn-ki.net/static/idata_logo.png">
                 </div>
@@ -2297,7 +2326,7 @@
                 name="A12"><b>PPT素材</b><a></div>
             <!--HiPPTer-->
             <a href="http://www.hippter.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.hippter.com/favicon.ico">
                 </div>
@@ -2312,7 +2341,7 @@
             <!--HiPPTer结束-->
             <!--51PPT模板-->
             <a href="http://www.51pptmoban.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.51pptmoban.com/favicon.ico">
                 </div>
@@ -2327,7 +2356,7 @@
             <!--51PPT模板结束-->
             <!--PPT宝藏-->
             <a href="http://www.pptbz.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="http://www.pptbz.com/favicon.ico">
                 </div>
@@ -2342,7 +2371,7 @@
             <!--PPT宝藏结束-->
             <!--优品PPT-->
             <a href="https://www.ypppt.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.ypppt.com/favicon.ico">
                 </div>
@@ -2357,7 +2386,7 @@
             <!--优品PPT结束-->
             <!--第一PPT-->
             <a href="https://www.1ppt.com/index.html">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.1ppt.com/favicon.ico">
                 </div>
@@ -2374,7 +2403,7 @@
                 name="A13"><b>颜色</b><a></div>
             <!--Fresh-->
             <a href="https://webgradients.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://webgradients.com/img/other/logos/webgradients_logo.png">
                 </div>
@@ -2389,7 +2418,7 @@
             <!--Fresh结束-->
             <!--中国色-->
             <a href="http://zhongguose.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="http://zhongguose.com/favicon.ico">
                 </div>
@@ -2406,7 +2435,7 @@
                 name="A18"><b>学术资源</b><a></div>
             <!--Sci-Hub 镜像①-->
             <a href="http://sci-hub.se/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://sci-hub.se/pictures/ravenround_hs.gif">
                 </div>
@@ -2422,7 +2451,7 @@
             <!--Sci-Hub 镜像②-->
             <a href="http://sci-hub.ee/
               ">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://sci-hub.se/pictures/ravenround_hs.gif">
                 </div>
@@ -2438,7 +2467,7 @@
             <!--Sci-Hub 镜像③-->
             <a href="http://sci-hub.tf/
               ">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://sci-hub.se/pictures/ravenround_hs.gif">
                 </div>
@@ -2454,7 +2483,7 @@
             <!--Sci-Hub 镜像④-->
             <a href="http://sci-hub.shop/
               ">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://sci-hub.se/pictures/ravenround_hs.gif">
                 </div>
@@ -2470,7 +2499,7 @@
             <!--Sci-Hub 镜像⑤-->
             <a href="http://sci-hub.ren/
               ">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://sci-hub.se/pictures/ravenround_hs.gif">
                 </div>
@@ -2485,7 +2514,7 @@
             <!--Sci-Hub 镜像⑤结束-->
             <!--EuropePMC-->
             <a href="https://europepmc.org/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://europepmc.org/img/trusted-partnerships.a5a6b213.svg">
                 </div>
@@ -2502,7 +2531,7 @@
                 name="A19"><b>书籍期刊</b><a></div>
             <!--OceanofPDF-->
             <a href="https://oceanofpdf.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://oceanofpdf.com/favicon.ico">
                 </div>
@@ -2517,9 +2546,10 @@
             <!--OceanofPDF结束-->
             <!--Zlibrary-->
             <a href="zh.zlibrary-china.se">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img src="https://zh.zlibrary-china.se/img/logo.zlibrary.png">
+                  <img
+                    src="https://tse2-mm.cn.bing.net/th/id/OIP-C.K-dt01VsxYrlWVdg8HG2XgHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7">
                 </div>
                 <div>
                   <b>Zlibrary</b>
@@ -2534,9 +2564,10 @@
                 name="A20"><b>其他项目</b><a></div>
             <!--短信接收-->
             <a href="https://www.freereceivesms.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img src="https://www.freereceivesms.com/favicon.ico">
+                  <img
+                    src="https://ts2.cn.mm.bing.net/th?id=ODLS.41b2b4ab-6f10-45ce-80c2-1b2dddfbbae5&w=32&h=32&qlt=91&pcl=fffffa&o=6&pid=1.2">
                 </div>
                 <div>
                   <b>短信接收</b>
@@ -2549,7 +2580,7 @@
             <!--短信接收结束-->
             <!--书享家-->
             <a href="https://www.shuxiangjia.cn/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.shuxiangjia.cn/zb_users/upload/2019/09/201909241569311427228378.png">
                 </div>
@@ -2564,7 +2595,7 @@
             <!--书享家结束-->
             <!--学吧导航-->
             <a href="https://www.xue8nav.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.xue8nav.com/wp-content/uploads/2020/01/favicon.png">
                 </div>
@@ -2579,7 +2610,7 @@
             <!--学吧导航结束-->
             <!--亲戚关系计算-帮小忙-->
             <a href="https://tool.browser.qq.com/relatives_name.html">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://m4.publicimg.browser.qq.com/publicimg/nav/qbtool/qbtool-logo-new.png">
                 </div>
@@ -2594,7 +2625,7 @@
             <!--亲戚关系计算-帮小忙结束-->
             <!--软仓-->
             <a href="https://www.ruancang.net/#/?page=0&id=0&_=1690438223749">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://img.ruancang.net/win/cang-yuan.svg">
                 </div>
@@ -2609,7 +2640,7 @@
             <!--软仓结束-->
             <!--正版中国-->
             <a href="https://www.getitfree.cn/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.getitfree.cn/favicon.ico">
                 </div>
@@ -2624,7 +2655,7 @@
             <!--正版中国结束-->
             <!--文字绘-->
             <a href="https://www.megaemoji.com/cn/text-art/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img
                     src="https://tse4-mm.cn.bing.net/th/id/OIP-C.sPNXQ-7X_rdSZ2aDBujO3AHaHa?w=185&h=185&c=7&r=0&o=5&pid=1.7">
@@ -2642,7 +2673,7 @@
                 name="A22"><b>学习资源</b><a></div>
             <!--英语真题在线-->
             <a href="https://zhenti.burningvocabulary.cn/?utm_source=xinquji">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://zhenti.burningvocabulary.cn/favicon.ico">
                 </div>
@@ -2657,7 +2688,7 @@
             <!--英语真题在线结束-->
             <!--国家终身教育平台-->
             <a href="https://le.ouchn.cn/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://le.ouchn.cn/assets/logo.8894ec3b.ico">
                 </div>
@@ -2672,7 +2703,7 @@
             <!--国家终身教育平台结束-->
             <!--大学生资源网-->
             <a href="https://www.dxzy163.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://www.dxzy163.com/favicon.ico">
                 </div>
@@ -2687,9 +2718,10 @@
             <!--大学生资源网结束-->
             <!--Creative Park-->
             <a href="https://creativepark.canon/sc/index.html">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img src="https://creativepark.canon/sc/index.html">
+                  <img
+                    src="https://ts2.cn.mm.bing.net/th?id=ODLS.52ea1043-8155-4b19-9d06-bb3f37eaff2c&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2">
                 </div>
                 <div>
                   <b>Creative Park</b>
@@ -2700,6 +2732,8 @@
               </div>
             </a>
             <!--Creative Park结束-->
+
+
 
 
 

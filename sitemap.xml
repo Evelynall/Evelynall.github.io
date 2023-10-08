@@ -155,7 +155,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/repository/index.html</loc>
+    <loc>http://example.com/tags/index.html</loc>
     
     <lastmod>2023-03-09</lastmod>
     
@@ -164,7 +164,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/index.html</loc>
+    <loc>http://example.com/repository/index.html</loc>
     
     <lastmod>2023-03-09</lastmod>
     
@@ -315,6 +315,13 @@
   </url>
   
   <url>
+    <loc>http://example.com/tags/%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2/</loc>
+    <lastmod>2023-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://example.com/tags/%E8%AF%81%E4%BB%B6%E7%85%A7/</loc>
     <lastmod>2023-10-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -372,13 +379,6 @@
   
   <url>
     <loc>http://example.com/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2023-10-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/tags/%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2/</loc>
     <lastmod>2023-10-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

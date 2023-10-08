@@ -1,0 +1,13 @@
+/* 搜索框宽度自适应 */
+.search-input-adapt {
+    width: 100%;
+}
+
+/* 侧边栏 */
+.sidebar-options-adapt {}
+
+/* 主体按钮 */
+.web-body-adapt {
+    min-width: 257px;
+    width: 44vw;
+}

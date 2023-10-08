@@ -1,29 +1,29 @@
 html {
     scroll-behavior: smooth;
-  }
-
-.icon{
-    transition: transform 0.3s ease-in-out;  
 }
 
-/* 设置侧边栏跟随上方大div悬浮（会随页面滚动） */
+.icon {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* 设置侧边栏跟随上方大div悬浮 */
 .floating {
     position: fixed;
-    top: 39vh;
+    bottom: 40vh;
+    /* 侧边栏位置 */
     right: 30px;
-    transition: opacity 0.3s ease-in-out;  
+    transition: opacity 0.3s ease-in-out;
 }
 
 /* 展开按钮 */
-.expand-button{
-    width:25px;
-    height:25px;
-    background:#fff;
-    border-radius:50px;
-    position:fixed;
-    bottom:10px;
-    top: 54vh;
-    right:30px;
+.expand-button {
+    width: 25px;
+    height: 25px;
+    background: #fff;
+    border-radius: 50px;
+    position: fixed;
+    bottom: 37vh;
+    right: 30px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in-out;
     opacity: 0;
@@ -63,7 +63,6 @@ html {
 
 /* 主体按钮 */
 .web-body {
-    width: 257px;
     float: left;
     border-radius: 5px;
     background-color: #fff;
@@ -142,7 +141,6 @@ i {
 /* 搜索框 */
 .search-input {
     height: 35px;
-    width: 60%;
     background-color: #fff;
     border-radius: 50px;
     border: none;

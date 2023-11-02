@@ -15,8 +15,8 @@ http://example.com/2023/03/09/%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0%E6%9D%82%E8%B
 http://example.com/404.html
 http://example.com/links/index.html
 http://example.com/categories/index.html
-http://example.com/repository/index.html
 http://example.com/tags/index.html
+http://example.com/repository/index.html
 http://example.com/
 http://example.com/tags/Ps/
 http://example.com/tags/Pr/
@@ -29,10 +29,10 @@ http://example.com/tags/Br/
 http://example.com/tags/Ca/
 http://example.com/tags/Ic/
 http://example.com/tags/Id/
+http://example.com/tags/%E7%BD%91%E9%A1%B5%E6%8E%A8%E8%8D%90/
 http://example.com/tags/XD/
 http://example.com/tags/%E6%A0%B7%E6%9C%BA/
 http://example.com/tags/UI%E8%AE%BE%E8%AE%A1/
-http://example.com/tags/%E7%BD%91%E9%A1%B5%E6%8E%A8%E8%8D%90/
 http://example.com/tags/%E8%BD%AF%E4%BB%B6%E8%B5%84%E6%BA%90/
 http://example.com/tags/%E7%94%B5%E5%AD%90%E4%B9%A6/
 http://example.com/tags/%E6%9D%82%E5%BF%97%E6%8A%A5%E7%BA%B8/

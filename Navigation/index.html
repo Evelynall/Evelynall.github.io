@@ -58,6 +58,7 @@
 
   <link rel="stylesheet" href="/xm_custom/custom.css">
   <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/CueBubble.css">
 
   <!-- 宽度自适应 -->
   <link rel="stylesheet" type="text/css" media="screen and (min-width: 870px)" href="
@@ -88,6 +89,7 @@
   <link rel="stylesheet" href="css/Basics.css">
   <script src="js/search.js"></script>
   <script src="js/sidebar-suspension.js"></script>
+
 
 </head>
 
@@ -222,7 +224,7 @@
           <!--侧边栏-->
 
           <!--显示&关闭侧边栏-->
-          <div id="circle" class="expand-button text-center sidebar-options-adapt">
+          <div id="circle" class="expand-button expand-button-side text-center sidebar-options-adapt">
             <svg id="circlesvg" t="1689230291147" class="icon" viewBox="0 0 1024 1024" version="1.1"
               xmlns="http://www.w3.org/2000/svg" p-id="2756" xmlns:xlink="http://www.w3.org/1999/xlink" width="15"
               height="15">
@@ -234,7 +236,7 @@
 
           <!--回到顶部-->
           <a href="#tops">
-            <div id="gotop" class="expand-button text-center" style="bottom: 34vh;">
+            <div id="gotop" class="expand-button expand-button-side text-center" style="bottom: 34vh;">
               <svg id="circlesvg" t="1689230291147" class="icon" viewBox="0 0 1024 1024" version="1.1"
                 xmlns="http://www.w3.org/2000/svg" p-id="2756" xmlns:xlink="http://www.w3.org/1999/xlink" width="15"
                 height="15">
@@ -401,11 +403,18 @@
           <div class="web-body-frame">
 
 
-
-
-
-
-
+            <div style="width: 95%;float: left;padding-left: 10px;">
+              <div id="contentexpand" class="expand-button poptip btn"
+                style="width: 60px;text-align: center;padding-top: 0px;" aria-controls="展开/收起内容">
+                <svg id="contentsvg" t="1689230291147" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                  xmlns="http://www.w3.org/2000/svg" p-id="2756" xmlns:xlink="http://www.w3.org/1999/xlink" width="15"
+                  height="15">
+                  <path
+                    d="M66.488889 211.781818h891.022222c28.198788 0 50.980202-22.238384 50.980202-49.648485 0-27.397172-22.768485-49.648485-50.980202-49.648485H66.488889C38.341818 112.484848 15.508687 134.723232 15.508687 162.133333s22.833131 49.648485 50.980202 49.648485z m891.009293 248.242424H66.488889C38.277172 460.024242 15.508687 482.262626 15.508687 509.672727s22.768485 49.648485 50.980202 49.648485h891.022222c28.198788 0 50.980202-22.238384 50.980202-49.648485-0.012929-27.410101-22.923636-49.648485-50.993131-49.648485z m0 351.63798H66.488889c-28.134141 0-50.980202 22.238384-50.980202 49.648485s22.833131 49.648485 50.980202 49.648485h891.022222c28.198788 0 50.980202-22.238384 50.980202-49.648485-0.012929-27.397172-22.781414-49.648485-50.993131-49.648485z m0 0"
+                    p-id="2757"></path>
+                </svg>
+              </div>
+            </div>
 
 
 

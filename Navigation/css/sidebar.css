@@ -3,7 +3,7 @@
     /* position: absolute; */
     right: 150px;
     border-radius: 10px;
-    background-color: #fff;
+    background-color: var(--board-bg-color);
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
     /* display: none;*/
     width: 120px;

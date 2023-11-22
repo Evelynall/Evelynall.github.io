@@ -4,6 +4,7 @@ html {
 
 .icon {
     transition: transform 0.3s ease-in-out;
+    fill: var(--text-color);
 }
 
 /* 设置侧边栏跟随上方大div悬浮（会随页面滚动） */
@@ -19,7 +20,7 @@ html {
 .expand-button {
     width: 25px;
     height: 25px;
-    background: #fff;
+    background: var(--board-bg-color);
     border-radius: 50px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in-out;
@@ -69,7 +70,7 @@ html {
     /* 宽度位于自适应中 */
     float: left;
     border-radius: 5px;
-    background-color: #fff;
+    background-color: var(--board-bg-color);
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
     margin: 0.5%;
     padding: 10px;
@@ -178,7 +179,7 @@ summary {
 
 .summary-s {
     padding: 5px;
-    background-color: #fff;
+    background-color: var(--board-bg-color);
     border-radius: 10px 0 0 10px;
 }
 

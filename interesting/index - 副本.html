@@ -58,6 +58,13 @@
   <link rel="stylesheet" href="/xm_custom/custom.css">
   <link rel="stylesheet" href="css/sidebar.css">
 
+  <!-- 宽度自适应 -->
+  <link rel="stylesheet" type="text/css" media="screen and (min-width: 870px)" href="css/Widescreen.css" />
+  <link rel="stylesheet" type="text/css" media="screen and (max-device-width: 870px) and (min-device-width: 570px)"
+    href="css/Narrowscreen.css" />
+  <link rel="stylesheet" type="text/css" media="screen and (max-width: 570px)" href="css/Miniscreen.css" />
+
+
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
@@ -182,7 +189,7 @@
                   <span id="subtitle" data-typed-text="Ev的知识导航"></span>
                 </div>
                 <div style="display: flex; justify-content: center">
-                  <div class="search-input">
+                  <div class="search-input search-input-adapt">
                     <div style="float: left;width: 88%;margin-left: 10px;"><input type="text" id="searchInput"
                         style="width: 100%;margin-bottom: 15px;"></div>
                     <!--<div style="float: left;width: 12%;margin-bottom: 8px;"><i class="iconfont icon-brush" id="searchIcon" style="color: rgb(155, 153, 153);font-size: 25px;"></i></div>-->
@@ -217,7 +224,7 @@
           <!--侧边栏-->
 
           <!--显示&关闭侧边栏-->
-          <div id="circle" class="expand-button text-center">
+          <div id="circle" class="expand-button text-center sidebar-options-adapt">
             <svg id="circlesvg" t="1689230291147" class="icon" viewBox="0 0 1024 1024" version="1.1"
               xmlns="http://www.w3.org/2000/svg" p-id="2756" xmlns:xlink="http://www.w3.org/1999/xlink" width="15"
               height="15">
@@ -229,7 +236,7 @@
 
           <!--回到顶部-->
           <a href="#tops">
-            <div id="gotop" class="expand-button text-center" style="top:57.3vh;">
+            <div id="gotop" class="expand-button text-center" style="bottom: 34vh;">
               <svg id="circlesvg" t="1689230291147" class="icon" viewBox="0 0 1024 1024" version="1.1"
                 xmlns="http://www.w3.org/2000/svg" p-id="2756" xmlns:xlink="http://www.w3.org/1999/xlink" width="15"
                 height="15">
@@ -241,7 +248,7 @@
           </a>
 
           <!--主要内容-->
-          <div id="floating" class="sidebar-main-frame floating">
+          <div id="floating" class="sidebar-main-frame floating sidebar-options-adapt">
             <div class="sidebar-frame">
               <div>
 
@@ -262,7 +269,6 @@
                 <div class="sidebar-options"><i class="iconfont icon-zhishidian"></i><b><a href="#A2">小知识</a></b></div>
                 <div class="sidebar-options"><i class="iconfont icon-gongju"></i><b><a href="#A3">工具</a></b></div>
                 <div class="sidebar-options"><i class="iconfont icon-qita"></i><b><a href="#A4">其他</a></b></div>
-
 
 
 
@@ -296,9 +302,39 @@
 
             <div class="web-sort" style="width: 95%;float: left;"><i class="iconfont icon-game"></i><a
                 name="A1"><b>在线游戏</b><a></div>
+            <!--汉兜-->
+            <a href="https://handle.antfu.me/">
+              <div class="web-body web-body-adapt">
+                <div class="web-icon">
+                  <img src="https://handle.antfu.me/favicon.svg">
+                </div>
+                <div>
+                  <b>汉兜</b>
+                </div>
+                <div>
+                  <a>益智游戏-猜词语</a>
+                </div>
+              </div>
+            </a>
+            <!--汉兜结束-->
+            <!--绘谜-enazo-->
+            <a href="https://enazo.cn/?utm_source=xinquji">
+              <div class="web-body web-body-adapt">
+                <div class="web-icon">
+                  <img src="https://img.ywyj.cn/9c5246cd-8e03-4e4d-a25b-ff42168e8600?imageView2/1/w/180/h/180">
+                </div>
+                <div>
+                  <b>绘谜-enazo</b>
+                </div>
+                <div>
+                  <a>你画我猜动漫版</a>
+                </div>
+              </div>
+            </a>
+            <!--绘谜-enazo结束-->
             <!--Bemuse-->
             <a href="https://bemuse.ninja/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://avatars.githubusercontent.com/u/10154884?s=48&v=4">
                 </div>
@@ -311,9 +347,24 @@
               </div>
             </a>
             <!--Bemuse结束-->
+            <!--linerider-->
+            <a href="https://www.linerider.com/?utm_source=xinquji">
+              <div class="web-body web-body-adapt">
+                <div class="web-icon">
+                  <img src="https://img.ywyj.cn/17fef478-ef19-40ca-9035-8ccce682ef05?imageView2/1/w/180/h/180">
+                </div>
+                <div>
+                  <b>linerider</b>
+                </div>
+                <div>
+                  <a>物理游戏-模拟雪橇车</a>
+                </div>
+              </div>
+            </a>
+            <!--linerider结束-->
             <!--Websiteasteroids-->
             <a href="http://www.websiteasteroids.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="http://www.websiteasteroids.com/asteroidsmallesrt.png">
                 </div>
@@ -328,9 +379,10 @@
             <!--Websiteasteroids结束-->
             <!--Gartic Phone - 传话游戏-->
             <a href="https://garticphone.com/zh-CN">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img src="nan">
+                  <img
+                    src="https://tse1-mm.cn.bing.net/th/id/OIP-C.wiZUTcS6q_btQCto4xTFHQHaEg?w=258&h=180&c=7&r=0&o=5&pid=1.7">
                 </div>
                 <div>
                   <b>Gartic Phone - 传话游戏</b>
@@ -343,9 +395,9 @@
             <!--Gartic Phone - 传话游戏结束-->
             <!--draw battle!-->
             <a href="https://drawbattle.io">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img src="nan">
+                  <img src="https://drawbattle.io/favicon.png">
                 </div>
                 <div>
                   <b>draw battle!</b>
@@ -358,9 +410,9 @@
             <!--draw battle!结束-->
             <!--osugame-->
             <a href="http://osugame.online/index.html">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img src="nan">
+                  <img src="http://osugame.online/favicon.png">
                 </div>
                 <div>
                   <b>osugame</b>
@@ -371,11 +423,105 @@
               </div>
             </a>
             <!--osugame结束-->
+            <!--Flappy Bird-->
+            <a href="https://flappybird.io/?utm_source=xinquji">
+              <div class="web-body web-body-adapt">
+                <div class="web-icon">
+                  <img src="https://img.ywyj.cn/8f48d577-398d-4f4e-9dee-359b500ecb9b?imageView2/1/w/180/h/180">
+                </div>
+                <div>
+                  <b>Flappy Bird</b>
+                </div>
+                <div>
+                  <a>经典小游戏</a>
+                </div>
+              </div>
+            </a>
+            <!--Flappy Bird结束-->
+            <!--GEOFS-->
+            <a href="https://www.geo-fs.com/?utm_source=xinquji&utm_source=xinquji">
+              <div class="web-body web-body-adapt">
+                <div class="web-icon">
+                  <img src="https://www.geo-fs.com/images/planes/cub.png">
+                </div>
+                <div>
+                  <b>GEOFS</b>
+                </div>
+                <div>
+                  <a>在线多人飞行模拟</a>
+                </div>
+              </div>
+            </a>
+            <!--GEOFS结束-->
+            <!--HumanBenchmark-->
+            <a href="https://humanbenchmark.com/?utm_source=xinquji">
+              <div class="web-body web-body-adapt">
+                <div class="web-icon">
+                  <img src="https://img.ywyj.cn/44357d85-f83d-4f79-a7de-744a21e5e6af?imageView2/1/w/180/h/180">
+                </div>
+                <div>
+                  <b>HumanBenchmark</b>
+                </div>
+                <div>
+                  <a>人类基准测试</a>
+                </div>
+              </div>
+            </a>
+            <!--HumanBenchmark结束-->
+            <!--炒饭网-->
+            <a href="https://tuxun.fun/">
+              <div class="web-body web-body-adapt">
+                <div class="web-icon">
+                  <img src="https://img.ywyj.cn/44000765-b256-4347-b070-2107949e35d1?imageView2/1/w/180/h/180">
+                </div>
+                <div>
+                  <b>炒饭网</b>
+                </div>
+                <div>
+                  <a>网络迷踪、图寻</a>
+                </div>
+              </div>
+            </a>
+            <!--炒饭网结束-->
+            <!--Areal Me-->
+            <a href="https://www.arealme.com/?utm_source=xinquji#google_vignette">
+              <div class="web-body web-body-adapt">
+                <div class="web-icon">
+                  <img src="https://img.ywyj.cn/a4c61e5b-25e6-406a-938d-7c4d74e99829?imageView2/1/w/180/h/180">
+                </div>
+                <div>
+                  <b>Areal Me</b>
+                </div>
+                <div>
+                  <a>更多测试</a>
+                </div>
+              </div>
+            </a>
+            <!--Areal Me结束-->
+            <!--U77-->
+            <a href="https://www.u77game.net/youxi/">
+              <div class="web-body web-body-adapt">
+                <div class="web-icon">
+                  <img
+                    src="https://ts3.cn.mm.bing.net/th?id=ODLS.9aeac275-4acc-4166-8132-caa7ed6fb981&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2">
+                </div>
+                <div>
+                  <b>U77</b>
+                </div>
+                <div>
+                  <a>放置游戏聚合平台</a>
+                </div>
+                <div class="web-tag">
+                  <div>&nbsp;聚合平台&nbsp;</div>
+                </div>
+              </div>
+            </a>
+            <!--U77结束-->
             <!--Best Free Online Games-->
             <a href="https://www.pacogames.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img src="nan">
+                  <img src="https://www.pacogames.com/favicon.ico">
                 </div>
                 <div>
                   <b>Best Free Online Games</b>
@@ -383,20 +529,27 @@
                 <div>
                   <a>类4399</a>
                 </div>
+                <div class="web-tag">
+                  <div>&nbsp;聚合平台&nbsp;</div>
+                </div>
               </div>
             </a>
             <!--Best Free Online Games结束-->
             <!--小霸王-其乐无穷-->
             <a href="https://www.yikm.net/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img src="https://www.yikm.net/logo.png">
+                  <img
+                    src="https://ts3.cn.mm.bing.net/th?id=ODLS.0ef60ca4-d64c-4840-8d46-efb58ee6bd48&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2">
                 </div>
                 <div>
                   <b>小霸王-其乐无穷</b>
                 </div>
                 <div>
                   <a>在线小霸王游戏机</a>
+                </div>
+                <div class="web-tag">
+                  <div>&nbsp;聚合平台&nbsp;</div>
                 </div>
               </div>
             </a>
@@ -405,7 +558,7 @@
                 name="A2"><b>小知识</b><a></div>
             <!--各国国旗-->
             <a href="https://guo.ge/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img
                     src="https://tse1-mm.cn.bing.net/th/id/OIP-C.kct4HLQzbXg_ZkRU3F3McwHaHa?w=195&h=195&c=7&r=0&o=5&dpr=1.1&pid=1.7">
@@ -419,13 +572,58 @@
               </div>
             </a>
             <!--各国国旗结束-->
+            <!--电脑博物馆-->
+            <a href="https://www.compumuseum.com/index.html?utm_source=xinquji">
+              <div class="web-body web-body-adapt">
+                <div class="web-icon">
+                  <img src="https://www.compumuseum.com/images/cpc464.jpg">
+                </div>
+                <div>
+                  <b>电脑博物馆</b>
+                </div>
+                <div>
+                  <a>在线体验各个版本的电脑</a>
+                </div>
+              </div>
+            </a>
+            <!--电脑博物馆结束-->
+            <!--全景故宫-->
+            <a href="https://pano.dpm.org.cn/?utm_source=xinquji#/">
+              <div class="web-body web-body-adapt">
+                <div class="web-icon">
+                  <img src="https://img.ywyj.cn/7ab93346-78e1-46c9-b2d5-8a9ee2421f5a?imageView2/1/w/180/h/180">
+                </div>
+                <div>
+                  <b>全景故宫</b>
+                </div>
+                <div>
+                  <a>在线浏览故宫</a>
+                </div>
+              </div>
+            </a>
+            <!--全景故宫结束-->
             <div class="web-sort" style="width: 95%;float: left;"><i class="iconfont icon-gongju"></i><a
                 name="A3"><b>工具</b><a></div>
+            <!--加速器百宝箱-->
+            <a href="https://www.jsqcdk.com/?utm_source=xinquji">
+              <div class="web-body web-body-adapt">
+                <div class="web-icon">
+                  <img src="https://img.jsqcdk.com/jsqcdk-content/uploads/2022/12/20221228174954871.ico">
+                </div>
+                <div>
+                  <b>加速器百宝箱</b>
+                </div>
+                <div>
+                  <a>各类加速器兑换</a>
+                </div>
+              </div>
+            </a>
+            <!--加速器百宝箱结束-->
             <!--ACG喵导航-->
             <a href="https://www.miaoaaa.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img src="https://www.miaoaaa.com/wp-content/uploads/2023/05/logohei.png">
+                  <img src="https://www.miaoaaa.com/favicon.ico">
                 </div>
                 <div>
                   <b>ACG喵导航</b>
@@ -439,30 +637,11 @@
               </div>
             </a>
             <!--ACG喵导航结束-->
-            <!--COOLGAME-->
-            <a href="https://www.ifun.cool/">
-              <div class="web-body">
-                <div class="web-icon">
-                  <img
-                    src="https://kjimg10.360buyimg.com/ott/jfs/t1/91532/6/29648/4816/638c69b6E15423b18/0fe2d8d1a26c3e8b.png">
-                </div>
-                <div>
-                  <b>COOLGAME</b>
-                </div>
-                <div>
-                  <a>免费游戏下载站</a>
-                </div>
-                <div class="web-tag">
-                  <div>&nbsp;下载站&nbsp;</div>
-                </div>
-              </div>
-            </a>
-            <!--COOLGAME结束-->
             <!--塞尔达互动地图-->
             <a href="https://www.zeldadungeon.net/breath-of-the-wild-interactive-map/?z=5&x=1661&y=8326">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img src="https://www.zeldadungeon.net/maps/botw/icons/shrine.png">
+                  <img src="https://www.zeldadungeon.net/favicon.ico">
                 </div>
                 <div>
                   <b>塞尔达互动地图</b>
@@ -478,9 +657,9 @@
             <!--塞尔达互动地图结束-->
             <!--Map Genie -->
             <a href="https://mapgenie.io/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img src="nan">
+                  <img src="https://cdn.mapgenie.io/favicons/mapgenie/favicon-32x32.png">
                 </div>
                 <div>
                   <b>Map Genie </b>
@@ -496,10 +675,9 @@
             <!--Map Genie 结束-->
             <!--Mouse-Sensitivity-->
             <a href="https://www.mouse-sensitivity.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img
-                    src="https://www.mouse-sensitivity.com/uploads/monthly_2022_12/maillogo2021.png.e2bbae95e2d10c6551fe4045611fe690.png">
+                  <img src="https://www.mouse-sensitivity.com/favicon.ico">
                 </div>
                 <div>
                   <b>Mouse-Sensitivity</b>
@@ -515,7 +693,7 @@
             <!--Mouse-Sensitivity结束-->
             <!--GAMEPADTESTER-->
             <a href="https://hardwaretester.com/gamepad">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://cdn.pixabay.com/photo/2016/10/30/23/05/controller-1784571_640.png">
                 </div>
@@ -531,9 +709,30 @@
               </div>
             </a>
             <!--GAMEPADTESTER结束-->
+            <!--黑塔转圈圈-->
+            <a href="https://blog.jixiaob.cn/backup/hertakuru/?utm_source=xinquji">
+              <div class="web-body web-body-adapt">
+                <div class="web-icon">
+                  <img src="https://img.ywyj.cn/40910e4c-bb62-4da2-a58c-f1a2e7f33ba0?imageView2/1/w/180/h/180">
+                </div>
+                <div>
+                  <b>黑塔转圈圈</b>
+                </div>
+                <div>
+                  <a>黑塔转圈圈</a>
+                </div>
+                <div class="web-tag">
+                  <div>&nbsp;恶搞&nbsp;</div>
+                </div>
+                <div class="web-tag">
+                  <div>&nbsp;无聊&nbsp;</div>
+                </div>
+              </div>
+            </a>
+            <!--黑塔转圈圈结束-->
             <!--抽象话生成器-->
             <a href="https://cxh.papapoi.com/?t=1690440106655">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://avatars.githubusercontent.com/u/18565637?v=4?v=3&s=88">
                 </div>
@@ -551,9 +750,10 @@
             <!--抽象话生成器结束-->
             <!--Nod to the Rhythm-->
             <a href="https://nodtotherhythm.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img src="https://cdn-sqn.aigei.com/assets/site/img/logo/text/publish/logo-1_0.png">
+                  <img
+                    src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IasEfIwyVbm0Ty0GDtXrgAHaDt?w=322&h=174&c=7&r=0&o=5&pid=1.7">
                 </div>
                 <div>
                   <b>Nod to the Rhythm</b>
@@ -569,9 +769,9 @@
             <!--Nod to the Rhythm结束-->
             <!--A So Ftmurmur-->
             <a href="https://asoftmurmur.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img src="nan">
+                  <img src="https://asoftmurmur.com/favicon.png">
                 </div>
                 <div>
                   <b>A So Ftmurmur</b>
@@ -584,9 +784,9 @@
             <!--A So Ftmurmur结束-->
             <!--Picrew-->
             <a href="https://picrew.me/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img src="nan">
+                  <img src="https://picrew.me/favicon.ico">
                 </div>
                 <div>
                   <b>Picrew</b>
@@ -597,11 +797,26 @@
               </div>
             </a>
             <!--Picrew结束-->
+            <!--时光邮局-->
+            <a href="https://www.hi2future.com/">
+              <div class="web-body web-body-adapt">
+                <div class="web-icon">
+                  <img src="https://www.hi2future.com/favicon.ico">
+                </div>
+                <div>
+                  <b>时光邮局</b>
+                </div>
+                <div>
+                  <a>给未来的自己写封信</a>
+                </div>
+              </div>
+            </a>
+            <!--时光邮局结束-->
             <div class="web-sort" style="width: 95%;float: left;"><i class="iconfont icon-qita"></i><a
                 name="A4"><b>其他</b><a></div>
             <!--chrismckenzie-->
             <a href="https://chrismckenzie.com/?utm_source=www.shadiao.app">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://cdnjson.com/images/2023/07/19/imagedbaaabe5f5de2c77.png">
                 </div>
@@ -619,7 +834,7 @@
             <!--chrismckenzie结束-->
             <!--Pixeltrue-->
             <a href="https://www.pixeltrue.com/scenic-illustrations#download">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img
                     src="https://global-uploads.webflow.com/5dd3495558fd7f3d1fcb52bc/5fc675c11f5b4212db8ecb65_Group%202.svg">
@@ -638,9 +853,10 @@
             <!--Pixeltrue结束-->
             <!--树洞 | 本网站将自毁-->
             <a href="https://www.thiswebsitewillselfdestruct.com/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
-                  <img src="nan">
+                  <img
+                    src="https://tse2-mm.cn.bing.net/th/id/OIP-C.aDboUEUOOH8VBsqGRCk4KAHaEK?w=282&h=180&c=7&r=0&o=5&pid=1.7">
                 </div>
                 <div>
                   <b>树洞 | 本网站将自毁</b>
@@ -653,7 +869,7 @@
             <!--树洞 | 本网站将自毁结束-->
             <!--一网一匠-->
             <a href="https://ywyj.cn/">
-              <div class="web-body">
+              <div class="web-body web-body-adapt">
                 <div class="web-icon">
                   <img src="https://ywyj.cn/logo.png">
                 </div>
@@ -666,6 +882,98 @@
               </div>
             </a>
             <!--一网一匠结束-->
+            <!--克苏鲁公社-->
+            <a href="https://www.cthulhuclub.com/">
+              <div class="web-body web-body-adapt">
+                <div class="web-icon">
+                  <img
+                    src="https://ts2.cn.mm.bing.net/th?id=ODLS.c008a798-1417-45d6-824a-94e2a6910f18&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2">
+                </div>
+                <div>
+                  <b>克苏鲁公社</b>
+                </div>
+                <div>
+                  <a>克苏鲁同人网站</a>
+                </div>
+              </div>
+            </a>
+            <!--克苏鲁公社结束-->
+            <!--Emoji Kitchen-->
+            <a href="https://emojikitchen.dev/">
+              <div class="web-body web-body-adapt">
+                <div class="web-icon">
+                  <img src="https://emojikitchen.dev/favicon.ico">
+                </div>
+                <div>
+                  <b>Emoji Kitchen</b>
+                </div>
+                <div>
+                  <a>emoji表情融合</a>
+                </div>
+              </div>
+            </a>
+            <!--Emoji Kitchen结束-->
+            <div class="web-sort" style="width: 95%;float: left;"><i class="iconfont icon-game"></i><a
+                name="A5"><b>游戏下载</b><a></div>
+            <!--COOLGAME-->
+            <a href="https://www.ifun.cool/">
+              <div class="web-body web-body-adapt">
+                <div class="web-icon">
+                  <img
+                    src="https://ts3.cn.mm.bing.net/th?id=ODLS.13bd4437-b2d3-4bf2-adba-b04990f7a13a&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2">
+                </div>
+                <div>
+                  <b>COOLGAME</b>
+                </div>
+                <div>
+                  <a>免费游戏下载站</a>
+                </div>
+                <div class="web-tag">
+                  <div>&nbsp;下载站&nbsp;</div>
+                </div>
+              </div>
+            </a>
+            <!--COOLGAME结束-->
+            <!--Steamunlocked-->
+            <a href="https://steamunlocked.net/?utm_source=xinquji">
+              <div class="web-body web-body-adapt">
+                <div class="web-icon">
+                  <img src="https://steamunlocked.net/wp-content/uploads/2018/07/cropped-free-steam-games-32x32.png">
+                </div>
+                <div>
+                  <b>Steamunlocked</b>
+                </div>
+                <div>
+                  <a>nan</a>
+                </div>
+                <div class="web-tag">
+                  <div>&nbsp;下载站&nbsp;</div>
+                </div>
+              </div>
+            </a>
+            <!--Steamunlocked结束-->
+            <!--flyseep资源避难所-->
+            <a href="https://www.flysheep6.com/">
+              <div class="web-body web-body-adapt">
+                <div class="web-icon">
+                  <img src="https://images.weserv.nl/?url=https://r534.com/flysheep/i/2023/02/25/5fgq.jpg">
+                </div>
+                <div>
+                  <b>flyseep资源避难所</b>
+                </div>
+                <div>
+                  <a>nan</a>
+                </div>
+                <div class="web-tag">
+                  <div>&nbsp;下载站&nbsp;</div>
+                </div>
+              </div>
+            </a>
+            <!--flyseep资源避难所结束-->
+
+
+
+
 
 
 

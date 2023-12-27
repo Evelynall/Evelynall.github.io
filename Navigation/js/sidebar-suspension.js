@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const gotop = document.getElementById('gotop');
     const contentexpand = document.getElementById('contentexpand');
     const contentsvg = document.getElementById('contentsvg');
+    const switch_icon = document.getElementById('switch_icon');
 
     var buttons = false /* 控制是否有主动点击按钮，如果主动点击过，则自动展开不再起效 */
     var opac = false /* 控制主边栏是否可见(用于修改透明度的判断) */
@@ -49,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
+    /* 展开收起所有 */
     var allClosed = true
     contentexpand.addEventListener('click', () => {
         allClosed = !allClosed
@@ -61,5 +63,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
+    /* 切换图标风格 */
 
-});
+    var allClosed = true
+    /* 读取是否有保存图标 */
+    let currentStyle = localStorage.getItem("currentStyle");
+    if (currentStyle == null) {
+        currentStyle = 'Square_icon';
+    }
+    /* 切换图标 */
+    switch_icon.addEventListener('click', () => {
+        if (currentStyle === 'Circle_icon') {
+            currentStyle = 'Square_icon';
+            localStorage.setItem('currentStyle', 'Square_icon');
+        } else {
+            currentStyle = 'Circle_icon';
+            localStorage.setItem('currentStyle', 'Circle_icon');
+        }
+        document.querySelector(`link[href="css/${currentStyle}.css"]`).disabled = false;
+        document.querySelector(`link[href="css/${currentStyle === 'Circle_icon' ? 'Square_icon' : 'Circle_icon'}.css"]`).disabled = true;
+    });
+})
+

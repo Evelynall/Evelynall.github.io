@@ -60,6 +60,11 @@
   <link rel="stylesheet" href="css/sidebar.css">
   <link rel="stylesheet" href="css/CueBubble.css">
 
+  <!-- 图标风格 -->
+  <link rel="stylesheet" href="css/Circle_icon.css">
+  <link rel="stylesheet" href="css/Square_icon.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
   <!-- 宽度自适应 -->
   <link rel="stylesheet" type="text/css" media="screen and (min-width: 870px)" href="
     css/Widescreen.css" />
@@ -95,7 +100,19 @@
 
 
 <body>
+  <script>
+    // 在页面打开时立即加载
+    $(document).ready(function () {
+      // 读取是否保存有图标风格
+      var lstorage = localStorage.getItem("currentStyle");
+      if (lstorage == null) {
+        lstorage = 'Square_icon';
+      }
+      document.querySelector(`link[href="css/${lstorage}.css"]`).disabled = false;
+      document.querySelector(`link[href="css/${lstorage === 'Circle_icon' ? 'Square_icon' : 'Circle_icon'}.css"]`).disabled = true;
 
+    });
+  </script>
 
   <header>
 
@@ -408,6 +425,7 @@
 
 
             <div style="width: 95%;float: left;padding-left: 10px;">
+              <!--内容展开按钮-->
               <div id="contentexpand" class="expand-button poptip btn"
                 style="width: 60px;text-align: center;padding-top: 0px;" aria-controls="展开/收起内容">
                 <svg id="contentsvg" t="1689230291147" class="icon" viewBox="0 0 1024 1024" version="1.1"
@@ -418,7 +436,19 @@
                     p-id="2757"></path>
                 </svg>
               </div>
-              <a style="float: right;">更新日期：2023.12.22 &nbsp;&nbsp;&nbsp;收录网址数：214</a>
+              <!--切换图标按钮-->
+              <div id="switch_icon" class="expand-button poptip btn" style="text-align: center;padding: 0px;"
+                aria-controls="切换图标风格">
+                <svg id="contentsvg" t="1689230291147" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                  xmlns="http://www.w3.org/2000/svg" p-id="2756" xmlns:xlink="http://www.w3.org/1999/xlink" width="20"
+                  height="20">
+                  <path
+                    d="M 631.616 216.544 l 2.496 2.624 l 166.976 193.568 a 32 32 0 0 1 -45.632 44.672 l -2.816 -2.88 l -110.72 -128.384 v 451.328 a 32 32 0 0 1 -28.288 31.808 l -3.744 0.192 a 32 32 0 0 1 -31.776 -28.256 l -0.224 -3.744 V 240.064 c 0 -28.416 33.856 -42.176 53.728 -23.52 z m -240.64 -8.544 a 32 32 0 0 1 31.776 28.256 l 0.224 3.744 v 537.408 c 0 28.416 -33.856 42.208 -53.728 23.52 l -2.496 -2.624 L 199.776 604.8 a 32 32 0 0 1 45.632 -44.704 l 2.816 2.88 l 110.752 128.384 V 240 a 32 32 0 0 1 28.256 -31.776 l 3.744 -0.224 z"
+                    p-id="2757"></path>
+                </svg>
+              </div>
+              <!--更新日期-->
+              <a style="float: right;">更新日期：2023.12.27 &nbsp;&nbsp;&nbsp;收录网址数：214</a>
             </div>
 
 

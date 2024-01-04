@@ -44,6 +44,12 @@ html {
     margin-left: 20px;
 }
 
+/* 介绍文字 */
+.introduce {
+    /* 灰色文字 */
+    color: #777;
+}
+
 /* 侧边栏框架 */
 .sidebar-main-frame {
     width: 120px;

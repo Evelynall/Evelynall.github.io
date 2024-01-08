@@ -49,21 +49,12 @@
 
   <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   <!--额外导入库-->
-  <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4162724_d2f20y6omi5.css">
-  <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4174365_d4w1ziiuwe7.css">
-
-
 
 
 
   <link rel="stylesheet" href="/xm_custom/custom.css">
   <link rel="stylesheet" href="css/sidebar.css">
   <link rel="stylesheet" href="css/CueBubble.css">
-
-  <!-- 图标风格 -->
-  <link rel="stylesheet" href="css/Circle_icon.css">
-  <link rel="stylesheet" href="css/Square_icon.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <!-- 宽度自适应 -->
   <link rel="stylesheet" type="text/css" media="screen and (min-width: 870px)" href="
@@ -100,20 +91,6 @@
 
 
 <body>
-  <script>
-    // 在页面打开时立即加载
-    $(document).ready(function () {
-      // 读取是否保存有图标风格
-      var lstorage = localStorage.getItem("currentStyle");
-      if (lstorage == null) {
-        lstorage = 'Square_icon';
-      }
-      document.querySelector(`link[href="css/${lstorage}.css"]`).disabled = false;
-      document.querySelector(`link[href="css/${lstorage === 'Circle_icon' ? 'Square_icon' : 'Circle_icon'}.css"]`).disabled = true;
-
-    });
-  </script>
-
   <header>
 
     <div id="tops"></div>
@@ -208,13 +185,6 @@
       </div>
     </div>
     </div>
-
-
-    <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-
-
 
     <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
       aria-hidden="true">

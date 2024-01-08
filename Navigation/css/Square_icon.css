@@ -18,7 +18,7 @@
     position: relative;
     transform: translate(-15px, -15px) rotate(-20deg);
     transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
-    opacity: 0.6;
+    opacity: 0.5;
 }
 
 .web-body:hover img {

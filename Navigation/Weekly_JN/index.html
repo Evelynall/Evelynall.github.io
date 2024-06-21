@@ -55,7 +55,7 @@
             <div class="flex items-center justify-between">
               <div style="color: #397CB8;font-size: 11.5px;">
                 <p class="date-week"><img src="img/img1.png" width="29px">
-                  <b>2024.06.07 第二十三周</b>
+                  <b id="date-week">2024.06.07 第二十三周</b>
                 </p>
               </div>
               <img class="h-7 w-auto" src="img/HLb-LOGO-red.png" alt="logo">
@@ -119,6 +119,32 @@
       placeholder="输入要修改的一周小结内容"></textarea>
     <button id="updateSummaryButton" class="w-full mt-2 p-2 bg-blue-500 text-white rounded">更新一周小结</button>
   </div>
+
+  <script>
+    function getCurrentDate() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const weekNumber = getWeekNumber(now);
+      return `${year}.${month}.${day} 第${weekNumber}周`;
+    }
+
+    function getWeekNumber(date) {
+      const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      const dayNum = d.getUTCDay() || 7;
+      d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+      return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const dateElement = document.querySelector('.date-week b');
+      if (dateElement) {
+        dateElement.textContent = getCurrentDate();
+      }
+    });
+  </script>
 
   <script>
     document.getElementById('updateSummaryButton').addEventListener('click', function () {

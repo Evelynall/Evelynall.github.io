@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>自动跳转页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4285F4;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #357ae8;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>自动跳转页面</h2>
+    <input type="text" id="urlInput" placeholder="请输入网址链接" />
+    <br/>
+    <button onclick="redirectToUrl()">跳转</button>
+    <div class="message" id="message"></div>
+</div>
+
+<script>
+    function redirectToUrl() {
+        var urlInput = document.getElementById('urlInput');
+        var url = urlInput.value.trim();
+        var messageDiv = document.getElementById('message');
+
+        // 简单的URL验证，允许简单的域名或IP
+        var urlPattern = /^(https?:\/\/)?([a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,}(\/\S*)?$/i;
+        if (!urlPattern.test(url)) {
+            // 如果没有http或https前缀，尝试添加
+            if (!/^https?:\/\//i.test(url)) {
+                url = 'http://' + url;
+                if (!urlPattern.test(url)) {
+                    messageDiv.textContent = '请输入一个有效的网址链接。';
+                    return;
+                }
+            } else {
+                messageDiv.textContent = '请输入一个有效的网址链接。';
+                return;
+            }
+        }
+
+        // 执行跳转
+        window.location.href = url;
+    }
+</script>
+
+</body>
+</html>

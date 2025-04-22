@@ -276,10 +276,10 @@
                 buttonContainer.classList.add('hidden');
                 noApiKeyWarning.classList.remove('hidden');
             } else {
-                if (!geminiKeyConfigured && !anyKeyProvided) {
+                if (!geminiKeyConfigured && !urlParams.has('gemini_key')) { // 只在URL中没有提供gemini_key时隐藏
                     submitGeminiButton.classList.add('hidden');
                 }
-                if (!siliconflowKeyConfigured && !anyKeyProvided) {
+                if (!siliconflowKeyConfigured && !urlParams.has('siliconflow_key')) { //  只在URL中没有提供siliconflow_key时隐藏
                     submitSiliconflowButton.classList.add('hidden');
                 }
             }
@@ -301,6 +301,8 @@
                 });
             }
         };
+        const urlParams = new URLSearchParams(window.location.search);
+
     </script>
 </body>
 </html>

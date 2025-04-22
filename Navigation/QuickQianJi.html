@@ -2,13 +2,71 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable-no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>钱迹速记</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
+        }
+        .collapsible {
+            background-color: #f7fafc;
+            color: #4a5568;
+            cursor: pointer;
+            padding: 1rem;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1rem;
+            border-radius: 0.375rem; /* rounded-md */
+            border: 1px solid #e2e8f0; /* border-gray-200 */
+        }
+
+        .active, .collapsible:hover {
+            background-color: #edf2f7; /* bg-gray-200 */
+        }
+
+        .collapsible:after {
+            content: '\002B'; /* Unicode character for "PLUS SIGN" */
+            font-size: 1.25rem; /* text-xl */
+            color: #4a5568;
+            float: right;
+            margin-left: 0.5rem; /* ml-2 */
+        }
+
+        .active:after {
+            content: "\2212"; /* Unicode character for "MINUS SIGN" */
+        }
+
+        .content {
+            padding: 0 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: #f7fafc; /* bg-gray-100 */
+            border-radius: 0.375rem; /* rounded-md */
+            border-left: 1px solid #e2e8f0; /* border-gray-200 */
+            border-right: 1px solid #e2e8f0; /* border-gray-200 */
+            border-bottom: 1px solid #e2e8f0; /* border-gray-200 */
+            margin-bottom: 1rem;
+        }
+
+        .content p {
+            margin-bottom: 0.5rem;
+        }
+
+        .content ul {
+            list-style-type: disc;
+            padding-left: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .hidden{
+            display: none;
+        }
+        .block{
+            display: block;
         }
     </style>
 </head>
@@ -33,8 +91,8 @@
         <div class="mt-6 text-center">
             <p class="text-gray-500 text-sm">Made with <a href="https://gemini.google.com/app">Gemini</a> and <a href="https://github.com/Evelynall">Evelynal</a></p>
         </div>
-         <div class="mt-4 p-4 bg-gray-100 rounded-md border border-gray-300">
-            <h2 class="text-lg font-semibold text-gray-700 mb-2">URL 中配置 API Key 教程</h2>
+        <button class="collapsible">URL 中配置 API Key 教程</button>
+        <div class="content">
             <p class="text-gray-600 text-sm">
                 您可以通过在 URL 中添加参数来配置 API Key，以便程序正常使用 Gemini 和 硅基流动 的功能。
             </p>
@@ -64,6 +122,8 @@
         const outputField = document.getElementById('output');
         const buttonContainer = document.getElementById('button-container');
         const noApiKeyWarning = document.getElementById('no-api-key-warning');
+        const collapsible = document.querySelector('.collapsible');
+        const content = document.querySelector('.content');
 
         // 默认 API Key
         const defaultGeminiApiKey = 'YOUR_GEMINI_API_KEY';
@@ -226,6 +286,20 @@
              // 为按钮添加事件监听器
             submitGeminiButton.addEventListener('click', () => handleSubmit('gemini'));
             submitSiliconflowButton.addEventListener('click', () => handleSubmit('Siliconflow'));
+
+            // 折叠/展开 教程
+            if (collapsible) {
+                collapsible.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    if (content) {
+                        if (content.style.maxHeight){
+                            content.style.maxHeight = null;
+                        } else {
+                            content.style.maxHeight = content.scrollHeight + "px";
+                        }
+                    }
+                });
+            }
         };
     </script>
 </body>

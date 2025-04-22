@@ -143,16 +143,16 @@
             // 根据 mode 参数选择不同的 URI Scheme
             switch (mode) {
                 case 'yimu':
-                    uriScheme = "yimu://api/addbill?parentCategory=分类&money=100&time=2023-02-23&remark=备注&asset=账户&bookName=日常账本&tags=标签1,标签2";
-                    prompt = `将以下口语化的记账内容转换为 "${uriScheme}" 格式的 URI Scheme 链接: "${inputText}"  未提及时间时无需&time，请只返回转换后的链接，不要包含任何额外的说明或文字。如果无法转换，请返回原因。`;
+                    uriScheme = "yimu://api/addbill?parentCategory=分类&money=100&remark=备注&asset=账户&bookName=日常账本&tags=标签1,标签2";
+                    prompt = `将以下口语化的记账内容转换为 "${uriScheme}" 格式的 URI Scheme 链接: "${inputText}"  请只返回转换后的链接，不要包含任何额外的说明或文字。如果无法转换，请返回原因。`;
                     break;
                 case 'yiyu':
-                    uriScheme = "yyjz://addbill?type=0&money=12&category=早餐&datetime=2023-03-12 22:02&remark=豆浆油条";
-                    prompt = `将以下口语化的记账内容转换为 "${uriScheme}" 格式的 URI Scheme 链接: "${inputText}"  未提及时间时无需&time，请只返回转换后的链接，不要包含任何额外的说明或文字。如果无法转换，请返回原因。`;
+                    uriScheme = "yyjz://addbill?type=0&money=12&category=早餐&remark=豆浆油条";
+                    prompt = `将以下口语化的记账内容转换为 "${uriScheme}" 格式的 URI Scheme 链接: "${inputText}"  请只返回转换后的链接，不要包含任何额外的说明或文字。如果无法转换，请返回原因。`;
                     break;
                 default:
-                    uriScheme = "qianji://publicapi/addbill?&type=0&money=26.5&time=2020-01-31 12:30:00&remark=在星巴克购买咖啡&catename=咖啡";
-                    prompt = `将以下口语化的记账内容转换为 "${uriScheme}" 格式的 URI Scheme 链接: "${inputText}"  未提及时间时无需&time，请只返回转换后的链接，不要包含任何额外的说明或文字。如果无法转换，请返回原因。`;
+                    uriScheme = "qianji://publicapi/addbill?&type=0&money=26.5&remark=在星巴克购买咖啡&catename=咖啡";
+                    prompt = `将以下口语化的记账内容转换为 "${uriScheme}" 格式的 URI Scheme 链接: "${inputText}"  请只返回转换后的链接，不要包含任何额外的说明或文字。如果无法转换，请返回原因。`;
             }
 
 

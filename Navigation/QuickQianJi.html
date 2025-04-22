@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable-no">
     <title>钱迹速记</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
@@ -101,6 +101,8 @@
                     <code class="bg-gray-200 px-2 py-1 rounded">your_domain/your_page.html?gemini_key=YOUR_GEMINI_API_KEY</code></li>
                 <li><strong>硅基流动 API Key:</strong> 使用 <code>siliconflow_key</code> 参数，例如：<br>
                     <code class="bg-gray-200 px-2 py-1 rounded">your_domain/your_page.html?siliconflow_key=YOUR_SILICONFLOW_API_KEY</code></li>
+                 <li><strong>选择模板模式:</strong> 使用 <code>mode</code> 参数, 可选 <code>qianji</code> (默认), <code>yimu</code>, 或 <code>yiyu</code>，例如：<br>
+                    <code class="bg-gray-200 px-2 py-1 rounded">your_domain/your_page.html?mode=yimu</code></li>
             </ul>
             <p class="text-gray-600 text-sm mt-2">
                 请将 <code>YOUR_GEMINI_API_KEY</code> 和 <code>YOUR_SILICONFLOW_API_KEY</code> 替换为您实际的 API Key。
@@ -130,19 +132,34 @@
                 return;
             }
 
+            // 获取 URL 参数
+            const urlParams = new URLSearchParams(window.location.search);
+            const mode = urlParams.get('mode'); // 获取 mode 参数
+
             // 构造 prompt
-            const prompt = `将以下口语化的记账内容转换为 "qianji://publicapi/addbill?&type=0&money=26.5&time=2020-01-31 12:30:00&remark=在星巴克购买咖啡&catename=咖啡" 格式的 URI Scheme 链接:
-"${inputText}"
-餐饮类请分类至三餐，请只返回转换后的链接，不要包含任何额外的说明或文字。如果无法转换，请返回原因。
-            `;
+            let prompt = '';
+            let uriScheme = '';
+
+            // 根据 mode 参数选择不同的 URI Scheme
+            switch (mode) {
+                case 'yimu':
+                    uriScheme = "yimu://api/addbill?parentCategory=分类&money=100&time=2023-02-23&remark=备注&asset=账户&bookName=日常账本&tags=标签1,标签2";
+                    prompt = `将以下口语化的记账内容转换为 "${uriScheme}" 格式的 URI Scheme 链接: "${inputText}"  未提及时间时无需&time，请只返回转换后的链接，不要包含任何额外的说明或文字。如果无法转换，请返回原因。`;
+                    break;
+                case 'yiyu':
+                    uriScheme = "yyjz://addbill?type=0&money=12&category=早餐&datetime=2023-03-12 22:02&remark=豆浆油条";
+                    prompt = `将以下口语化的记账内容转换为 "${uriScheme}" 格式的 URI Scheme 链接: "${inputText}"  未提及时间时无需&time，请只返回转换后的链接，不要包含任何额外的说明或文字。如果无法转换，请返回原因。`;
+                    break;
+                default:
+                    uriScheme = "qianji://publicapi/addbill?&type=0&money=26.5&time=2020-01-31 12:30:00&remark=在星巴克购买咖啡&catename=咖啡";
+                    prompt = `将以下口语化的记账内容转换为 "${uriScheme}" 格式的 URI Scheme 链接: "${inputText}"  未提及时间时无需&time，请只返回转换后的链接，不要包含任何额外的说明或文字。如果无法转换，请返回原因。`;
+            }
+
 
             let apiUrl = '';
             let apiKey = '';
 
             // 获取 URL 参数
-            const urlParams = new URLSearchParams(window.location.search);
-
-            // 获取 API Key 参数，如果存在则覆盖默认值
             const geminiApiKey = urlParams.get('gemini_key') || defaultGeminiApiKey;
             const siliconflowApiKey = urlParams.get('siliconflow_key') || defaultSiliconflowApiKey;
 
@@ -240,7 +257,7 @@
                     }
                 }
                 const finalResult = responseText;
-                if (finalResult.includes("qianji://publicapi/addbill")) { // 修改为 includes
+                if (finalResult.includes("qianji://publicapi/addbill") || finalResult.includes("yimu://api/addbill") || finalResult.includes("yyjz://addbill")) { // 修改为 includes
                     outputField.innerHTML = `<a href="${finalResult}" class="text-blue-600 hover:underline">${finalResult}</a>`;
                 } else {
                     outputField.textContent = "无法转换，请检查输入内容。返回内容：" + finalResult;

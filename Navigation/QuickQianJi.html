@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>钱迹速记</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4">
+    <div class="container mx-auto rounded-lg shadow-md bg-white p-6">
+        <h1 class="text-2xl font-semibold text-blue-600 text-center mb-4">钱迹速记</h1>
+        <div class="mb-4">
+            <label for="input" class="block text-gray-700 text-sm font-bold mb-2">输入记账内容：</label>
+            <input type="text" id="input" placeholder="例如：午饭花了20元" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="mb-4">
+            <div class="flex space-x-4">
+                <button id="submit-gemini" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">提交到 Gemini</button>
+                <button id="submit-Siliconflow" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">提交到 硅基流动</button>
+            </div>
+        </div>
+        <div class="mb-4">
+            <label for="output" class="block text-gray-700 text-sm font-bold mb-2">转换结果：</label>
+            <div id="output" class="bg-gray-200 border rounded p-4 text-gray-800 break-all"></div>
+        </div>
+        <div class="mt-6 text-center">
+            <p class="text-gray-500 text-sm">Made with <a href="https://gemini.google.com/app">Gemini</a> and <a href="https://github.com/Evelynall">Evelynal</a></p>
+        </div>
+    </div>
+
+    <script>
+        const inputField = document.getElementById('input');
+        const submitGeminiButton = document.getElementById('submit-gemini');
+        const submitSiliconflowButton = document.getElementById('submit-Siliconflow');
+        const outputField = document.getElementById('output');
+
+        // 默认 API Key
+        const defaultGeminiApiKey = 'YOUR_GEMINI_API_KEY';
+        const defaultSiliconflowApiKey = 'YOUR_SILICONFLOW_API_KEY';
+
+        // 提交按钮点击事件处理函数
+        function handleSubmit(apiType) {
+            const inputText = inputField.value;
+            if (!inputText.trim()) {
+                outputField.textContent = "请输入记账内容。";
+                return;
+            }
+
+            // 构造 prompt
+            const prompt = `将以下口语化的记账内容转换为 "qianji://publicapi/addbill?&type=0&money=26.5&remark=在星巴克购买咖啡&catename=咖啡" 格式的 URI Scheme 链接:
+"${inputText}"
+餐饮类请分类至三餐，请只返回转换后的链接，不要包含任何额外的说明或文字。如果无法转换，请返回 "无法转换"。
+            `;
+
+            let apiUrl = '';
+            let apiKey = '';
+
+            // 获取 URL 参数
+            const urlParams = new URLSearchParams(window.location.search);
+
+            // 获取 API Key 参数，如果存在则覆盖默认值
+            const geminiApiKey = urlParams.get('gemini_key') || defaultGeminiApiKey;
+            const siliconflowApiKey = urlParams.get('siliconflow_key') || defaultSiliconflowApiKey;
+
+            // 根据选择的 API 设置 URL 和 Key
+            switch (apiType) {
+                case 'gemini':
+                    apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+                    apiKey = geminiApiKey;
+                    break;
+                case 'Siliconflow':
+                    apiUrl = 'https://api.siliconflow.cn/v1/chat/completions';
+                    apiKey = siliconflowApiKey;
+                    break;
+                default:
+                    outputField.textContent = "未知的 API 类型。";
+                    return;
+            }
+
+            let requestBody = {};
+            // 构造请求体
+             if (apiType === 'Siliconflow') { // 硅基流动
+                requestBody = {
+                    "model": "THUDM/GLM-4-9B-0414",
+                    "messages": [
+                        {
+                            "role": "user",
+                            "content": prompt + "  请将结果包装成标准的URI格式，例如：qianji://publicapi/addbill?type=0&money=123&time=2024-01-01 12:00:00&remark=测试数据&catename=餐饮&accountname=支付宝&bookname=默认账本  整个结果请不要包含其他任何说明文字"
+                        }
+                    ],
+                    "stream": false,
+                    "max_tokens": 512,
+                    "stop": null,
+                    "temperature": 0.7,
+                    "top_p": 0.7,
+                    "top_k": 50,
+                    "frequency_penalty": 0.5,
+                    "n": 1,
+                    "response_format": {
+                        "type": "text"
+                    },
+                     "tools": [
+                        {
+                            "type": "function",
+                            "function": {
+                                "description": "<string>",
+                                "name": "<string>",
+                                "parameters": {},
+                                "strict": false
+                            }
+                        }
+                    ]
+                };
+            } else if (apiType === 'gemini'){
+                 requestBody = {
+                    contents: [{
+                        parts: [{
+                            text: prompt
+                        }]
+                    }]
+                };
+            }
+            else{
+                requestBody = {
+                    model:  undefined,
+                    messages: [{ role: "user", content: prompt }]
+                };
+            }
+
+
+            // 使用 fetch API 调用
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`, // 硅基流动需要 Authorization
+                },
+                body: JSON.stringify(requestBody)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Raw API Response:", data);
+                let responseText = '';
+                if (apiType === 'gemini') {
+                    if (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0]) {
+                        responseText = data.candidates[0].content.parts[0].text;
+                    }
+                } else if (apiType === 'Siliconflow') {
+                    if (data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
+                        responseText = data.choices[0].message.content;
+                    }
+                }
+                const finalResult = responseText;
+                if (finalResult.startsWith("qianji://publicapi/addbill")) {
+                    outputField.innerHTML = `<a href="${finalResult}" class="text-blue-600 hover:underline">${finalResult}</a>`;
+                } else {
+                    outputField.textContent = "无法转换，请检查输入内容。返回内容：" + finalResult;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                outputField.textContent = "调用 API 失败，请检查网络连接。";
+            });
+        }
+
+        // 为按钮添加事件监听器
+        submitGeminiButton.addEventListener('click', () => handleSubmit('gemini'));
+        submitSiliconflowButton.addEventListener('click', () => handleSubmit('Siliconflow'));
+    </script>
+</body>
+</html>

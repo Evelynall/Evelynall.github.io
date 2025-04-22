@@ -107,6 +107,10 @@
             <p class="text-gray-600 text-sm mt-2">
                 请将 <code>YOUR_GEMINI_API_KEY</code> 和 <code>YOUR_SILICONFLOW_API_KEY</code> 替换为您实际的 API Key。
             </p>
+                        <p></p>
+            <p class="text-gray-600 text-sm mt-2">您也可以添加 <code>siliconflow_model</code> 参数来修改硅基流动使用的模型，默认的模型为免费的 <code>THUDM/GLM-4-9B-0414</code> 模型</p>
+            <p></p>
+            <p class="text-gray-600 text-sm mt-2">您还可以添加 <code>mode</code> 参数，来适配一木记账(mode=yimu)和一羽记账(mode=yiyu)</p>
         </div>
     </div>
 
@@ -144,15 +148,15 @@
             switch (mode) {
                 case 'yimu':
                     uriScheme = "yimu://api/addbill?parentCategory=分类&money=100&remark=备注&asset=账户&bookName=日常账本&tags=标签1,标签2";
-                    prompt = `将以下口语化的记账内容转换为 "${uriScheme}" 格式的 URI Scheme 链接: "${inputText}"  请只返回转换后的链接，不要包含任何额外的说明或文字。如果无法转换，请返回原因。`;
+                    prompt = `将以下口语化的记账内容转换为 "${uriScheme}" 格式的 URI Scheme 链接: "${inputText}"  未提及时间时无需&time，请只返回转换后的链接，不要包含任何额外的说明或文字。如果无法转换，请返回原因。`;
                     break;
                 case 'yiyu':
                     uriScheme = "yyjz://addbill?type=0&money=12&category=早餐&remark=豆浆油条";
-                    prompt = `将以下口语化的记账内容转换为 "${uriScheme}" 格式的 URI Scheme 链接: "${inputText}"  请只返回转换后的链接，不要包含任何额外的说明或文字。如果无法转换，请返回原因。`;
+                    prompt = `将以下口语化的记账内容转换为 "${uriScheme}" 格式的 URI Scheme 链接: "${inputText}"  未提及时间时无需&time，请只返回转换后的链接，不要包含任何额外的说明或文字。如果无法转换，请返回原因。`;
                     break;
                 default:
                     uriScheme = "qianji://publicapi/addbill?&type=0&money=26.5&remark=在星巴克购买咖啡&catename=咖啡";
-                    prompt = `将以下口语化的记账内容转换为 "${uriScheme}" 格式的 URI Scheme 链接: "${inputText}"  请只返回转换后的链接，不要包含任何额外的说明或文字。如果无法转换，请返回原因。`;
+                    prompt = `将以下口语化的记账内容转换为 "${uriScheme}" 格式的 URI Scheme 链接: "${inputText}"  未提及时间时无需&time，请只返回转换后的链接，不要包含任何额外的说明或文字。如果无法转换，请返回原因。`;
             }
 
 

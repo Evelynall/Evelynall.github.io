@@ -133,7 +133,7 @@
             // 构造 prompt
             const prompt = `将以下口语化的记账内容转换为 "qianji://publicapi/addbill?&type=0&money=26.5&time=2020-01-31 12:30:00&remark=在星巴克购买咖啡&catename=咖啡" 格式的 URI Scheme 链接:
 "${inputText}"
-餐饮类请分类至三餐，请只返回转换后的链接，不要包含任何额外的说明或文字。如果无法转换，请返回 "无法转换"。
+餐饮类请分类至三餐，请只返回转换后的链接，不要包含任何额外的说明或文字。如果无法转换，请返回原因。
             `;
 
             let apiUrl = '';
@@ -174,7 +174,7 @@
                     "messages": [
                         {
                             "role": "user",
-                            "content": prompt  + "  请将结果包装成标准的URI格式，例如：'qianji://publicapi/addbill?type=0&money=123&time=2020-01-31 12:30:00&remark=测试数据&catename=餐饮'  整个结果请不要包含其他任何说明文字"
+                            "content": prompt
                         }
                     ],
                     "stream": false,

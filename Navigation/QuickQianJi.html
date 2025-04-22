@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable-no">
     <title>钱迹速记</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
@@ -20,10 +20,11 @@
             <input type="text" id="input" placeholder="例如：午饭花了20元" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
         <div class="mb-4">
-            <div class="flex space-x-4">
+            <div id="button-container" class="flex space-x-4">
                 <button id="submit-gemini" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">提交到 Gemini</button>
                 <button id="submit-Siliconflow" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">提交到 硅基流动</button>
             </div>
+            <div id="no-api-key-warning" class="text-red-500 mt-4 hidden">未配置 API Key，请在 URL 中提供 gemini_key 或 siliconflow_key 参数。</div>
         </div>
         <div class="mb-4">
             <label for="output" class="block text-gray-700 text-sm font-bold mb-2">转换结果：</label>
@@ -32,6 +33,28 @@
         <div class="mt-6 text-center">
             <p class="text-gray-500 text-sm">Made with <a href="https://gemini.google.com/app">Gemini</a> and <a href="https://github.com/Evelynall">Evelynal</a></p>
         </div>
+         <div class="mt-4 p-4 bg-gray-100 rounded-md border border-gray-300">
+            <h2 class="text-lg font-semibold text-gray-700 mb-2">URL 中配置 API Key 教程</h2>
+            <p class="text-gray-600 text-sm">
+                您可以通过在 URL 中添加参数来配置 API Key，以便程序正常使用 Gemini 和 硅基流动 的功能。
+            </p>
+            <ul class="list-disc list-inside mt-2 text-gray-600 text-sm">
+                <li><strong>Gemini API Key:</strong> 使用 <code>gemini_key</code> 参数，例如：<br>
+                    <code class="bg-gray-200 px-2 py-1 rounded">your_domain/your_page.html?gemini_key=YOUR_GEMINI_API_KEY</code></li>
+                <li><strong>硅基流动 API Key:</strong> 使用 <code>siliconflow_key</code> 参数，例如：<br>
+                    <code class="bg-gray-200 px-2 py-1 rounded">your_domain/your_page.html?siliconflow_key=YOUR_SILICONFLOW_API_KEY</code></li>
+                 <li><strong>硅基流动 模型:</strong> 使用 <code>siliconflow_model</code> 参数，例如：<br>
+                    <code class="bg-gray-200 px-2 py-1 rounded">your_domain/your_page.html?siliconflow_model=Qwen/Qwen2-7B-Instruct</code></li>
+                <li><strong>同时配置多个参数:</strong> 可以同时配置，例如：<br>
+                    <code class="bg-gray-200 px-2 py-1 rounded">your_domain/your_page.html?gemini_key=YOUR_GEMINI_API_KEY&siliconflow_key=YOUR_SILICONFLOW_API_KEY&siliconflow_model=Qwen/Qwen2-7B-Instruct</code></li>
+            </ul>
+            <p class="text-gray-600 text-sm mt-2">
+                请将 <code>YOUR_GEMINI_API_KEY</code> 和 <code>YOUR_SILICONFLOW_API_KEY</code> 替换为您实际的 API Key。
+            </p>
+            <p class="text-gray-600 text-sm mt-2">
+                同时，可以使用 <code>siliconflow_model</code> 配置硅基流动的模型。默认使用 <code>THUDM/GLM-4-9B-0414</code> 模型。
+            </p>
+        </div>
     </div>
 
     <script>
@@ -39,10 +62,13 @@
         const submitGeminiButton = document.getElementById('submit-gemini');
         const submitSiliconflowButton = document.getElementById('submit-Siliconflow');
         const outputField = document.getElementById('output');
+        const buttonContainer = document.getElementById('button-container');
+        const noApiKeyWarning = document.getElementById('no-api-key-warning');
 
         // 默认 API Key
         const defaultGeminiApiKey = 'YOUR_GEMINI_API_KEY';
         const defaultSiliconflowApiKey = 'YOUR_SILICONFLOW_API_KEY';
+        const defaultSiliconflowModel = 'THUDM/GLM-4-9B-0414'; // 默认的硅基流动模型
 
         // 提交按钮点击事件处理函数
         function handleSubmit(apiType) {
@@ -60,6 +86,7 @@
 
             let apiUrl = '';
             let apiKey = '';
+            let siliconflowModel = defaultSiliconflowModel; // 使用默认模型
 
             // 获取 URL 参数
             const urlParams = new URLSearchParams(window.location.search);
@@ -67,6 +94,13 @@
             // 获取 API Key 参数，如果存在则覆盖默认值
             const geminiApiKey = urlParams.get('gemini_key') || defaultGeminiApiKey;
             const siliconflowApiKey = urlParams.get('siliconflow_key') || defaultSiliconflowApiKey;
+            const urlSiliconflowModel = urlParams.get('siliconflow_model');  // 获取 URL 中的模型参数
+
+
+            let geminiKeyConfigured = geminiApiKey !== 'YOUR_GEMINI_API_KEY';
+            let siliconflowKeyConfigured = siliconflowApiKey !== 'YOUR_SILICONFLOW_API_KEY';
+            const anyKeyProvided = urlParams.has('gemini_key') || urlParams.has('siliconflow_key');
+
 
             // 根据选择的 API 设置 URL 和 Key
             switch (apiType) {
@@ -77,6 +111,9 @@
                 case 'Siliconflow':
                     apiUrl = 'https://api.siliconflow.cn/v1/chat/completions';
                     apiKey = siliconflowApiKey;
+                    if (urlSiliconflowModel) { // 如果 URL 中提供了模型参数，则覆盖
+                        siliconflowModel = urlSiliconflowModel;
+                    }
                     break;
                 default:
                     outputField.textContent = "未知的 API 类型。";
@@ -87,7 +124,7 @@
             // 构造请求体
              if (apiType === 'Siliconflow') { // 硅基流动
                 requestBody = {
-                    "model": "THUDM/GLM-4-9B-0414",
+                    "model": siliconflowModel, // 使用确定的模型
                     "messages": [
                         {
                             "role": "user",
@@ -169,9 +206,27 @@
             });
         }
 
-        // 为按钮添加事件监听器
-        submitGeminiButton.addEventListener('click', () => handleSubmit('gemini'));
-        submitSiliconflowButton.addEventListener('click', () => handleSubmit('Siliconflow'));
+        // 初始加载时检查 API Key 配置
+        window.onload = () => {
+            let geminiKeyConfigured = defaultGeminiApiKey !== 'YOUR_GEMINI_API_KEY';
+            let siliconflowKeyConfigured = defaultSiliconflowApiKey !== 'YOUR_SILICONFLOW_API_KEY';
+            const anyKeyProvided =  new URLSearchParams(window.location.search).has('gemini_key') ||  new URLSearchParams(window.location.search).has('siliconflow_key');
+
+            if (!geminiKeyConfigured && !siliconflowKeyConfigured && !anyKeyProvided) {
+                buttonContainer.classList.add('hidden');
+                noApiKeyWarning.classList.remove('hidden');
+            } else {
+                if (!geminiKeyConfigured && !anyKeyProvided) {
+                    submitGeminiButton.classList.add('hidden');
+                }
+                if (!siliconflowKeyConfigured && !anyKeyProvided) {
+                    submitSiliconflowButton.classList.add('hidden');
+                }
+            }
+             // 为按钮添加事件监听器
+            submitGeminiButton.addEventListener('click', () => handleSubmit('gemini'));
+            submitSiliconflowButton.addEventListener('click', () => handleSubmit('Siliconflow'));
+        };
     </script>
 </body>
 </html>

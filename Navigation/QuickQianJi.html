@@ -101,16 +101,9 @@
                     <code class="bg-gray-200 px-2 py-1 rounded">your_domain/your_page.html?gemini_key=YOUR_GEMINI_API_KEY</code></li>
                 <li><strong>硅基流动 API Key:</strong> 使用 <code>siliconflow_key</code> 参数，例如：<br>
                     <code class="bg-gray-200 px-2 py-1 rounded">your_domain/your_page.html?siliconflow_key=YOUR_SILICONFLOW_API_KEY</code></li>
-                 <li><strong>硅基流动 模型:</strong> 使用 <code>siliconflow_model</code> 参数，例如：<br>
-                    <code class="bg-gray-200 px-2 py-1 rounded">your_domain/your_page.html?siliconflow_model=Qwen/Qwen2-7B-Instruct</code></li>
-                <li><strong>同时配置多个参数:</strong> 可以同时配置，例如：<br>
-                    <code class="bg-gray-200 px-2 py-1 rounded">your_domain/your_page.html?gemini_key=YOUR_GEMINI_API_KEY&siliconflow_key=YOUR_SILICONFLOW_API_KEY&siliconflow_model=Qwen/Qwen2-7B-Instruct</code></li>
             </ul>
             <p class="text-gray-600 text-sm mt-2">
                 请将 <code>YOUR_GEMINI_API_KEY</code> 和 <code>YOUR_SILICONFLOW_API_KEY</code> 替换为您实际的 API Key。
-            </p>
-            <p class="text-gray-600 text-sm mt-2">
-                同时，可以使用 <code>siliconflow_model</code> 配置硅基流动的模型。默认使用 <code>THUDM/GLM-4-9B-0414</code> 模型。
             </p>
         </div>
     </div>
@@ -128,7 +121,6 @@
         // 默认 API Key
         const defaultGeminiApiKey = 'YOUR_GEMINI_API_KEY';
         const defaultSiliconflowApiKey = 'YOUR_SILICONFLOW_API_KEY';
-        const defaultSiliconflowModel = 'THUDM/GLM-4-9B-0414'; // 默认的硅基流动模型
 
         // 提交按钮点击事件处理函数
         function handleSubmit(apiType) {
@@ -139,16 +131,13 @@
             }
 
             // 构造 prompt
-            const now = new Date();
-            const formattedDate = now.toLocaleString();
-            const prompt = `当前时间：${formattedDate}，将以下口语化的记账内容转换为 "qianji://publicapi/addbill?&type=0&money=26.5&time=2020-01-31 12:30:00&remark=在星巴克购买咖啡&catename=咖啡" 格式的 URI Scheme 链接:
+            const prompt = `将以下口语化的记账内容转换为 "qianji://publicapi/addbill?&type=0&money=26.5&time=2020-01-31 12:30:00&remark=在星巴克购买咖啡&catename=咖啡" 格式的 URI Scheme 链接:
 "${inputText}"
 餐饮类请分类至三餐，请只返回转换后的链接，不要包含任何额外的说明或文字。如果无法转换，请返回 "无法转换"。
             `;
 
             let apiUrl = '';
             let apiKey = '';
-            let siliconflowModel = defaultSiliconflowModel; // 使用默认模型
 
             // 获取 URL 参数
             const urlParams = new URLSearchParams(window.location.search);
@@ -156,8 +145,6 @@
             // 获取 API Key 参数，如果存在则覆盖默认值
             const geminiApiKey = urlParams.get('gemini_key') || defaultGeminiApiKey;
             const siliconflowApiKey = urlParams.get('siliconflow_key') || defaultSiliconflowApiKey;
-            const urlSiliconflowModel = urlParams.get('siliconflow_model');  // 获取 URL 中的模型参数
-
 
             let geminiKeyConfigured = geminiApiKey !== 'YOUR_GEMINI_API_KEY';
             let siliconflowKeyConfigured = siliconflowApiKey !== 'YOUR_SILICONFLOW_API_KEY';
@@ -173,9 +160,6 @@
                 case 'Siliconflow':
                     apiUrl = 'https://api.siliconflow.cn/v1/chat/completions';
                     apiKey = siliconflowApiKey;
-                    if (urlSiliconflowModel) { // 如果 URL 中提供了模型参数，则覆盖
-                        siliconflowModel = urlSiliconflowModel;
-                    }
                     break;
                 default:
                     outputField.textContent = "未知的 API 类型。";
@@ -186,11 +170,11 @@
             // 构造请求体
              if (apiType === 'Siliconflow') { // 硅基流动
                 requestBody = {
-                    "model": siliconflowModel, // 使用确定的模型
+                    "model": "THUDM/GLM-4-9B-0414",
                     "messages": [
                         {
                             "role": "user",
-                            "content": prompt
+                            "content": prompt  + "  请将结果包装成标准的URI格式，例如：'qianji://publicapi/addbill?type=0&money=123&time=2020-01-31 12:30:00&remark=测试数据&catename=餐饮'  整个结果请不要包含其他任何说明文字"
                         }
                     ],
                     "stream": false,

@@ -157,7 +157,7 @@
                     }
                 }
                 const finalResult = responseText;
-                if (finalResult.startsWith("qianji://publicapi/addbill")) {
+                if (finalResult.includes("qianji://publicapi/addbill")) { // 修改为 includes
                     outputField.innerHTML = `<a href="${finalResult}" class="text-blue-600 hover:underline">${finalResult}</a>`;
                 } else {
                     outputField.textContent = "无法转换，请检查输入内容。返回内容：" + finalResult;

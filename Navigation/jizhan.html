@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>记账App筛选器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 自定义样式 */
+        body {
+            font-family: 'Inter', sans-serif; /* 使用 Inter 字体 */
+        }
+        /* 响应式设计：小屏幕下单列显示 */
+        @media (max-width: 768px) {
+            #filter-container > div {
+                flex-basis: 100%;
+            }
+            #results-container > div.result-item { /* 确保结果项也响应 */
+                flex-basis: 100%;
+            }
+            /* 小屏幕下按钮和下拉菜单居中 */
+            .action-bar {
+               flex-direction: column;
+               align-items: center;
+            }
+            .action-bar > div {
+                margin-bottom: 1rem; /* 在下拉菜单和按钮之间增加间距 */
+            }
+             .action-bar button {
+                width: 100%; /* 按钮宽度占满 */
+            }
+        }
+        /* 按钮悬停效果 */
+        button:hover {
+            opacity: 0.9;
+        }
+        /* 选中按钮样式 */
+        .selected {
+            background-color: #3b82f6 !important; /* Tailwind blue-500 */
+            color: white !important;
+            border-color: #3b82f6 !important;
+        }
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #374151; /* gray-700 */
+        }
+        .filter-options button {
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid #d1d5db; /* gray-300 */
+            border-radius: 0.375rem; /* rounded-md */
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+            background-color: #f9fafb; /* gray-50 */
+            color: #374151; /* gray-700 */
+        }
+        .filter-options button.must-have:hover { background-color: #dbeafe; border-color: #93c5fd; } /* blue-100, blue-300 */
+        .filter-options button.nice-to-have:hover { background-color: #d1fae5; border-color: #6ee7b7; } /* green-100, green-300 */
+        .filter-options button.must-not-have:hover { background-color: #fee2e2; border-color: #fca5a5; } /* red-100, red-300 */
+        .filter-options button.dont-care:hover { background-color: #e5e7eb; border-color: #9ca3af; } /* gray-200, gray-400 */
+
+        .filter-options button.must-have.selected { background-color: #2563eb; border-color: #2563eb; color: white; } /* blue-600 */
+        .filter-options button.nice-to-have.selected { background-color: #059669; border-color: #059669; color: white; } /* green-600 */
+        .filter-options button.must-not-have.selected { background-color: #dc2626; border-color: #dc2626; color: white; } /* red-600 */
+        .filter-options button.dont-care.selected { background-color: #6b7280; border-color: #6b7280; color: white; } /* gray-500 */
+
+        #results-container h3 {
+            /* margin-top: 1rem; */ /* 由父级div控制 */
+            margin-bottom: 0.25rem; /* 减少和下方内容的间距 */
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 600;
+        }
+         #results-container div.result-item { /* 给结果项添加特定类名以区分 */
+            background-color: white;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
+            border: 1px solid #e5e7eb; /* gray-200 */
+         }
+         #results-container span.app-name { /* 特定类名用于App名称 */
+            font-weight: bold;
+            color: #1e40af; /* blue-800 */
+         }
+         #results-container p.score-text { /* 特定类名用于分数文本 */
+            margin-top: 0.1rem; /* 减少与标题的间距 */
+            margin-bottom: 0.1rem; /* 减少与下方内容的间距 */
+            color: #4b5563; /* gray-600 */
+         }
+         .paid-feature {
+             color: #b45309; /* amber-700 */
+             font-style: italic;
+             font-size: 0.875rem; /* text-sm */
+         }
+         .yes-feature {
+            color: #059669; /* green-600 */
+            font-weight: bold;
+         }
+        .no-feature {
+            color: #dc2626; /* red-600 */
+        }
+        /* 付费/广告情况样式 */
+        .pricing-info {
+            margin-top: 0.25rem;
+            margin-bottom: 0.5rem; /* 和详情展开保持距离 */
+        }
+        .pricing-free { color: #059669; /* green-600 */ font-weight: 500; }
+        .pricing-ads { color: #ca8a04; /* yellow-600 */ font-weight: 500; }
+        .pricing-paid { color: #ea580c; /* orange-600 */ font-weight: 500; }
+        .pricing-paid-ads { color: #dc2626; /* red-600 */ font-weight: 500; }
+
+
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-4 md:p-8">
+
+    <div class="container mx-auto max-w-6xl bg-white rounded-lg shadow-xl p-6 md:p-10">
+        <h1 class="text-2xl md:text-3xl font-bold mb-6 text-center text-gray-800">记账App智能筛选器</h1>
+        <p class="text-gray-600 mb-8 text-center">请根据您的偏好选择各项功能的优先级，我们将为您筛选出最合适的记账App。</p>
+        <p class="text-gray-600 mb-8 text-center">数据来源：<a href="https://meta.appinn.net/t/topic/70530">十二横评-安卓个人记账app大横评</a></p>
+        <h2 class="text-xl font-semibold mb-4 text-gray-700 border-b pb-2">筛选条件</h2>
+        <div id="filter-container" class="space-y-6">
+            </div>
+
+        <div class="action-bar mt-8 mb-6 flex flex-col md:flex-row justify-between items-center">
+             <div class="mb-4 md:mb-0">
+                <label for="results-count" class="block text-sm font-medium text-gray-700 mb-1">显示结果数量:</label>
+                <select id="results-count" name="results-count" class="mt-1 block w-full md:w-auto pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                    <option value="3">Top 3</option>
+                    <option value="5">Top 5</option>
+                    <option value="10" selected>Top 10</option>
+                    <option value="999">所有符合条件</option>
+                </select>
+            </div>
+            <button id="filter-button" class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300 ease-in-out">
+                开始筛选
+            </button>
+        </div>
+
+        <h2 class="text-xl font-semibold mt-10 mb-4 text-gray-700 border-b pb-2">筛选结果</h2>
+        <div id="results-container" class="mt-6">
+            <p class="text-gray-500">请选择筛选条件后点击“开始筛选”按钮。</p>
+            </div>
+    </div>
+
+    <script>
+        // --- 数据定义 ---
+        // 从CSV解析的数据 (注意：为了简化，这里直接使用了处理后的JSON格式)
+        // '是' -> yes, '否'/'空白' -> no, '付费'/'是(付费)'/'付费(...)' -> paid, 其他特殊说明 -> specific
+        const appData = {
+            "功能": ["财小蜜", "挖财记账", "随手记（随手记账本）", "随手记（神象云账本）", "Timi记账", "口袋记账", "有鱼记账", "鲨鱼记账", "钱迹", "薄荷记账", "一羽记账", "一木记账", "小星记账", "极速记账", "Toshl财务管理", "Money Lover", "快捷记账（Money Manager）", "Bluecoins"],
+            "记账方式 - 模板记账": ["no", "yes", "yes", "yes", "no", "no", "no", "paid", "no", "no", "paid", "paid", "no", "no", "no", "no", "no", "no"],
+            "记账方式 - 周期记账": ["paid", "yes", "no", "yes", "no", "yes", "yes", "paid", "yes", "yes", "paid", "paid", "paid", "no", "yes", "paid", "yes", "yes"],
+            "记账方式 - 文字智能记账": ["paid", "no", "no", "yes", "no", "no", "no", "no", "no", "no", "no", "paid", "no", "no", "no", "no", "no", "no"],
+            "记账方式 - 语音记账": ["no", "no", "no", "yes", "no", "no", "no", "yes", "no", "no", "paid", "paid", "no", "no", "no", "no", "no", "no"],
+            "记账方式 - 票据识别记账(截图)": ["no", "no", "no", "paid", "no", "no", "no", "no", "paid", "paid", "paid", "paid", "no", "no", "no", "no", "no", "no"],
+            "记账方式 - 无障碍/自动记账": ["no", "no", "no", "no", "no", "no", "no", "no", "yes", "paid", "paid", "paid", "paid", "no", "no", "no", "no", "paid"],
+            "记账功能 - 二级账单分类": ["yes", "yes", "yes", "yes", "no", "no", "yes", "no", "yes", "yes", "yes", "yes", "yes", "no", "no", "yes", "yes", "yes"],
+            "记账功能 - 一级账单分类": ["yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes"],
+            "记账功能 - 添加账户": ["yes", "yes", "yes", "yes", "no", "yes", "yes", "paid", "yes", "yes", "yes", "yes", "yes", "no", "yes", "yes", "yes", "yes"],
+            "记账功能 - 添加备注": ["yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes"],
+            "记账功能 - 添加标签(一级)": ["yes", "yes", "yes", "paid", "no", "no", "yes", "paid", "yes", "yes", "yes", "paid", "paid", "no", "yes", "paid", "no", "yes"],
+            "记账功能 - 添加照片或附件": ["yes", "paid", "yes", "yes", "no", "yes", "paid", "paid", "paid", "paid", "paid", "paid", "paid", "paid", "yes", "paid", "yes", "yes"],
+            "记账功能 - 添加角色": ["yes", "yes", "yes", "yes", "no", "yes", "yes", "no", "yes", "no", "no", "yes", "yes", "no", "no", "no", "no", "no"],
+            "记账功能 - 添加手续费/利息/优惠": ["paid", "no", "no", "no", "no", "no", "no", "no", "yes", "paid", "paid", "yes", "yes", "no", "no", "yes", "no", "no"], // 假设空值为no
+            "记账功能 - 显示分类选择器": ["yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "no", "no", "no", "no"], // 假设空值为no
+            "记账功能 - 智能预选": ["no", "yes", "no", "no", "no", "no", "no", "yes", "yes", "no", "yes", "yes", "no", "no", "no", "no", "no", "no"], // 假设空值为no
+            "记账功能 - 自带计算器": ["yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes"],
+            "记账功能 - 可选不计入收支": ["yes", "no", "no", "no", "no", "no", "yes", "no", "yes", "yes", "yes", "yes", "yes", "no", "no", "yes", "no", "no"], // 假设空值为no
+            "账户 - 信用卡账户": ["yes", "yes", "yes", "yes", "no", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "no", "yes", "no", "yes", "yes"], // 假设空值为no
+            "账户 - 设置信用卡额度": ["yes", "yes", "no", "no", "no", "yes", "yes", "no", "yes", "yes", "yes", "yes", "yes", "no", "yes", "no", "no", "yes"], // 假设空值为no
+            "账户 - 设置信用卡出账日": ["yes", "yes", "no", "yes", "no", "yes", "yes", "no", "yes", "yes", "yes", "yes", "yes", "no", "no", "no", "yes", "yes"], // 假设空值为no
+            "账户 - 设置信用卡还款日": ["yes", "yes", "no", "yes", "no", "yes", "yes", "no", "yes", "yes", "yes", "yes", "yes", "no", "no", "no", "yes", "yes"], // 假设空值为no
+            "账户 - 信用卡账单分期": ["no", "no", "no", "no", "no", "no", "no", "no", "yes", "paid", "paid", "paid", "yes", "no", "no", "no", "no", "no"], // 假设空值为no
+            "账户 - 借贷账户": ["paid", "yes", "yes", "yes", "no", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "no", "no", "yes", "yes", "yes"], // 假设空值为no
+            "账户 - 投资账户": ["yes", "yes", "specific", "specific", "no", "specific", "yes", "yes", "yes", "paid", "yes", "specific", "yes", "no", "no", "no", "yes", "yes"], // 'specific' 表示特殊处理或非标准 'yes'
+            "账户 - 固定收益理财账户": ["no", "no", "no", "no", "no", "no", "yes", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no"], // 假设空值为no
+            "账户 - 固定资产账户": ["no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "yes", "no", "no", "no", "no", "no", "no"], // 假设空值为no
+            "账户 - 多币种": ["yes", "yes", "yes", "yes", "no", "specific", "no", "no", "yes", "yes", "yes", "yes", "yes", "no", "yes", "yes", "yes", "yes"],
+            "账户 - 添加备注(账户)": ["yes", "yes", "yes", "yes", "no", "no", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "no", "yes", "no", "yes", "yes"], // 假设空值为no
+            "统计 - 收/支/结余走势": ["yes", "yes", "no", "yes", "no", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "no", "yes", "no", "yes"],
+            "统计 - 收/支占比": ["yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes"],
+            "统计 - 资产走势": ["no", "no", "no", "yes", "no", "no", "yes", "yes", "paid", "paid", "yes", "yes", "yes", "no", "no", "no", "yes", "yes"], // 假设空值为no
+            "统计 - 高级筛选": ["yes", "paid", "specific", "no", "no", "no", "yes", "paid", "specific", "paid", "yes", "paid", "paid", "yes", "specific", "yes", "yes", "yes"],
+            "统计 - 日历视图": ["paid", "yes", "no", "yes", "no", "yes", "yes", "paid", "yes", "yes", "yes", "yes", "paid", "yes", "no", "no", "no", "yes"], // 假设空值为no
+            "杂项 - 安全保护": ["specific", "specific", "specific", "specific", "no", "specific", "no", "no", "specific", "specific", "specific", "specific", "specific", "specific", "specific", "specific", "specific", "specific"], // 安全方式多样，简化处理
+            "杂项 - 可完全离线使用": ["no", "no", "yes", "no", "specific", "specific", "no", "yes", "specific", "yes", "yes", "specific", "yes", "yes", "specific", "specific", "yes", "yes"],
+            "杂项 - 云同步(开发商)": ["paid", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "paid", "paid", "no", "yes", "yes", "yes", "no", "no"], // 假设空值为no
+            "杂项 - 云同步(第三方)": ["no", "no", "yes", "paid", "no", "no", "yes", "no", "no", "paid", "yes", "yes", "paid", "yes", "no", "no", "yes", "yes"], // 假设空值为no
+            "杂项 - 导入自身数据": ["no", "yes", "yes", "no", "no", "no", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "no", "no", "yes", "yes"], // 假设空值为no
+            "杂项 - 导入其他APP数据": ["paid", "yes", "no", "specific", "paid", "no", "no", "yes", "yes", "yes", "yes", "yes", "yes", "no", "no", "no", "no", "no"], // 假设空值为no
+            "杂项 - 导出Excel/CSV": ["yes", "paid", "paid", "paid", "paid", "specific", "paid", "paid", "paid", "yes", "yes", "yes", "yes", "no", "paid", "paid", "yes", "paid"],
+            "杂项 - 导出自身格式": ["no", "yes", "yes", "no", "no", "no", "no", "no", "no", "yes", "yes", "yes", "yes", "yes", "no", "no", "yes", "yes"], // 假设空值为no
+            "杂项 - 自动导出": ["no", "no", "yes", "no", "no", "yes", "no", "no", "no", "yes", "yes", "yes", "yes", "yes", "no", "no", "yes", "yes"], // 假设空值为no
+            "杂项 - 导出时筛选": ["no", "specific", "no", "specific", "no", "no", "specific", "specific", "paid", "specific", "specific", "specific", "specific", "no", "specific", "specific", "no", "specific"],
+            "杂项 - 多账本": ["paid", "yes", "yes", "yes", "no", "no", "paid", "paid", "paid", "no", "yes", "paid", "paid", "yes", "no", "no", "no", "no"], // 假设空值为no
+            "杂项 - 多人共同使用": ["no", "yes", "yes", "yes", "no", "no", "paid", "paid", "yes", "paid", "no", "no", "no", "no", "no", "no", "no", "no"], // 假设空值为no
+            "杂项 - 报销管理": ["yes", "yes", "specific", "paid", "no", "no", "yes", "no", "yes", "yes", "yes", "yes", "paid", "no", "no", "no", "no", "no"], // 假设空值为no
+            "杂项 - 预算管理(支出)": ["paid", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "paid", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes"],
+            "杂项 - 预算管理(收入)": ["no", "yes", "yes", "yes", "no", "no", "no", "no", "no", "no", "paid", "yes", "no", "yes", "yes", "no", "no", "no"], // 假设空值为no
+            "杂项 - 预算管理(结余)": ["no", "yes", "no", "no", "no", "no", "no", "no", "no", "no", "no", "paid", "no", "no", "no", "no", "no", "no"], // 假设空值为no
+            "界面 - 应用主题": ["paid", "no", "yes", "yes", "no", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes"], // 假设空值为no
+            "界面 - 夜间模式": ["no", "no", "specific", "yes", "no", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes"],
+            "界面 - 随系统切换夜间模式": ["no", "no", "yes", "yes", "no", "no", "yes", "no", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes"], // 假设空值为no
+            "界面 - 自定义图标(账单分类)": ["paid", "yes", "yes", "yes", "specific", "yes", "yes", "specific", "yes", "yes", "yes", "yes", "yes", "no", "no", "yes", "no", "yes"], // 假设空值为no
+            "界面 - 自定义图标(账户分类)": ["paid", "yes", "yes", "yes", "specific", "yes", "yes", "specific", "yes", "no", "no", "yes", "yes", "no", "no", "yes", "no", "no"], // 假设空值为no
+            "界面 - 自定义首页显示内容": ["paid", "yes", "yes", "paid", "no", "no", "no", "no", "yes", "paid", "yes", "yes", "yes", "no", "no", "no", "no", "yes"], // 假设空值为no
+            "界面 - 自定义导航栏": ["no", "no", "yes", "no", "no", "no", "no", "no", "no", "no", "no", "yes", "no", "no", "no", "no", "no", "yes"], // 假设空值为no
+            "界面 - 桌面小部件": ["no", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "paid", "paid", "yes", "yes", "yes", "yes", "yes"],
+            "界面 - 通知栏快捷/信息显示": ["no", "no", "no", "no", "no", "no", "no", "specific", "specific", "no", "specific", "specific", "specific", "no", "specific", "specific", "no", "no"], // 假设空值为no
+            "特色 - 转账/借贷支持分类": ["no", "yes", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no"], // 假设空值为no
+            "特色 - 记录身高体重等": ["no", "no", "yes", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no"], // 假设空值为no
+            "特色 - 基金/股票账户设置费率": ["no", "no", "yes", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no"], // 假设空值为no
+            "特色 - 商家功能(标签)": ["no", "no", "yes", "yes", "no", "no", "no", "no", "no", "no", "yes", "no", "no", "paid", "no", "no", "no", "no"], // 假设空值为no
+            "特色 - 操作日志/回收站": ["no", "no", "no", "paid", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no"], // 假设空值为no
+            "特色 - 分账户预算": ["no", "no", "no", "paid", "no", "no", "no", "no", "no", "no", "no", "specific", "no", "no", "no", "no", "no", "no"], // 假设空值为no
+            "特色 - 账本封账/结转": ["no", "no", "no", "yes", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no"], // 假设空值为no
+            "特色 - 固定收益理财账户": ["no", "no", "no", "no", "no", "no", "yes", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no"], // 假设空值为no
+            "特色 - 智能手表支持": ["no", "no", "no", "no", "no", "no", "no", "yes", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no"], // 假设空值为no
+            "特色 - 记账接口": ["no", "no", "no", "no", "no", "no", "no", "yes", "no", "no", "no", "yes", "paid", "no", "no", "no", "no", "no"], // 假设空值为no
+            "特色 - 账单拆分功能": ["no", "no", "no", "no", "no", "no", "no", "no", "paid", "no", "yes", "paid", "no", "no", "no", "no", "no", "no"], // 假设空值为no
+            "特色 - 自定义货币种类": ["no", "no", "no", "no", "no", "no", "no", "no", "paid", "no", "no", "no", "paid", "no", "no", "no", "no", "no"], // 假设空值为no
+            "特色 - 悬浮窗对账": ["no", "no", "no", "no", "no", "no", "no", "no", "no", "yes", "no", "no", "no", "no", "no", "no", "no", "no"], // 假设空值为no
+            "特色 - 指定期间预算": ["no", "no", "no", "no", "no", "no", "no", "no", "no", "yes", "no", "no", "no", "no", "no", "no", "no", "no"], // 假设空值为no
+            "特色 - 应收/应付设置": ["no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "yes", "no", "no", "no", "no", "no", "no", "no"], // 假设空值为no
+            "特色 - 与银行同步": ["no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "specific", "specific", "no", "no", "no"], // 假设空值为no
+            "特色 - 旅行模式": ["no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "yes", "no", "yes", "no"], // 假设空值为no
+            "特色 - 丰富的统计图表": ["no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "yes", "no"], // 假设空值为no
+            "广告 - 开屏广告": ["no", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no"], // 假设空值为no
+            "广告 - 应用内广告": ["no", "yes", "yes", "yes", "yes", "yes", "no", "no", "no", "no", "no", "no", "no", "no", "no", "no", "yes", "no"], // 假设空值为no
+        };
+
+        const features = Object.keys(appData).filter(key => key !== "功能");
+        const apps = appData["功能"];
+        const filterContainer = document.getElementById('filter-container');
+        const resultsContainer = document.getElementById('results-container');
+        const filterButton = document.getElementById('filter-button');
+        const resultsCountSelect = document.getElementById('results-count');
+
+        // --- UI 生成 ---
+
+        // 动态生成筛选选项
+        features.forEach(feature => {
+            // 跳过广告相关的行，因为它们将在结果中单独汇总显示
+            if (feature.startsWith("广告 -")) {
+                return;
+            }
+            const group = document.createElement('div');
+            group.classList.add('filter-group', 'p-4', 'bg-gray-50', 'rounded-lg', 'shadow-sm');
+            group.innerHTML = `
+                <label class="text-base font-medium text-gray-900">${feature}</label>
+                <div class="filter-options mt-2" data-feature="${feature}">
+                    <button class="dont-care selected" data-value="dont-care">无所谓</button>
+                    <button class="must-have" data-value="must-have">必须有 👍</button>
+                    <button class="nice-to-have" data-value="nice-to-have">加分项 ✨</button>
+                    <button class="must-not-have" data-value="must-not-have">不能接受 👎</button>
+                </div>
+            `;
+            filterContainer.appendChild(group);
+        });
+
+        // --- 事件监听 ---
+
+        // 筛选选项按钮点击事件 (事件委托)
+        filterContainer.addEventListener('click', function(event) {
+            if (event.target.tagName === 'BUTTON') {
+                const buttons = event.target.parentElement.querySelectorAll('button');
+                buttons.forEach(btn => btn.classList.remove('selected'));
+                event.target.classList.add('selected');
+            }
+        });
+
+        // 筛选按钮点击事件
+        filterButton.addEventListener('click', () => {
+            // 1. 获取用户选择 (排除广告行)
+            const userPreferences = {};
+            const filterOptionGroups = filterContainer.querySelectorAll('.filter-options');
+            filterOptionGroups.forEach(group => {
+                const feature = group.getAttribute('data-feature');
+                 // 确保 feature 存在且不是广告相关
+                if (feature && !feature.startsWith("广告 -")) {
+                    const selectedButton = group.querySelector('button.selected');
+                    if (selectedButton) {
+                        userPreferences[feature] = selectedButton.getAttribute('data-value');
+                    } else {
+                        userPreferences[feature] = 'dont-care'; // 默认值
+                    }
+                }
+            });
+
+            // 2. 筛选和评分App
+            let filteredApps = apps.map((appName, index) => ({ name: appName, score: 0, index: index, meetsCriteria: true, features: {} }));
+
+            // 获取所有非广告功能特征
+            const featuresToCheck = features.filter(f => !f.startsWith("广告 -"));
+
+            featuresToCheck.forEach(feature => {
+                const preference = userPreferences[feature];
+                if (preference === 'dont-care') return; // 不关心此功能，跳过
+
+                filteredApps.forEach(app => {
+                    if (!app.meetsCriteria) return; // 如果已不满足条件，跳过后续检查
+
+                    const appFeatureValue = appData[feature][app.index]; // 'yes', 'no', 'paid', 'specific'
+
+                    // 记录该App此功能的具体情况 (仅记录用户关心的)
+                    if (preference !== 'dont-care') {
+                        app.features[feature] = appFeatureValue;
+                    }
+
+
+                    // 应用筛选逻辑
+                    switch (preference) {
+                        case 'must-have':
+                            // 必须有：'yes' 或 'paid' 或 'specific' 都算有
+                            if (appFeatureValue === 'no') {
+                                app.meetsCriteria = false;
+                            }
+                            break;
+                        case 'must-not-have':
+                            // 不能接受：'yes' 或 'paid' 或 'specific' 都算有，则排除
+                            if (appFeatureValue !== 'no') {
+                                app.meetsCriteria = false;
+                            }
+                            break;
+                        case 'nice-to-have':
+                            // 加分项：'yes' 或 'paid' 或 'specific' 都加分
+                            if (appFeatureValue !== 'no') {
+                                app.score += 1; // 每个加分项加1分
+                            }
+                            break;
+                    }
+                });
+            });
+
+            // 移除不满足 "Must Have" 和 "Must Not Have" 条件的App
+            filteredApps = filteredApps.filter(app => app.meetsCriteria);
+
+            // 按分数降序排序 (分数相同则按原顺序)
+            filteredApps.sort((a, b) => b.score - a.score);
+
+            // 3. 显示结果
+            displayResults(filteredApps, userPreferences);
+        });
+
+        // --- 结果显示 ---
+        function displayResults(filteredApps, preferences) {
+            resultsContainer.innerHTML = ''; // 清空旧结果
+
+            const maxResults = parseInt(resultsCountSelect.value, 10);
+            const appsToShow = filteredApps.slice(0, maxResults);
+
+            if (appsToShow.length === 0) {
+                resultsContainer.innerHTML = '<p class="text-gray-500">没有找到符合所有“必须有”和“不能接受”条件的App。请尝试放宽筛选条件。</p>';
+                return;
+            }
+
+            appsToShow.forEach((app, rank) => {
+                const appElement = document.createElement('div');
+                // 添加 result-item 类
+                appElement.classList.add('result-item', 'mb-4', 'p-4', 'rounded-lg');
+
+                // --- 计算付费/广告情况 ---
+                let hasPaid = false;
+                let hasAds = false;
+                // 检查所有功能（包括未在筛选器中显示的功能，如广告）
+                features.forEach(feature => {
+                    if (appData[feature][app.index] === 'paid') {
+                        hasPaid = true;
+                    }
+                    if ((feature === "广告 - 开屏广告" || feature === "广告 - 应用内广告") && appData[feature][app.index] === 'yes') {
+                        hasAds = true;
+                    }
+                });
+
+                let pricingSummaryText = '';
+                let pricingSummaryClass = '';
+                if (hasPaid && hasAds) {
+                    pricingSummaryText = '含付费功能 & 广告';
+                    pricingSummaryClass = 'pricing-paid-ads'; // 红
+                } else if (hasPaid) {
+                    pricingSummaryText = '含付费功能';
+                    pricingSummaryClass = 'pricing-paid'; // 橙
+                } else if (hasAds) {
+                    pricingSummaryText = '含广告';
+                    pricingSummaryClass = 'pricing-ads'; // 黄
+                } else {
+                    pricingSummaryText = '免费';
+                    pricingSummaryClass = 'pricing-free'; // 绿
+                }
+                // --- 结束 计算付费/广告情况 ---
+
+
+                let featuresHtml = '<ul class="list-disc list-inside mt-2 text-sm space-y-1">';
+                // 显示用户关心的功能及其状态
+                Object.keys(preferences).forEach(feature => {
+                    const preference = preferences[feature];
+                    // 确保 feature 存在于 app.features 中 (即用户关心此功能)
+                    if (preference !== 'dont-care' && app.features.hasOwnProperty(feature)) {
+                        const value = app.features[feature]; // 获取已记录的功能值
+                        let valueText = '';
+                        let valueClass = '';
+
+                        switch (value) {
+                            case 'yes': valueText = '支持'; valueClass = 'yes-feature'; break;
+                            case 'no': valueText = '不支持'; valueClass = 'no-feature'; break;
+                            case 'paid': valueText = '付费支持'; valueClass = 'paid-feature'; break;
+                            case 'specific': valueText = '支持 (特殊)'; valueClass = 'text-purple-600 font-semibold'; break; // 特殊情况用紫色
+                            default: valueText = value || '未知'; valueClass = 'text-gray-500'; // 处理可能的undefined
+                        }
+
+                         // 根据偏好高亮显示
+                         let highlightClass = '';
+                         if (preference === 'must-have' && value !== 'no') highlightClass = 'bg-blue-100';
+                         if (preference === 'nice-to-have' && value !== 'no') highlightClass = 'bg-green-100';
+                         // Must-not-have 的情况不会出现在这里，因为它们已经被过滤掉了
+                         // if (preference === 'must-not-have' && value === 'no') highlightClass = 'bg-gray-100';
+
+                        featuresHtml += `<li class="px-2 py-1 rounded ${highlightClass}"><span class="font-medium">${feature}:</span> <span class="${valueClass}">${valueText}</span></li>`;
+                    }
+                });
+                 featuresHtml += '</ul>';
+
+
+                appElement.innerHTML = `
+                    <h3 class="text-lg font-semibold text-blue-700">#${rank + 1}: <span class="app-name">${app.name}</span></h3>
+                    <p class="score-text text-sm text-gray-600">评分: <span class="font-bold text-green-600">${app.score}</span> (基于加分项)</p>
+                    <p class="pricing-info text-sm text-gray-500">付费/广告情况: <span class="${pricingSummaryClass}">${pricingSummaryText}</span></p>
+                    ${Object.keys(preferences).some(p => preferences[p] !== 'dont-care') ? `<details class="mt-2 text-sm"><summary class="cursor-pointer text-gray-600 hover:text-gray-800">显示相关功能详情</summary>${featuresHtml}</details>` : ''}
+                `;
+                resultsContainer.appendChild(appElement);
+            });
+
+            if (filteredApps.length > maxResults && maxResults !== 999) { // 当选择“所有”时不显示此提示
+                 const moreResultsInfo = document.createElement('p');
+                 moreResultsInfo.classList.add('text-center', 'text-gray-500', 'mt-4', 'text-sm');
+                 moreResultsInfo.textContent = `还有 ${filteredApps.length - maxResults} 个符合条件的App未显示，请调整显示数量或筛选条件。`;
+                 resultsContainer.appendChild(moreResultsInfo);
+            }
+        }
+
+        // --- 初始化 ---
+        // 页面加载时自动生成筛选选项
+        // (这段代码已在上面定义，无需重复)
+
+    </script>
+
+</body>
+</html>

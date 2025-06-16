@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时钟</title>
+    <!-- 引入Tailwind CSS以实现快速响应式设计 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Tone.js用于节拍器精准发声 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* 自定义样式 */
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background-color: #111827;
+            /* bg-gray-900 */
+            color: #d1d5db;
+            /* text-gray-300 */
+            overflow-x: hidden;
+        }
+
+        /* 隐藏数字输入框的默认箭头 */
+        input[type='number']::-webkit-outer-spin-button,
+        input[type='number']::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type='number'] {
+            -moz-appearance: textfield;
+        }
+
+        /* 侧边栏和内容区过渡效果 */
+        #sidebar,
+        #main-content {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* 按钮样式 */
+        .btn {
+            @apply px-4 py-2 rounded-lg font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900;
+        }
+
+        .btn-primary {
+            @apply bg-indigo-600 text-white hover:bg-indigo-500 focus:ring-indigo-500;
+        }
+
+        .btn-secondary {
+            @apply bg-gray-600 text-gray-200 hover:bg-gray-500 focus:ring-gray-500;
+        }
+
+        /* 输入框样式 */
+        .input-field {
+            @apply bg-gray-700 border border-gray-600 text-white text-center rounded-lg focus:ring-indigo-500 focus:border-indigo-500;
+        }
+
+        /* 随机结果动画 */
+        @keyframes result-pop {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            80% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .result-display {
+            animation: result-pop 0.4s ease-out forwards;
+        }
+
+        /* 侧边栏收起状态样式 */
+        #sidebar.collapsed {
+            width: 5rem;
+            /* 80px */
+        }
+
+        #sidebar.collapsed .sidebar-text,
+        #sidebar.collapsed .p-6 h2 {
+            display: none;
+        }
+
+        #sidebar.collapsed .tool-switcher,
+        #sidebar.collapsed #sidebar-collapse-toggle {
+            justify-content: center;
+        }
+
+        #sidebar.collapsed .tool-switcher svg,
+        #sidebar.collapsed #sidebar-collapse-toggle svg {
+            margin-right: 0;
+        }
+
+        #sidebar.collapsed .collapse-icon {
+            display: none;
+        }
+
+        #sidebar.collapsed .expand-icon {
+            display: block;
+        }
+
+        /* 新节拍器视觉样式 */
+        #metronome-arm {
+            transform-origin: bottom center;
+            transition: transform 0.1s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 侧边栏 -->
+    <aside id="sidebar"
+        class="bg-gray-800 text-gray-200 w-64 h-full fixed top-0 left-0 z-40 transform -translate-x-full md:translate-x-0">
+        <div class="p-6">
+            <h2 class="text-2xl font-bold text-white sidebar-text">工具箱</h2>
+        </div>
+        <nav class="mt-4">
+            <a href="#"
+                class="tool-switcher flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 hover:text-white"
+                data-tool="clock"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="mr-3">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg><span class="sidebar-text">时钟</span></a>
+            <a href="#"
+                class="tool-switcher flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 hover:text-white"
+                data-tool="countdown"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="mr-3">
+                    <path d="M10 2h4"></path>
+                    <path d="M12 14v-4"></path>
+                    <path d="M4 14a8 8 0 0 1 16 0H4Z"></path>
+                </svg><span class="sidebar-text">倒计时</span></a>
+            <a href="#"
+                class="tool-switcher flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 hover:text-white"
+                data-tool="stopwatch"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="mr-3">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 14 10"></polyline>
+                    <line x1="12" y1="2" x2="12" y2="4"></line>
+                    <line x1="12" y1="20" x2="12" y2="22"></line>
+                    <line x1="2" y1="12" x2="4" y2="12"></line>
+                    <line x1="20" y1="12" x2="22" y2="12"></line>
+                </svg><span class="sidebar-text">秒表</span></a>
+            <a href="#"
+                class="tool-switcher flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 hover:text-white"
+                data-tool="metronome"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="mr-3">
+                    <path
+                        d="m9 9 1 1 1-1-1-1-1 1Zm-2 2L6 9l1-1 1 1-1 2Zm6 0 1-1 1 1-1 1-1-1Zm-2 2-1 1-1-1 1-1 1 1Zm-5 4 12-12">
+                    </path>
+                    <path d="M20.83 14.83a4 4 0 0 0-5.66-5.66"></path>
+                </svg><span class="sidebar-text">节拍器</span></a>
+            <a href="#"
+                class="tool-switcher flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 hover:text-white"
+                data-tool="random-number"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" class="mr-3">
+                    <path d="M12 12v.01"></path>
+                    <path d="M12 19v.01"></path>
+                    <path d="M12 5v.01"></path>
+                </svg><span class="sidebar-text">随机数</span></a>
+            <a href="#"
+                class="tool-switcher flex items-center py-3 px-6 text-gray-300 hover:bg-gray-700 hover:text-white"
+                data-tool="random-item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" class="mr-3">
+                    <path d="M12 12h.01"></path>
+                    <path d="M19 12h.01"></path>
+                    <path d="M5 12h.01"></path>
+                </svg><span class="sidebar-text">随机项目</span></a>
+        </nav>
+        <div class="absolute bottom-0 left-0 w-full p-4 border-t border-gray-700"><button id="sidebar-collapse-toggle"
+                class="w-full hidden md:flex items-center p-2 rounded-lg hover:bg-gray-700"><svg
+                    class="collapse-icon h-6 w-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <rect width="18" height="18" x="3" y="3" rx="2" />
+                    <path d="M9 3v18" />
+                    <path d="m16 15-3-3 3-3" />
+                </svg><svg class="expand-icon hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <rect width="18" height="18" x="3" y="3" rx="2" />
+                    <path d="M9 3v18" />
+                    <path d="m13 15 3-3-3-3" />
+                </svg><span class="ml-2 sidebar-text">收起</span></button></div>
+    </aside>
+
+    <!-- 移动端侧边栏切换按钮 -->
+    <button id="sidebar-toggle" class="md:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-gray-800 text-white"><svg
+            id="menu-open-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg><svg id="menu-close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="hidden">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg></button>
+
+    <!-- 主要内容区域 -->
+    <main id="main-content" class="md:ml-64 h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-2xl mx-auto text-center">
+
+            <!-- 时钟 -->
+            <div id="clock" class="tool-content">
+                <div class="text-7xl md:text-9xl font-bold tracking-widest" id="clock-display">00:00:00</div>
+                <div class="text-2xl md:text-3xl mt-4 text-gray-400" id="date-display">2024年1月1日</div>
+            </div>
+            <!-- 倒计时 -->
+            <div id="countdown" class="tool-content hidden">
+                <h1 class="text-4xl font-bold mb-8">倒计时</h1>
+                <div class="text-7xl md:text-8xl font-mono" id="countdown-display">00:00:00</div>
+                <div id="countdown-inputs" class="flex justify-center items-center space-x-2 md:space-x-4 my-8"><input
+                        type="number" id="cd-hours" placeholder="时" min="0"
+                        class="input-field w-20 md:w-24 text-2xl p-2"><span class="text-2xl">:</span><input
+                        type="number" id="cd-minutes" placeholder="分" min="0" max="59"
+                        class="input-field w-20 md:w-24 text-2xl p-2"><span class="text-2xl">:</span><input
+                        type="number" id="cd-seconds" placeholder="秒" min="0" max="59"
+                        class="input-field w-20 md:w-24 text-2xl p-2"></div>
+                <div class="flex justify-center space-x-4"><button id="cd-start"
+                        class="btn btn-primary">开始</button><button id="cd-pause"
+                        class="btn btn-secondary">暂停</button><button id="cd-reset" class="btn btn-secondary">重置</button>
+                </div>
+            </div>
+            <!-- 秒表 -->
+            <div id="stopwatch" class="tool-content hidden">
+                <h1 class="text-4xl font-bold mb-8">秒表</h1>
+                <div class="text-7xl md:text-8xl font-mono" id="stopwatch-display">00:00:00.00</div>
+                <div class="flex justify-center space-x-4 my-8"><button id="sw-start"
+                        class="btn btn-primary">开始</button><button id="sw-stop"
+                        class="btn btn-secondary">停止</button><button id="sw-lap"
+                        class="btn btn-secondary">计次</button><button id="sw-reset" class="btn btn-secondary">重置</button>
+                </div>
+                <div id="laps-container" class="mt-4 max-h-48 overflow-y-auto text-left w-full max-w-sm mx-auto">
+                    <ul id="laps" class="space-y-2"></ul>
+                </div>
+            </div>
+
+            <!-- 节拍器 (重构版) -->
+            <div id="metronome" class="tool-content hidden">
+                <h1 class="text-4xl font-bold mb-8">节拍器</h1>
+                <!-- 节拍器可视化摆臂 -->
+                <div class="relative w-2/3 h-48 md:h-64 mx-auto mb-8 flex justify-center items-end">
+                    <div id="metronome-arm" class="absolute bottom-1/2 w-1.5 h-1/2 bg-gray-400 rounded-full">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-5 bg-indigo-500 rounded"></div>
+                    </div>
+                    <div class="w-4 h-4 bg-gray-600 rounded-full z-10"></div> <!-- 摆臂枢轴 -->
+                </div>
+                <div class="text-4xl font-mono mb-4"><span id="bpm-display">120</span> <span class="text-2xl">BPM</span>
+                </div>
+                <input type="range" id="bpm-slider" min="40" max="240" value="120" class="w-full max-w-sm mx-auto">
+                <div class="flex justify-center space-x-4 mt-8">
+                    <button id="metro-start" class="btn btn-primary">开始</button>
+                    <button id="metro-stop" class="btn btn-secondary">停止</button>
+                </div>
+            </div>
+
+            <!-- 随机数 -->
+            <div id="random-number" class="tool-content hidden">
+                <h1 class="text-4xl font-bold mb-8">随机数生成器</h1>
+                <div id="random-number-result"
+                    class="text-8xl md:text-9xl font-bold my-10 h-32 flex items-center justify-center">?</div>
+                <div class="flex justify-center items-center space-x-4 mb-8"><input type="number" id="min-number"
+                        value="1" class="input-field w-32 text-xl p-2"><span class="text-xl">到</span><input
+                        type="number" id="max-number" value="100" class="input-field w-32 text-xl p-2"></div><button
+                    id="generate-number" class="btn btn-primary">生成</button>
+            </div>
+            <!-- 随机项目 -->
+            <div id="random-item" class="tool-content hidden">
+                <h1 class="text-4xl font-bold mb-8">随机项目选择器</h1>
+                <div id="random-item-result"
+                    class="text-4xl md:text-5xl font-bold my-10 h-20 flex items-center justify-center p-4 bg-gray-800 rounded-lg">
+                    ?</div>
+                <div class="w-full max-w-md mx-auto mb-6"><label for="item-list" class="block mb-2 text-lg">输入项目
+                        (每行一个)</label><textarea id="item-list" rows="6"
+                        class="input-field w-full p-2 text-base text-left" placeholder="苹果&#10;香蕉&#10;橘子"></textarea>
+                </div><button id="pick-item" class="btn btn-primary">抽取</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- 全局元素和通用函数 ---
+            const toolContents = document.querySelectorAll('.tool-content');
+            const toolSwitchers = document.querySelectorAll('.tool-switcher');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const sidebarCollapseToggle = document.getElementById('sidebar-collapse-toggle');
+            const mainContent = document.getElementById('main-content');
+            const menuOpenIcon = document.getElementById('menu-open-icon');
+            const menuCloseIcon = document.getElementById('menu-close-icon');
+            let activeTool = 'clock';
+
+            const switchTool = (toolName) => {
+                activeTool = toolName;
+                toolContents.forEach(content => content.id === toolName ? content.classList.remove('hidden') : content.classList.add('hidden'));
+                if (window.innerWidth < 768 && !sidebar.classList.contains('-translate-x-full')) toggleMobileSidebar();
+            };
+
+            const toggleMobileSidebar = () => {
+                sidebar.classList.toggle('-translate-x-full');
+                menuOpenIcon.classList.toggle('hidden');
+                menuCloseIcon.classList.toggle('hidden');
+            };
+
+            sidebarToggle.addEventListener('click', toggleMobileSidebar);
+            sidebarCollapseToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('collapsed');
+                mainContent.style.marginLeft = sidebar.classList.contains('collapsed') ? '5rem' : '16rem';
+            });
+
+            toolSwitchers.forEach(switcher => {
+                switcher.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const toolName = e.currentTarget.dataset.tool;
+                    switchTool(toolName);
+                    toolSwitchers.forEach(s => s.classList.remove('bg-gray-700', 'text-white'));
+                    e.currentTarget.classList.add('bg-gray-700', 'text-white');
+                });
+            });
+
+            // --- 时钟逻辑 ---
+            const clockDisplay = document.getElementById('clock-display');
+            const dateDisplay = document.getElementById('date-display');
+            const updateClock = () => {
+                const now = new Date();
+                clockDisplay.textContent = now.toLocaleTimeString('zh-CN', { hour12: false });
+                dateDisplay.textContent = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日 ${['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'][now.getDay()]}`;
+            };
+
+            // --- 秒表逻辑 ---
+            const swDisplay = document.getElementById('stopwatch-display');
+            const swStartBtn = document.getElementById('sw-start'), swStopBtn = document.getElementById('sw-stop'), swLapBtn = document.getElementById('sw-lap'), swResetBtn = document.getElementById('sw-reset');
+            const lapsList = document.getElementById('laps');
+            let swInterval, swStartTime = 0, swElapsedTime = 0, swRunning = false, lapCount = 0;
+            const formatTime = (time) => new Date(time).toISOString().slice(14, 22);
+            swStartBtn.onclick = () => { if (!swRunning) { swStartTime = Date.now() - swElapsedTime; swInterval = setInterval(() => swDisplay.textContent = formatTime(swElapsedTime = Date.now() - swStartTime), 10); swRunning = true; } };
+            swStopBtn.onclick = () => { if (swRunning) { clearInterval(swInterval); swRunning = false; } };
+            swResetBtn.onclick = () => { clearInterval(swInterval); swRunning = false; swElapsedTime = 0; lapCount = 0; swDisplay.textContent = '00:00:00.00'; lapsList.innerHTML = ''; };
+            swLapBtn.onclick = () => { if (swRunning) { lapCount++; const li = document.createElement('li'); li.className = 'flex justify-between items-center p-2 bg-gray-800 rounded-md'; li.innerHTML = `<span class="text-gray-400">计次 ${lapCount}</span> <span class="font-mono">${formatTime(swElapsedTime)}</span>`; lapsList.prepend(li); } };
+
+            // --- 倒计时逻辑 ---
+            const cdDisplay = document.getElementById('countdown-display');
+            const cdHoursInput = document.getElementById('cd-hours'), cdMinutesInput = document.getElementById('cd-minutes'), cdSecondsInput = document.getElementById('cd-seconds');
+            const cdStartBtn = document.getElementById('cd-start'), cdPauseBtn = document.getElementById('cd-pause'), cdResetBtn = document.getElementById('cd-reset');
+            let cdInterval, cdRemainingSeconds = 0, cdRunning = false;
+            const formatCountdownTime = (s) => `${String(Math.floor(s / 3600)).padStart(2, '0')}:${String(Math.floor(s % 3600 / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
+            const startCountdown = () => { if (cdRunning || cdRemainingSeconds <= 0) return; cdRunning = true; cdInterval = setInterval(() => { cdDisplay.textContent = formatCountdownTime(--cdRemainingSeconds); if (cdRemainingSeconds <= 0) { clearInterval(cdInterval); cdRunning = false; cdDisplay.classList.add('text-red-500'); } }, 1000); };
+            cdStartBtn.onclick = () => { if (!cdRunning) { if (cdRemainingSeconds === 0) { cdRemainingSeconds = (parseInt(cdHoursInput.value) || 0) * 3600 + (parseInt(cdMinutesInput.value) || 0) * 60 + (parseInt(cdSecondsInput.value) || 0); } if (cdRemainingSeconds > 0) startCountdown(); } };
+            cdPauseBtn.onclick = () => { if (cdRunning) { clearInterval(cdInterval); cdRunning = false; } };
+            cdResetBtn.onclick = () => { clearInterval(cdInterval); cdRunning = false; cdRemainingSeconds = 0; cdDisplay.textContent = '00:00:00'; cdHoursInput.value = ''; cdMinutesInput.value = ''; cdSecondsInput.value = ''; cdDisplay.classList.remove('text-red-500'); };
+
+            // --- 节拍器逻辑 (重构版) ---
+            const bpmSlider = document.getElementById('bpm-slider');
+            const bpmDisplay = document.getElementById('bpm-display');
+            const metroStartBtn = document.getElementById('metro-start');
+            const metroStopBtn = document.getElementById('metro-stop');
+            const metronomeArm = document.getElementById('metronome-arm');
+
+            let tickSynth, tockSynth, metronomeSequence;
+            let isMetronomeSetup = false;
+            let swingLeft = true;
+
+            function setupMetronome() {
+                if (isMetronomeSetup) return;
+                // 创建两种不同的声音，用于强弱拍
+                tickSynth = new Tone.MembraneSynth({ pitchDecay: 0.01, octaves: 6, oscillator: { type: "sine" }, envelope: { attack: 0.001, decay: 0.2, sustain: 0.01, release: 0.1 } }).toDestination();
+                tockSynth = new Tone.MembraneSynth({ pitchDecay: 0.01, octaves: 4, oscillator: { type: "sine" }, envelope: { attack: 0.001, decay: 0.2, sustain: 0.01, release: 0.1 } }).toDestination();
+
+                // 创建一个4拍的序列
+                metronomeSequence = new Tone.Sequence((time, beat) => {
+                    // 根据拍子播放不同声音
+                    if (beat === 0) {
+                        tickSynth.triggerAttackRelease("C2", "8n", time);
+                    } else {
+                        tockSynth.triggerAttackRelease("G1", "8n", time);
+                    }
+
+                    // 与音频同步更新视觉
+                    Tone.Draw.schedule(() => {
+                        metronomeArm.style.transform = `rotate(${swingLeft ? -30 : 30}deg)`;
+                        swingLeft = !swingLeft;
+                    }, time);
+
+                }, [0, 1, 2, 3], "4n"); // [0,1,2,3]代表4拍，"4n"代表每四分音符触发一次
+
+                Tone.Transport.bpm.value = parseInt(bpmSlider.value);
+                metronomeSequence.start(0);
+                isMetronomeSetup = true;
+            }
+
+            metroStartBtn.onclick = async () => {
+                // 首次点击时，需要用户交互来启动音频上下文
+                if (Tone.context.state !== 'running') {
+                    await Tone.start();
+                }
+                // 初始化节拍器
+                setupMetronome();
+                // 启动Tone.js的主时钟
+                if (Tone.Transport.state !== 'started') {
+                    swingLeft = true; // 每次开始都从左边起摆
+                    Tone.Transport.start();
+                }
+            };
+
+            metroStopBtn.onclick = () => {
+                if (Tone.Transport.state === 'started') {
+                    Tone.Transport.stop();
+                    // 停止时，将摆臂重置到中间位置
+                    metronomeArm.style.transform = 'rotate(0deg)';
+                }
+            };
+
+            bpmSlider.addEventListener('input', (e) => {
+                const bpm = e.target.value;
+                bpmDisplay.textContent = bpm;
+                if (Tone.Transport) {
+                    Tone.Transport.bpm.value = bpm;
+                }
+            });
+
+            // --- 随机数逻辑 ---
+            const generateNumberBtn = document.getElementById('generate-number'), minNumberInput = document.getElementById('min-number'), maxNumberInput = document.getElementById('max-number'), numberResultDiv = document.getElementById('random-number-result');
+            generateNumberBtn.onclick = () => { const min = parseInt(minNumberInput.value), max = parseInt(maxNumberInput.value); if (min > max) { numberResultDiv.textContent = '错误'; return; } numberResultDiv.textContent = ''; let anim = setInterval(() => numberResultDiv.textContent = Math.floor(Math.random() * (max - min + 1)) + min, 50); setTimeout(() => { clearInterval(anim); const final = Math.floor(Math.random() * (max - min + 1)) + min; numberResultDiv.textContent = final; numberResultDiv.classList.add('result-display'); setTimeout(() => numberResultDiv.classList.remove('result-display'), 400); }, 1000); };
+
+            // --- 随机项目逻辑 ---
+            const pickItemBtn = document.getElementById('pick-item'), itemListTextarea = document.getElementById('item-list'), itemResultDiv = document.getElementById('random-item-result');
+            pickItemBtn.onclick = () => { const items = itemListTextarea.value.split('\n').map(i => i.trim()).filter(i => i.length > 0); if (items.length === 0) { itemResultDiv.textContent = '无项目'; return; } itemResultDiv.textContent = ''; let anim = setInterval(() => itemResultDiv.textContent = items[Math.floor(Math.random() * items.length)], 80); setTimeout(() => { clearInterval(anim); itemResultDiv.textContent = items[Math.floor(Math.random() * items.length)]; itemResultDiv.classList.add('result-display'); setTimeout(() => itemResultDiv.classList.remove('result-display'), 400); }, 1500); };
+
+            // --- 初始化 ---
+            const init = () => {
+                setInterval(updateClock, 1000);
+                updateClock();
+                switchTool('clock');
+                toolSwitchers[0].classList.add('bg-gray-700', 'text-white');
+            };
+
+            init();
+        });
+    </script>
+</body>
+
+</html>

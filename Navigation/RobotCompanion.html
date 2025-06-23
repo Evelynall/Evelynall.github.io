@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机器人宠物伴侣</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden; /* 防止滚动 */
+            font-family: "Inter", sans-serif;
+            color: #ffffff;
+            height: 100vh; /* 确保 body 占据整个视口高度 */
+            background-color: #1a202c; /* 默认背景色 */
+        }
+
+        #app-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* 隐藏溢出的页面 */
+        }
+
+        .app-page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.5s ease-out; /* 页面滑动过渡动画 */
+            background-color: #1a202c; /* 默认背景，每个页面会覆盖 */
+            box-sizing: border-box; /* 将 padding 和 border 计算在 width/height 内 */
+            padding: 20px; /* 页面内边距 */
+        }
+
+        /* 眼睛页面特定样式 */
+        #page-eyes.app-page { background-color: #1a202c; }
+        .eye-container {
+            width: 200px; height: 200px; background-color: #007bff;
+            border-radius: 50%; margin: 0 30px;
+            box-shadow: 0 0 40px rgba(0, 123, 255, 0.8), 0 0 80px rgba(0, 123, 255, 0.6);
+            display: flex; justify-content: center; align-items: center;
+            position: relative; transform-origin: center center;
+            transition: transform 0.3s ease-out, border-radius 0.3s ease-out;
+            cursor: pointer;
+        }
+        .happy-eye { border-radius: 50% 50% 10% 10% / 50% 50% 20% 20%; }
+        .angry-eye { border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%; transform: scaleY(0.7) translateY(20px); }
+        .blink-eye { transform: scaleY(0); transition: transform 0.1s ease-out; }
+        .look-left { transform: translateX(-40px); }
+        .look-right { transform: translateX(40px); }
+        .look-center { transform: translateX(0); }
+        .curious-eye { border-radius: 50% 50% 50% 50% / 50% 50% 30% 70%; transform: translateY(-10px); }
+        .sad-eye { border-radius: 50% 50% 70% 70% / 50% 50% 50% 50%; transform: scaleY(0.9) translateY(10px); }
+        .sleepy-eye { transform: scaleY(0.2); border-radius: 50%; }
+
+        .debug-controls {
+            position: absolute; bottom: 20px; background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px; border-radius: 10px; display: flex;
+            gap: 10px; flex-wrap: wrap; justify-content: center;
+        }
+        
+        /* 时间页面特定样式 */
+        #page-time.app-page { background-color: #2d3748; }
+        #current-time { font-size: 5rem; font-weight: bold; text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
+        #current-date { font-size: 1.5rem; margin-top: 10px; opacity: 0.8; }
+
+        /* 番茄钟页面特定样式 */
+        #page-pomodoro.app-page { background-color: #31473A; }
+        .pomodoro-display { font-size: 6rem; font-weight: bold; margin-bottom: 20px; text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
+        .pomodoro-status { font-size: 1.8rem; margin-bottom: 30px; color: #bbf7d0; }
+        .pomodoro-settings-panel {
+            background-color: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px;
+            margin-top: 20px; width: 90%; max-width: 350px;
+            display: none; /* 默认隐藏 */
+        }
+        .pomodoro-settings-panel.open { display: block; }
+        
+        /* Todo List 页面样式 */
+        #page-todo.app-page {
+            background-color: #4A5568; padding-top: 50px; justify-content: flex-start;
+        }
+        .todo-input-container {
+            width: 90%; max-width: 500px; display: flex; margin-bottom: 20px; align-items: center;
+        }
+        #todo-list {
+            width: 90%; max-width: 500px; list-style: none; padding: 0;
+            max-height: calc(100vh - 280px); overflow-y: auto;
+        }
+        @keyframes todo-item-enter {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .todo-item-enter { animation: todo-item-enter 0.3s ease-out forwards; }
+        .todo-item.completed { background-color: #5a6270; opacity: 0.7; }
+        .todo-item.completed .todo-item-text { text-decoration: line-through; color: #a0aec0; }
+        .todo-item-actions { display: flex; align-items: center; flex-shrink: 0; }
+        .todo-footer { width: 90%; max-width: 500px; margin-top: 10px; text-align: right; }
+
+        /* ✨ 中控台页面样式 */
+        #page-control-center.app-page { background-color: #2c2a4a; }
+        .control-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; width: 90%; max-width: 400px;}
+        .control-button {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px; padding: 20px; text-align: center;
+            transition: all 0.3s ease; cursor: pointer;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+        }
+        .control-button:hover { background-color: rgba(255, 255, 255, 0.2); transform: translateY(-5px); }
+        .control-button svg { width: 40px; height: 40px; }
+    </style>
+</head>
+<body>
+    <button id="toggleDebug" class="toggle-debug-button fixed top-5 right-5 z-50 bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded-lg shadow-md">显示/隐藏调试</button>
+
+    <div id="app-container">
+        <!-- 页面 1: 机器人眼睛 -->
+        <div id="page-eyes" class="app-page translate-x-0">
+            <div class="flex">
+                <div id="eyeLeft" class="eye-container"></div>
+                <div id="eyeRight" class="eye-container"></div>
+            </div>
+            <div id="debugControls" class="debug-controls hidden">
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out shadow-lg" data-action="happy">开心</button>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out shadow-lg" data-action="angry">生气</button>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out shadow-lg" data-action="curious">好奇</button>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out shadow-lg" data-action="sad">悲伤</button>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out shadow-lg" data-action="sleepy">困倦</button>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out shadow-lg" data-action="blink">眨眼</button>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out shadow-lg" data-action="look-left">左看</button>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out shadow-lg" data-action="look-right">右看</button>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out shadow-lg" data-action="look-center">中间看</button>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out shadow-lg" data-action="reset">重置</button>
+            </div>
+        </div>
+
+        <!-- 页面 2: 当前时间 -->
+        <div id="page-time" class="app-page translate-x-full">
+            <div class="text-center">
+                <div id="current-time"></div>
+                <div id="current-date"></div>
+            </div>
+        </div>
+
+        <!-- 页面 3: 番茄钟 -->
+        <div id="page-pomodoro" class="app-page translate-x-full">
+            <div class="text-center">
+                <div class="pomodoro-display" id="pomodoro-timer">25:00</div>
+                <div class="pomodoro-status" id="pomodoro-status">工作时间</div>
+                <div class="pomodoro-controls flex justify-center items-center space-x-2">
+                    <button id="pomodoro-start" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out shadow-lg text-xl">开始</button>
+                    <button id="pomodoro-pause" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out shadow-lg text-xl">暂停</button>
+                    <button id="pomodoro-reset" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out shadow-lg text-xl">重置</button>
+                    <button id="pomodoro-settings-toggle" class="bg-gray-600 hover:bg-gray-700 text-white p-3 rounded-lg transition duration-300 ease-in-out shadow-lg">⚙️</button>
+                </div>
+                <div id="pomodoro-settings" class="pomodoro-settings-panel">
+                    <div class="grid grid-cols-2 gap-4 text-left">
+                        <div>
+                            <label for="work-duration" class="block mb-1 text-sm">工作 (分钟)</label>
+                            <input type="number" id="work-duration" class="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-400">
+                        </div>
+                        <div>
+                            <label for="break-duration" class="block mb-1 text-sm">短休息 (分钟)</label>
+                            <input type="number" id="break-duration" class="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-400">
+                        </div>
+                         <div>
+                            <label for="long-break-duration" class="block mb-1 text-sm">长休息 (分钟)</label>
+                            <input type="number" id="long-break-duration" class="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-400">
+                        </div>
+                    </div>
+                    <button id="save-pomodoro-settings" class="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">保存设置</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页面 4: 待办事项 -->
+        <div id="page-todo" class="app-page translate-x-full">
+            <h2 class="text-3xl font-bold mb-6">待办事项</h2>
+            <div class="todo-input-container">
+                <input type="text" id="new-todo-input" placeholder="添加一个新任务..." class="flex-grow p-3 rounded-l-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg border-2 border-transparent focus:border-blue-400 shadow-inner transition-all duration-300">
+                <button id="add-todo-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-r-lg transition duration-300 ease-in-out text-lg shadow-lg">添加</button>
+            </div>
+            <ul id="todo-list"></ul>
+            <div class="todo-footer">
+                <button id="clear-completed-todos" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out shadow-lg">清除已完成</button>
+            </div>
+        </div>
+
+        <!-- 页面 5: 中控台 -->
+        <div id="page-control-center" class="app-page translate-x-full">
+             <h2 class="text-4xl font-bold mb-8">中控台</h2>
+             <div class="control-grid">
+                <button class="control-button" data-page="page-eyes">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639l4.43-4.44a1.012 1.012 0 011.415 0l4.43 4.44a1.012 1.012 0 010 .639l-4.43 4.44a1.012 1.012 0 01-1.415 0l-4.43-4.44z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12.75 12.75l-2.25-2.25M15 12l-2.25 2.25" /></svg>
+                    <span>机器人</span>
+                </button>
+                <button class="control-button" data-page="page-time">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span>时钟</span>
+                </button>
+                <button class="control-button" data-page="page-pomodoro">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" /></svg>
+                    <span>番茄钟</span>
+                </button>
+                <button class="control-button" data-page="page-todo">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span>待办事项</span>
+                </button>
+             </div>
+        </div>
+    </div>
+
+    <script>
+        // ===============================================
+        // 全局应用逻辑和页面切换
+        // ===============================================
+        let currentPageIndex = 0;
+        const pages = [
+            { id: 'page-eyes', bgColor: '#1a202c' },
+            { id: 'page-time', bgColor: '#2d3748' },
+            { id: 'page-pomodoro', bgColor: '#31473A' },
+            { id: 'page-todo', bgColor: '#4A5568' },
+            { id: 'page-control-center', bgColor: '#2c2a4a' }
+        ];
+
+        let isSwiping = false;
+        let isMouseDown = false;
+        let touchStartX = 0, touchEndX = 0;
+        const minSwipeDistance = 50;
+
+        function showPage(index, fromControlCenter = false) {
+            if (index === currentPageIndex && !fromControlCenter) return;
+            
+            switch (pages[currentPageIndex].id) {
+                case 'page-eyes': stopEyeActions(); break;
+                case 'page-pomodoro': pomodoroPause(); break;
+            }
+
+            pages.forEach((page, i) => {
+                const pageElement = document.getElementById(page.id);
+                if (i === index) {
+                    pageElement.classList.remove('-translate-x-full', 'translate-x-full');
+                    pageElement.classList.add('translate-x-0');
+                } else if (i < index) {
+                    pageElement.classList.remove('translate-x-0', 'translate-x-full');
+                    pageElement.classList.add('-translate-x-full');
+                } else {
+                    pageElement.classList.remove('translate-x-0', '-translate-x-full');
+                    pageElement.classList.add('translate-x-full');
+                }
+            });
+
+            currentPageIndex = index;
+
+            switch (pages[currentPageIndex].id) {
+                case 'page-eyes': startEyeActions(); break;
+                case 'page-time': updateCurrentTime(); break;
+                case 'page-todo':
+                    setTimeout(() => { renderTodos(); newTodoInput.focus(); }, 500);
+                    break;
+            }
+        }
+        
+        const appContainer = document.getElementById('app-container');
+        
+        appContainer.addEventListener('dblclick', () => {
+             const controlCenterIndex = pages.findIndex(p => p.id === 'page-control-center');
+             showPage(controlCenterIndex, true);
+        });
+
+        // --- ✨ 滑动切换功能修复 ---
+        function handleSwipe() {
+            const deltaX = touchEndX - touchStartX;
+            if (Math.abs(deltaX) > minSwipeDistance) {
+                if (deltaX > 0) { // 向右滑动
+                    showPage((currentPageIndex - 1 + pages.length) % pages.length);
+                } else { // 向左滑动
+                    showPage((currentPageIndex + 1) % pages.length);
+                }
+            }
+        }
+
+        function canStartSwipe(e) {
+            // 在中控台页面禁用滑动
+            if (pages[currentPageIndex].id === 'page-control-center') return false;
+            // 如果目标是按钮、输入框等交互元素，则不启动滑动
+            const targetTag = e.target.tagName.toLowerCase();
+            if (targetTag === 'button' || targetTag === 'input' || e.target.closest('.control-button') || e.target.closest('.pomodoro-settings-panel')) {
+                return false;
+            }
+            return true;
+        }
+
+        // 桌面端鼠标拖动事件
+        appContainer.addEventListener('mousedown', e => {
+            if (!canStartSwipe(e)) return;
+            isMouseDown = true;
+            touchStartX = e.clientX;
+        });
+
+        appContainer.addEventListener('mouseup', e => {
+            if (!isMouseDown) return;
+            isMouseDown = false;
+            touchEndX = e.clientX;
+            handleSwipe();
+        });
+
+        appContainer.addEventListener('mouseleave', () => {
+            isMouseDown = false;
+        });
+
+        // 移动端触摸事件
+        appContainer.addEventListener('touchstart', e => {
+            if (!canStartSwipe(e)) return;
+            isSwiping = false; // 为新的触摸重置滑动状态
+            touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+
+        appContainer.addEventListener('touchmove', e => {
+            if (touchStartX === 0) return; // 如果滑动没有在有效目标上开始，则忽略
+            isSwiping = true;
+        }, { passive: true });
+
+        appContainer.addEventListener('touchend', e => {
+            if (!isSwiping) return;
+            isSwiping = false;
+            touchEndX = e.changedTouches[0].clientX;
+            handleSwipe();
+            touchStartX = 0; // 重置起始点
+        });
+
+
+        document.addEventListener('DOMContentLoaded', () => { 
+            loadPomodoroSettings();
+            showPage(0); 
+        });
+
+        document.querySelectorAll('.control-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const pageId = button.dataset.page;
+                const pageIndex = pages.findIndex(p => p.id === pageId);
+                if (pageIndex !== -1) {
+                    showPage(pageIndex, true);
+                }
+            });
+        });
+
+        // ===============================================
+        // 机器人眼睛逻辑
+        // ===============================================
+        const eyeLeft = document.getElementById('eyeLeft');
+        const eyeRight = document.getElementById('eyeRight');
+        const debugControls = document.getElementById('debugControls');
+        const toggleDebugButton = document.getElementById('toggleDebug');
+        const eyeClasses = ['happy-eye', 'angry-eye', 'curious-eye', 'sad-eye', 'sleepy-eye', 'blink-eye', 'look-left', 'look-right', 'look-center'];
+        let eyeActionTimeoutId;
+        function clearEyeClasses(eyeElement) { eyeClasses.forEach(cls => eyeElement.classList.remove(cls)); }
+        function setEyeExpression(eyeElement, expressionClass) {
+            const classesToClear = eyeClasses.filter(cls => cls !== 'blink-eye');
+            classesToClear.forEach(cls => eyeElement.classList.remove(cls));
+            if (expressionClass) { eyeElement.classList.add(expressionClass); }
+        }
+        function blinkEyes() {
+            eyeLeft.classList.add('blink-eye'); eyeRight.classList.add('blink-eye');
+            setTimeout(() => { eyeLeft.classList.remove('blink-eye'); eyeRight.classList.remove('blink-eye'); }, 100);
+        }
+        function executeEyeAction() {
+            clearEyeClasses(eyeLeft); clearEyeClasses(eyeRight);
+            setEyeExpression(eyeLeft, 'look-center'); setEyeExpression(eyeRight, 'look-center');
+            const primaryActionType = Math.random() < 0.6 ? 'directional' : 'emotional';
+            let actionDuration = 0;
+            if (primaryActionType === 'directional') {
+                const chosenDirection = ['look-left', 'look-right'][Math.floor(Math.random() * 2)];
+                setEyeExpression(eyeLeft, chosenDirection); setEyeExpression(eyeRight, chosenDirection);
+                actionDuration = 1500;
+                setTimeout(() => { setEyeExpression(eyeLeft, 'look-center'); setEyeExpression(eyeRight, 'look-center'); }, actionDuration);
+            } else {
+                const chosenEmotion = ['happy-eye', 'angry-eye', 'curious-eye', 'sad-eye', 'sleepy-eye'][Math.floor(Math.random() * 5)];
+                setEyeExpression(eyeLeft, chosenEmotion); setEyeExpression(eyeRight, chosenEmotion);
+                actionDuration = 2500;
+            }
+            if (Math.random() < 0.4) { setTimeout(blinkEyes, Math.random() * (actionDuration - 300) + 100); }
+            eyeActionTimeoutId = setTimeout(() => {
+                clearEyeClasses(eyeLeft); clearEyeClasses(eyeRight);
+                setEyeExpression(eyeLeft, 'look-center'); setEyeExpression(eyeRight, 'look-center');
+                executeEyeAction();
+            }, actionDuration + 1500);
+        }
+        function startEyeActions() { if (eyeActionTimeoutId) { clearTimeout(eyeActionTimeoutId); } executeEyeAction(); }
+        function stopEyeActions() {
+            if (eyeActionTimeoutId) { clearTimeout(eyeActionTimeoutId); }
+            clearEyeClasses(eyeLeft); clearEyeClasses(eyeRight);
+            setEyeExpression(eyeLeft, 'look-center'); setEyeExpression(eyeRight, 'look-center');
+        }
+        eyeLeft.addEventListener('click', blinkEyes); eyeRight.addEventListener('click', blinkEyes);
+        debugControls.addEventListener('click', (event) => {
+            const action = event.target.dataset.action;
+            if (action) {
+                stopEyeActions(); clearEyeClasses(eyeLeft); clearEyeClasses(eyeRight);
+                switch (action) {
+                    case 'happy': case 'angry': case 'curious': case 'sad': case 'sleepy':
+                        setEyeExpression(eyeLeft, `${action}-eye`); setEyeExpression(eyeRight, `${action}-eye`); break;
+                    case 'blink': blinkEyes(); break;
+                    case 'look-left': setEyeExpression(eyeLeft, 'look-left'); setEyeExpression(eyeRight, 'look-left'); break;
+                    case 'look-right': setEyeExpression(eyeLeft, 'look-right'); setEyeExpression(eyeRight, 'look-right'); break;
+                    case 'look-center': setEyeExpression(eyeLeft, 'look-center'); setEyeExpression(eyeRight, 'look-center'); break;
+                    case 'reset': clearEyeClasses(eyeLeft); clearEyeClasses(eyeRight); startEyeActions(); break;
+                }
+            }
+        });
+        toggleDebugButton.addEventListener('click', () => { debugControls.classList.toggle('hidden'); });
+        debugControls.classList.add('hidden');
+
+
+        // ===============================================
+        // 当前时间逻辑
+        // ===============================================
+        const currentTimeDisplay = document.getElementById('current-time');
+        const currentDateDisplay = document.getElementById('current-date');
+        let timeIntervalId;
+        function updateCurrentTime() {
+            const now = new Date();
+            currentTimeDisplay.textContent = now.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            currentDateDisplay.textContent = now.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
+            if (!timeIntervalId) { timeIntervalId = setInterval(updateCurrentTime, 1000); }
+        }
+
+        // ===============================================
+        // 番茄钟逻辑
+        // ===============================================
+        const pomodoroTimerDisplay = document.getElementById('pomodoro-timer');
+        const pomodoroStatusDisplay = document.getElementById('pomodoro-status');
+        const pomodoroStartBtn = document.getElementById('pomodoro-start');
+        const pomodoroPauseBtn = document.getElementById('pomodoro-pause');
+        const pomodoroResetBtn = document.getElementById('pomodoro-reset');
+        const pomodoroSettingsToggleBtn = document.getElementById('pomodoro-settings-toggle');
+        const pomodoroSettingsPanel = document.getElementById('pomodoro-settings');
+        const workDurationInput = document.getElementById('work-duration');
+        const breakDurationInput = document.getElementById('break-duration');
+        const longBreakDurationInput = document.getElementById('long-break-duration');
+        const savePomodoroSettingsBtn = document.getElementById('save-pomodoro-settings');
+
+        let WORK_TIME = 25 * 60, BREAK_TIME = 5 * 60, LONG_BREAK_TIME = 15 * 60;
+        let pomodoroRemainingTime = WORK_TIME, pomodoroTimerInterval, pomodoroState = 'stopped', pomodoroSessionType = 'work', pomodoroWorkSessionsCompleted = 0;
+
+        function loadPomodoroSettings() {
+            const settings = JSON.parse(localStorage.getItem('pomodoroSettings'));
+            if(settings) {
+                WORK_TIME = (settings.work || 25) * 60;
+                BREAK_TIME = (settings.break || 5) * 60;
+                LONG_BREAK_TIME = (settings.longBreak || 15) * 60;
+            }
+            workDurationInput.value = WORK_TIME / 60;
+            breakDurationInput.value = BREAK_TIME / 60;
+            longBreakDurationInput.value = LONG_BREAK_TIME / 60;
+            pomodoroReset();
+        }
+
+        function savePomodoroSettings() {
+            const newWork = parseInt(workDurationInput.value);
+            const newBreak = parseInt(breakDurationInput.value);
+            const newLongBreak = parseInt(longBreakDurationInput.value);
+            if(isNaN(newWork) || newWork < 1 || isNaN(newBreak) || newBreak < 1 || isNaN(newLongBreak) || newLongBreak < 1) {
+                alert('请输入有效的时间（分钟）');
+                return;
+            }
+            const settings = { work: newWork, break: newBreak, longBreak: newLongBreak };
+            localStorage.setItem('pomodoroSettings', JSON.stringify(settings));
+            loadPomodoroSettings();
+            pomodoroSettingsPanel.classList.remove('open');
+        }
+
+        function formatTime(seconds) { const minutes = Math.floor(seconds / 60); const remainingSeconds = seconds % 60; return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`; }
+        function updatePomodoroDisplay() { pomodoroTimerDisplay.textContent = formatTime(pomodoroRemainingTime); pomodoroStatusDisplay.textContent = pomodoroSessionType === 'work' ? '工作时间' : (pomodoroWorkSessionsCompleted % 4 === 0 && pomodoroSessionType === 'break' && pomodoroWorkSessionsCompleted > 0 ? '长休息' : '休息时间'); }
+        
+        function pomodoroStart() {
+            if (pomodoroState === 'running') return;
+            pomodoroState = 'running';
+            pomodoroTimerInterval = setInterval(() => {
+                pomodoroRemainingTime--; updatePomodoroDisplay();
+                if (pomodoroRemainingTime < 0) {
+                    clearInterval(pomodoroTimerInterval);
+                    if (pomodoroSessionType === 'work') {
+                        pomodoroWorkSessionsCompleted++;
+                        pomodoroRemainingTime = (pomodoroWorkSessionsCompleted % 4 === 0) ? LONG_BREAK_TIME : BREAK_TIME;
+                        pomodoroSessionType = 'break';
+                    } else { pomodoroRemainingTime = WORK_TIME; pomodoroSessionType = 'work'; }
+                    pomodoroState = 'stopped'; updatePomodoroDisplay();
+                    pomodoroStart();
+                }
+            }, 1000);
+        }
+        function pomodoroPause() { if (pomodoroState === 'running') { clearInterval(pomodoroTimerInterval); pomodoroState = 'paused'; } }
+        function pomodoroReset() { clearInterval(pomodoroTimerInterval); pomodoroState = 'stopped'; pomodoroSessionType = 'work'; pomodoroRemainingTime = WORK_TIME; pomodoroWorkSessionsCompleted = 0; updatePomodoroDisplay(); }
+        
+        pomodoroStartBtn.addEventListener('click', pomodoroStart);
+        pomodoroPauseBtn.addEventListener('click', pomodoroPause);
+        pomodoroResetBtn.addEventListener('click', pomodoroReset);
+        pomodoroSettingsToggleBtn.addEventListener('click', () => pomodoroSettingsPanel.classList.toggle('open'));
+        savePomodoroSettingsBtn.addEventListener('click', savePomodoroSettings);
+        updatePomodoroDisplay();
+
+        // ===============================================
+        // Todo List 逻辑
+        // ===============================================
+        const newTodoInput = document.getElementById('new-todo-input');
+        const addTodoButton = document.getElementById('add-todo-button');
+        const todoList = document.getElementById('todo-list');
+        const clearCompletedTodosButton = document.getElementById('clear-completed-todos');
+        let todos = [];
+        function loadTodos() { const storedTodos = localStorage.getItem('todos'); if (storedTodos) { todos = JSON.parse(storedTodos); } }
+        function saveTodos() { localStorage.setItem('todos', JSON.stringify(todos)); }
+        function renderTodos() {
+            todoList.innerHTML = '';
+            if (todos.length === 0) {
+                const emptyMessage = document.createElement('li');
+                emptyMessage.className = 'text-gray-400 text-center py-5';
+                emptyMessage.textContent = '没有待办事项，快来添加一个吧！';
+                todoList.appendChild(emptyMessage);
+                clearCompletedTodosButton.style.display = 'none';
+                return;
+            }
+            todos.forEach((todo, index) => {
+                const li = document.createElement('li');
+                li.className = `todo-item bg-gray-600 p-4 mb-3 rounded-lg flex items-center justify-between shadow-md transition-all duration-300 ${todo.completed ? 'completed' : ''}`;
+                li.dataset.id = todo.id;
+                li.style.animationDelay = `${index * 50}ms`; li.classList.add('todo-item-enter');
+                const textSpan = document.createElement('span');
+                textSpan.className = 'todo-item-text text-lg flex-grow cursor-pointer pr-4 break-words text-e2e8f0';
+                textSpan.textContent = todo.text; textSpan.addEventListener('click', () => toggleTodoComplete(todo.id));
+                const actionsDiv = document.createElement('div'); actionsDiv.className = 'todo-item-actions';
+                const deleteButton = document.createElement('button');
+                deleteButton.className = 'ml-3 bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md text-sm transition duration-300 ease-in-out shadow';
+                deleteButton.textContent = '删除'; deleteButton.addEventListener('click', () => deleteTodo(todo.id));
+                actionsDiv.appendChild(deleteButton); li.appendChild(textSpan); li.appendChild(actionsDiv); todoList.appendChild(li);
+            });
+            const hasCompleted = todos.some(todo => todo.completed);
+            clearCompletedTodosButton.style.display = hasCompleted ? 'block' : 'none';
+        }
+        function addTodo() { const todoText = newTodoInput.value.trim(); if (todoText) { todos.push({ id: Date.now().toString(), text: todoText, completed: false }); newTodoInput.value = ''; saveTodos(); renderTodos(); newTodoInput.focus(); } }
+        function toggleTodoComplete(id) { const todo = todos.find(t => t.id === id); if (todo) { todo.completed = !todo.completed; saveTodos(); renderTodos(); } }
+        function deleteTodo(id) { todos = todos.filter(t => t.id !== id); saveTodos(); renderTodos(); }
+        function clearCompletedTodos() { todos = todos.filter(t => !t.completed); saveTodos(); renderTodos(); }
+        addTodoButton.addEventListener('click', addTodo);
+        newTodoInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { addTodo(); } });
+        clearCompletedTodosButton.addEventListener('click', clearCompletedTodos);
+        loadTodos();
+        if (currentPageIndex === pages.findIndex(p => p.id === 'page-todo')) { renderTodos(); }
+    </script>
+</body>
+</html>

@@ -5,39 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    /* 页面背景图样式 */
     .backgroundimg {
       background-image: url('img/background.png');
       background-size: cover;
     }
 
+    /* 内容区域背景，带透明度 */
     .backgrounds {
-      background-color: rgba(255, 255, 255, 0.75);
+      background-color: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
     }
-
+    
+    /* 列表文本样式 */
     .texts {
       list-style-type: disc;
-      padding: 0 20 0 20;
+      padding: 0 20px;
       text-align: justify;
     }
 
+    /* 内容文本外边距 */
     .text-frame {
-      padding: 20 25 20 25;
+      padding: 20px 25px;
     }
 
+    /* 日期和周数容器 */
     .date-week {
       letter-spacing: 2px;
       display: inline-flex;
       align-items: center;
     }
 
+    /* 日期图标内边距 */
     .date-week img {
-      padding: 0 10 0 0;
+      padding-right: 10px;
+    }
+    
+    /* 全局字体设置 */
+    body, div, p, li, span, button, label, textarea {
+      font-family: "思源黑体", "Helvetica Neue", Arial, sans-serif;
     }
 
-    div {
-      font-family: "思源黑体";
-    }
-
+    /* 标题样式 */
     .titles {
       font-size: 16px;
       letter-spacing: 2px;
@@ -46,12 +55,13 @@
   </style>
 </head>
 
-<body>
-  <div class="max-w-md mx-auto bg-white dark:bg-zinc-800 overflow-hidden md:max-w-xl">
+<body class="bg-gray-100">
+  <!-- 主内容容器，添加了 ID 用于脚本控制 -->
+  <div id="content-container" class="mx-auto bg-white dark:bg-zinc-800 overflow-hidden">
     <div class="backgroundimg">
-      <div style="padding: 40px 30px 40px 30px ;">
-        <div class="md:flex rounded-xl mx-auto backgrounds">
-          <div class="text-frame">
+      <div style="padding: 40px 30px;">
+        <div class="md:flex rounded-xl mx-auto backgrounds shadow-lg">
+          <div class="text-frame w-full">
             <div class="flex items-center justify-between">
               <div style="color: #397CB8;font-size: 11.5px;">
                 <p class="date-week"><img src="img/img1.png" width="29px">
@@ -62,10 +72,10 @@
             </div>
             <div class="mt-4">
               <div class="text-center">
-                <span class="inline-block px-8 py-1 rounded-full  font-semibold titles"
+                <span class="inline-block px-8 py-1 rounded-full font-semibold titles"
                   style="background-color: #EAA783;">行业资讯</span>
               </div>
-              <ul id="newsList" class="mt-4  text-sm space-y-2 texts" style="color: #F69A3D;">
+              <ul id="newsList" class="mt-4 text-sm space-y-2 texts" style="color: #F69A3D;">
                 <li>近日，国家卫生健康委等14个部门联合发布《2024年纠正医药购销领域和医疗服务中不正之风工作要点》。重点关注借学术讲课取酬、外送检验、外等方式收受回扣的问题。</li>
                 <li>
                   2024年5月21日起，2024年第一批北京市临床检验结果互认医疗机构，共798家医疗机构将对181项临床检验结果实施互认，对报告单中互认项目的检验结果予以认可，在不影响疾病诊断治疗的情况下将不再对患者进行重复检查。
@@ -85,15 +95,12 @@
                   <p style="color: #A3848F;">➤ 分子实验室本周共接收样本1489例，其中呼13为993例
                   </p>
                 </li>
-                </p>
                 <li><span class="font-semibold">客服部</span>
                   <p style="color: #A3848F;">➤ 本周客户咨询量49，主要涉及内容包括检测前项目咨询及报告内容答疑
                 </li>
-                </p>
                 <li><span class="font-semibold">销售部</span>
                   <p style="color: #A3848F;">➤ 新签科研协议：湖州市妇幼保健院 <br>➤ 续签医院：衢州市妇幼保健院
                 </li>
-                </p>
                 <li><span class="font-semibold">行政部</span>
                   <p style="color: #A3848F;">➤ 北京大学信息技术高等研究院副院长方赞一行参访金诺诊断
                 </li>
@@ -107,46 +114,86 @@
       </div>
     </div>
   </div>
+  
+  <!-- 控制面板 -->
+  <div class="max-w-xl mx-auto mt-4 space-y-4 p-4 bg-white rounded-lg shadow">
+    <!-- 宽度调整滑块 -->
+    <div>
+        <label for="width-slider" class="block text-sm font-medium text-gray-700">调整内容宽度</label>
+        <input id="width-slider" type="range" min="320" max="1200" value="516" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+    </div>
 
-  <div class="max-w-md mx-auto mt-4">
-    <textarea id="textInput" class="w-full p-2 border border-gray-300 rounded" rows="4"
-      placeholder="输入要修改的内容"></textarea>
-    <button id="updateButton" class="w-full mt-2 p-2 bg-blue-500 text-white rounded">更新行业资讯</button>
-  </div>
+    <!-- 更新行业资讯 -->
+    <div>
+        <textarea id="textInput" class="w-full p-2 border border-gray-300 rounded-md" rows="4"
+        placeholder="在此处输入行业资讯，每条资讯占一行。"></textarea>
+        <button id="updateButton" class="w-full mt-2 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">更新行业资讯</button>
+    </div>
 
-  <div class="max-w-md mx-auto mt-4">
-    <textarea id="summaryInput" class="w-full p-2 border border-gray-300 rounded" rows="4"
-      placeholder="输入要修改的一周小结内容"></textarea>
-    <button id="updateSummaryButton" class="w-full mt-2 p-2 bg-blue-500 text-white rounded">更新一周小结</button>
+    <!-- 更新一周总结 -->
+    <div>
+        <textarea id="summaryInput" class="w-full p-2 border border-gray-300 rounded-md" rows="4"
+        placeholder="在此处输入一周总结。使用'部门 ➤ 内容'格式来创建带箭头的条目。"></textarea>
+        <button id="updateSummaryButton" class="w-full mt-2 p-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition">更新一周小结</button>
+    </div>
   </div>
 
   <script>
+    /**
+     * 获取当前格式化的日期和周数。
+     * @returns {string} 格式为 "YYYY.MM.DD 第WW周" 的字符串。
+     */
     function getCurrentDate() {
       const now = new Date();
       const year = now.getFullYear();
       const month = String(now.getMonth() + 1).padStart(2, '0');
       const day = String(now.getDate()).padStart(2, '0');
       const weekNumber = getWeekNumber(now);
+      // 使用中文模板字符串
       return `${year}.${month}.${day} 第${weekNumber}周`;
     }
 
+    /**
+     * 根据ISO 8601标准计算给定日期的周数。
+     * @param {Date} date - 要计算周数的日期对象。
+     * @returns {number} 当年的周数。
+     */
     function getWeekNumber(date) {
       const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      // 将周日设为一周的第7天
       const dayNum = d.getUTCDay() || 7;
       d.setUTCDate(d.getUTCDate() + 4 - dayNum);
       const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+      // 计算周数
       return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
     }
 
+    // 当DOM完全加载后执行所有脚本
     document.addEventListener('DOMContentLoaded', function () {
-      const dateElement = document.querySelector('.date-week b');
+      
+      // --- 1. 更新日期显示 ---
+      const dateElement = document.getElementById('date-week');
       if (dateElement) {
         dateElement.textContent = getCurrentDate();
       }
-    });
-  </script>
 
-  <script>
+      // --- 2. 宽度调整滑块功能 ---
+      const widthSlider = document.getElementById('width-slider');
+      const contentContainer = document.getElementById('content-container');
+      
+      if (widthSlider && contentContainer) {
+        // 设置初始宽度
+        const initialWidth = 516; // 对应于 "max-w-md" (28rem)
+        widthSlider.value = initialWidth;
+        contentContainer.style.maxWidth = `${initialWidth}px`;
+        
+        // 添加事件监听器以在滑块移动时更新宽度
+        widthSlider.addEventListener('input', function() {
+            contentContainer.style.maxWidth = `${this.value}px`;
+        });
+      }
+
+      // --- 3. 更新一周小结功能 ---
     document.getElementById('updateSummaryButton').addEventListener('click', function () {
       const text = document.getElementById('summaryInput').value;
       const summaryList = document.getElementById('summaryList');
@@ -172,21 +219,23 @@
         }
       });
     });
-  </script>
 
-  <script>
-    document.getElementById('updateButton').addEventListener('click', function () {
-      const text = document.getElementById('textInput').value;
-      const newsList = document.getElementById('newsList');
-      newsList.innerHTML = ''; // 清空现有的 <li> 元素
+      // --- 4. 更新行业资讯功能 ---
+      document.getElementById('updateButton').addEventListener('click', function () {
+        const text = document.getElementById('textInput').value;
+        const newsList = document.getElementById('newsList');
+        newsList.innerHTML = ''; // 清空现有列表
 
-      const lines = text.split('\n');
-      lines.forEach(line => {
-        if (line.trim() !== '') { // 忽略空行
-          const li = document.createElement('li');
-          li.textContent = line;
-          newsList.appendChild(li);
-        }
+        if (text.trim() === '') return;
+
+        const lines = text.split('\n');
+        lines.forEach(line => {
+          if (line.trim() !== '') { // 忽略空行
+            const li = document.createElement('li');
+            li.textContent = line;
+            newsList.appendChild(li);
+          }
+        });
       });
     });
   </script>

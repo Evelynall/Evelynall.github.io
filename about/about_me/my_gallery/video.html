@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Video Gallery</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* 视频播放器样式优化 */
+        .video-player {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            outline: none;
+        }
+
+        /* 确保 Magnific Popup 弹窗内容不会影响视频控件 */
+        .mfp-content {
+            text-align: center;
+            padding: 20px !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 返回按钮 -->
+    <a href="../index.html" class="back-button">
+        <span class="arrow-content">
+            <span class="arrow-left"></span>
+            <span class="arrow-line"></span>
+        </span>
+    </a>
+
+    <!--video gallery视频画廊-->
+    <div class="gallery-section">
+        <div class="inner-width">
+            <h1>My Video Gallery</h1>
+            <div class="border"></div>
+            <div class="gallery">
+
+                <!-- 视频项1 -->
+                <a href="#video-popup" class="video-item" title="Video 1" data-video="videos/video1.mp4">
+                    <div class="video-thumbnail">
+                        <img src="img/video-thumb1.png" alt="Video 1 Thumbnail">
+                        <div class="play-icon"></div>
+                    </div>
+                </a>
+
+                <!-- 视频项2 -->
+                <a href="#video-popup" class="video-item" title="Video 2" data-video="videos/video2.mp4">
+                    <div class="video-thumbnail">
+                        <img src="img/video-thumb2.png" alt="Video 2 Thumbnail">
+                        <div class="play-icon"></div>
+                    </div>
+                </a>
+                <!-- 视频项3 -->
+                <a href="#video-popup" class="video-item" title="Video 3" data-video="videos/video3.mp4">
+                    <div class="video-thumbnail">
+                        <img src="img/video-thumb3.png" alt="Video 3 Thumbnail">
+                        <div class="play-icon"></div>
+                    </div>
+                </a>
+                <!-- 视频项4 -->
+                <a href="#video-popup" class="video-item" title="Video 4" data-video="videos/video4.mp4">
+                    <div class="video-thumbnail">
+                        <img src="img/video-thumb4.png" alt="Video 4 Thumbnail">
+                        <div class="play-icon"></div>
+                    </div>
+                </a>
+                <!-- 视频项5 -->
+                <a href="#video-popup" class="video-item" title="Video 5" data-video="videos/video5.mp4">
+                    <div class="video-thumbnail">
+                        <img src="img/video-thumb5.png" alt="Video 5 Thumbnail">
+                        <div class="play-icon"></div>
+                    </div>
+                </a>
+                <!-- 视频项6 -->
+                <a href="#video-popup" class="video-item" title="Video 6" data-video="videos/video6.mp4">
+                    <div class="video-thumbnail">
+                        <img src="img/video-thumb6.png" alt="Video 6 Thumbnail">
+                        <div class="play-icon"></div>
+                    </div>
+                </a>
+                <!-- 视频项7 -->
+                <a href="#video-popup" class="video-item" title="Video 7" data-video="videos/video7.mp4">
+                    <div class="video-thumbnail">
+                        <img src="img/video-thumb7.png" alt="Video 7 Thumbnail">
+                        <div class="play-icon"></div>
+                    </div>
+                </a>
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 视频播放弹窗容器 -->
+    <div id="video-popup" class="mfp-hide">
+        <video id="main-video" class="video-player" controls autoplay>
+            <source src="" type="video/mp4">
+            您的浏览器不支持HTML5视频播放。
+        </video>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // 获取视频元素
+            var videoElement = document.getElementById('main-video');
+
+            // 初始化视频弹出播放功能
+            $('.video-item').magnificPopup({
+                type: 'inline',
+                midClick: true,
+                callbacks: {
+                    open: function () {
+                        // 获取当前视频的URL
+                        var videoUrl = $(this.currItem.el).data('video');
+
+                        // 设置视频源
+                        $('#main-video source').attr('src', videoUrl);
+
+                        // 加载视频
+                        videoElement.load();
+
+                        // 确保视频可以跳转到指定时间点
+                        videoElement.addEventListener('loadedmetadata', function () {
+                            videoElement.currentTime = 0; // 重置视频时间轴
+                        }, { once: true });
+                    },
+                    close: function () {
+                        // 停止视频播放并清空视频源，防止后台继续播放
+                        videoElement.pause();
+                        $('#main-video source').attr('src', '');
+                    }
+                }
+            });
+
+            // 防止 Magnific Popup 的默认点击行为干扰视频控件
+            $(document).on('click', '.mfp-content', function (e) {
+                e.stopPropagation();
+            });
+        });
+    </script>
+</body>
+
+</html>

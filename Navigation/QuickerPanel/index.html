@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>快捷面板</title>
+  <!-- Tailwind CSS v3 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- 统一的 Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3b82f6',
+            secondary: '#64748b',
+            success: '#22c55e',
+            danger: '#ef4444',
+            warning: '#f59e0b',
+            info: '#0ea5e9',
+            light: '#f8fafc',
+            dark: '#1e293b',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          boxShadow: {
+            'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+            'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+          }
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+      }
+      .button-shadow {
+        box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.2);
+      }
+      .button-shadow:active {
+        transform: translateY(4px);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+  <div class="container mx-auto px-4 py-8">
+    <!-- 顶部导航栏 -->
+    <header class="flex justify-between items-center mb-6">
+      <div class="flex items-center">
+        <button id="menuButton" class="mr-4 text-gray-700 hover:text-primary focus:outline-none">
+          <i class="fa fa-bars text-2xl"></i>
+        </button>
+        <h1 class="text-2xl font-bold text-gray-800">快捷面板</h1>
+      </div>
+      <div class="flex items-center space-x-4">
+        <div id="notification" class="hidden fixed top-4 right-4 bg-white rounded-lg shadow-lg p-4 z-50 max-w-xs">
+          <div class="flex items-start">
+            <div id="notificationIcon" class="mr-3 text-lg"></div>
+            <div class="flex-1">
+              <h3 id="notificationTitle" class="font-semibold text-gray-800"></h3>
+              <p id="notificationMessage" class="text-sm text-gray-600 mt-1"></p>
+            </div>
+            <button onclick="hideNotification()" class="text-gray-400 hover:text-gray-600">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- 侧边菜单 -->
+    <div id="sideMenu" class="fixed inset-0 bg-gray-600 bg-opacity-75 z-40 hidden">
+      <div class="bg-white w-80 h-full shadow-lg transform transition-transform duration-300 -translate-x-full" id="sideMenuContent">
+        <div class="p-4 border-b">
+          <div class="flex justify-between items-center">
+            <h2 class="text-xl font-semibold text-gray-800">设置</h2>
+            <button id="closeMenuButton" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-medium text-gray-700 mb-2">通用配置</h3>
+          <div class="mb-4">
+            <label for="panelName" class="block text-sm font-medium text-gray-700 mb-1">快捷面板名称</label>
+            <input type="text" id="panelName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="快捷面板" value="快捷面板">
+          </div>
+          <div class="mb-4">
+            <label for="toUser" class="block text-sm font-medium text-gray-700 mb-1">目标用户邮箱</label>
+            <input type="email" id="toUser" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入邮箱">
+          </div>
+          <div class="mb-4">
+            <label for="code" class="block text-sm font-medium text-gray-700 mb-1">推送验证码</label>
+            <input type="text" id="code" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入验证码">
+          </div>
+          <button id="saveConfig" class="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-200">
+            保存配置
+          </button>
+
+          <hr class="my-6 border-gray-200">
+
+          <h3 class="font-medium text-gray-700 mb-4">按钮管理</h3>
+          <div class="flex space-x-2 mb-4">
+            <button id="addButton" class="flex-1 bg-success text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-success transition-colors duration-200">
+              <i class="fa fa-plus mr-1"></i> 添加按钮
+            </button>
+            <button id="clearButtons" class="flex-1 bg-danger text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-danger transition-colors duration-200">
+              <i class="fa fa-trash mr-1"></i> 清空
+            </button>
+          </div>
+          <div class="flex space-x-2">
+            <button id="exportConfig" class="flex-1 bg-secondary text-white py-2 px-4 rounded-md hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary transition-colors duration-200">
+              <i class="fa fa-download mr-1"></i> 导出
+            </button>
+            <button id="importConfig" class="flex-1 bg-secondary text-white py-2 px-4 rounded-md hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary transition-colors duration-200">
+              <i class="fa fa-upload mr-1"></i> 导入
+            </button>
+            <input type="file" id="importFile" accept=".json" class="hidden">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 按钮网格 -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4" id="buttonGrid">
+      <!-- 按钮将通过 JavaScript 动态生成 -->
+    </div>
+
+    <!-- 添加/编辑按钮模态框 -->
+    <div id="buttonModal" class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50 hidden">
+      <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0" id="modalContent">
+        <div class="p-4 border-b flex justify-between items-center">
+          <h3 id="modalTitle" class="text-lg font-semibold text-gray-800">添加按钮</h3>
+          <button id="closeModalButton" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+        <div class="p-4">
+          <form id="buttonForm">
+            <input type="hidden" id="buttonId">
+            <div class="mb-4">
+              <label for="buttonName" class="block text-sm font-medium text-gray-700 mb-1">按钮名称</label>
+              <input type="text" id="buttonName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入按钮名称" required>
+            </div>
+            <div class="mb-4">
+              <label for="buttonColor" class="block text-sm font-medium text-gray-700 mb-1">按钮颜色</label>
+              <input type="color" id="buttonColor" class="w-full h-10 border border-gray-300 rounded-md cursor-pointer" value="#3b82f6">
+            </div>
+            <div class="mb-4">
+              <label for="buttonOpacity" class="block text-sm font-medium text-gray-700 mb-1">透明度</label>
+              <div class="flex items-center space-x-2">
+                <input type="range" id="buttonOpacity" min="0" max="100" value="100" class="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                <input type="number" id="buttonOpacityInput" min="0" max="100" value="100" class="w-16 h-8 text-sm border border-gray-300 rounded text-center">
+              </div>
+              <div class="flex justify-between text-xs text-gray-500 mt-1">
+                <span>透明</span>
+                <span>不透明</span>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-700 mb-1">图标设置</label>
+              <div class="flex items-center space-x-2 mb-2">
+                <button type="button" id="iconTypeNone" class="flex-1 py-2 px-3 border border-gray-300 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary">无图标</button>
+                <button type="button" id="iconTypeFont" class="flex-1 py-2 px-3 border border-gray-300 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary">字体图标</button>
+                <button type="button" id="iconTypeImage" class="flex-1 py-2 px-3 border border-gray-300 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary">图片图标</button>
+              </div>
+              <input type="hidden" id="iconType" value="none">
+              <div id="fontIconContainer" class="hidden">
+                <label for="fontIcon" class="block text-sm font-medium text-gray-700 mb-1">选择图标</label>
+                <div class="grid grid-cols-8 gap-2 p-2 border border-gray-300 rounded-md max-h-40 overflow-y-auto">
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-home"><i class="fa fa-home text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-file-text"><i class="fa fa-file-text text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-folder"><i class="fa fa-folder text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-download"><i class="fa fa-download text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-upload"><i class="fa fa-upload text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-copy"><i class="fa fa-copy text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-paste"><i class="fa fa-paste text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-cut"><i class="fa fa-cut text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-edit"><i class="fa fa-edit text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-trash"><i class="fa fa-trash text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-search"><i class="fa fa-search text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-refresh"><i class="fa fa-refresh text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-cog"><i class="fa fa-cog text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-check"><i class="fa fa-check text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-times"><i class="fa fa-times text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-plus"><i class="fa fa-plus text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-minus"><i class="fa fa-minus text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-save"><i class="fa fa-save text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-print"><i class="fa fa-print text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-share"><i class="fa fa-share text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-email"><i class="fa fa-envelope text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-link"><i class="fa fa-link text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-desktop"><i class="fa fa-desktop text-xl"></i></button>
+                  <button type="button" class="icon-option p-2 text-center hover:bg-gray-100 rounded" data-icon="fa-mobile"><i class="fa fa-mobile text-xl"></i></button>
+                </div>
+                <input type="hidden" id="fontIcon" value="">
+              </div>
+              <div id="imageIconContainer" class="hidden">
+                <label for="imageIcon" class="block text-sm font-medium text-gray-700 mb-1">图标图片链接</label>
+                <input type="url" id="imageIcon" placeholder="请输入图片URL链接" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <div id="imageIconPreview" class="mt-2 hidden">
+                  <img src="" alt="图标预览" class="max-h-16 mx-auto">
+                </div>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-700 mb-1">背景设置</label>
+              <div class="flex items-center space-x-2 mb-2">
+                <button type="button" id="bgTypeNone" class="flex-1 py-2 px-3 border border-gray-300 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary">无背景</button>
+                <button type="button" id="bgTypeImage" class="flex-1 py-2 px-3 border border-gray-300 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary">背景图片</button>
+              </div>
+              <input type="hidden" id="bgType" value="none">
+              <div id="bgImageContainer" class="hidden">
+                <label for="bgImage" class="block text-sm font-medium text-gray-700 mb-1">背景图片链接</label>
+                <input type="url" id="bgImage" placeholder="请输入图片URL链接" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <div id="bgImagePreview" class="mt-2 hidden">
+                  <img src="" alt="背景预览" class="max-h-16 mx-auto">
+                </div>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label for="operation" class="block text-sm font-medium text-gray-700 mb-1">操作类型</label>
+              <select id="operation" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                <option value="">请选择操作类型</option>
+                <option value="copy">copy - 将内容复制到剪贴板</option>
+                <option value="paste">paste - 将内容粘贴到当前窗口</option>
+                <option value="action">action - 运行动作</option>
+                <option value="open">open - 打开网址</option>
+                <option value="input">input - 模拟输入内容</option>
+                <option value="inputtext">inputtext - 模拟输入文本</option>
+                <option value="inputscript">inputscript - 多步骤输入</option>
+                <option value="downloadfile">downloadfile - 下载文件</option>
+              </select>
+            </div>
+            <div id="actionField" class="mb-4 hidden">
+              <label for="action" class="block text-sm font-medium text-gray-700 mb-1">动作 ID 或名称</label>
+              <input type="text" id="action" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入动作 ID 或名称">
+            </div>
+            <div id="dataField" class="mb-4 hidden">
+              <label for="data" class="block text-sm font-medium text-gray-700 mb-1">数据参数</label>
+              <textarea id="data" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入数据参数"></textarea>
+            </div>
+            <div class="mb-4">
+              <label for="toDevice" class="block text-sm font-medium text-gray-700 mb-1">目标设备名（可选）</label>
+              <input type="text" id="toDevice" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入设备名">
+            </div>
+            <div class="mb-4">
+              <label for="wait" class="block text-sm font-medium text-gray-700 mb-1">是否等待</label>
+              <select id="wait" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <option value="false">否</option>
+                <option value="true">是</option>
+              </select>
+            </div>
+            <div id="maxWaitMsField" class="mb-4 hidden">
+              <label for="maxWaitMs" class="block text-sm font-medium text-gray-700 mb-1">最长等待毫秒数</label>
+              <input type="number" id="maxWaitMs" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入等待毫秒数" value="5000">
+            </div>
+            <div class="flex justify-end space-x-2">
+              <button type="button" id="cancelButton" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                取消
+              </button>
+              <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                保存
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 全局变量
+    let buttons = [];
+    let config = {
+      toUser: '',
+      code: ''
+    };
+    let editingButtonId = null;
+
+    // DOM 加载完成后执行
+    document.addEventListener('DOMContentLoaded', function() {
+      // 加载配置
+      loadConfig();
+      
+      // 加载按钮
+      loadButtons();
+      
+      // 添加透明度滑块和输入框的同步更新
+      const opacitySlider = document.getElementById('buttonOpacity');
+      const opacityInput = document.getElementById('buttonOpacityInput');
+      
+      if (opacitySlider && opacityInput) {
+        // 滑块变化时更新输入框
+        opacitySlider.addEventListener('input', function() {
+          opacityInput.value = this.value;
+        });
+        
+        // 输入框变化时更新滑块
+        opacityInput.addEventListener('input', function() {
+          // 确保值在有效范围内
+          let value = parseInt(this.value);
+          if (isNaN(value) || value < 0) value = 0;
+          if (value > 100) value = 100;
+          this.value = value;
+          opacitySlider.value = value;
+        });
+      }
+      
+      // 绑定事件
+      bindEvents();
+    });
+
+    // 绑定事件
+    function bindEvents() {
+      // 图标类型选择
+      document.getElementById('iconTypeNone').addEventListener('click', function() {
+        setIconType('none');
+      });
+      document.getElementById('iconTypeFont').addEventListener('click', function() {
+        setIconType('font');
+      });
+      document.getElementById('iconTypeImage').addEventListener('click', function() {
+        setIconType('image');
+      });
+      
+      // 背景类型选择
+      document.getElementById('bgTypeNone').addEventListener('click', function() {
+        setBgType('none');
+      });
+      document.getElementById('bgTypeImage').addEventListener('click', function() {
+        setBgType('image');
+      });
+      
+      // 字体图标选择
+      document.querySelectorAll('.icon-option').forEach(option => {
+        option.addEventListener('click', function() {
+          // 移除之前的选中状态
+          document.querySelectorAll('.icon-option').forEach(opt => {
+            opt.classList.remove('bg-primary', 'text-white');
+          });
+          
+          // 添加选中状态
+          this.classList.add('bg-primary', 'text-white');
+          
+          // 设置选中的图标
+          document.getElementById('fontIcon').value = this.dataset.icon;
+        });
+      });
+      
+      // 图片图标链接预览
+      document.getElementById('imageIcon').addEventListener('input', function(e) {
+        const url = e.target.value.trim();
+        if (url) {
+          const preview = document.getElementById('imageIconPreview');
+          preview.classList.remove('hidden');
+          preview.querySelector('img').src = url;
+        } else {
+          const preview = document.getElementById('imageIconPreview');
+          preview.classList.add('hidden');
+          preview.querySelector('img').src = '';
+        }
+      });
+      
+      // 编辑模式下，当切换到图片图标时，保留之前的链接
+      document.getElementById('iconTypeImage').addEventListener('click', function() {
+        const imageIconInput = document.getElementById('imageIcon');
+        if (imageIconInput.value.trim()) {
+          const preview = document.getElementById('imageIconPreview');
+          preview.classList.remove('hidden');
+          preview.querySelector('img').src = imageIconInput.value.trim();
+        }
+      });
+      
+      // 确保在设置图标类型时不清除输入框的值
+      document.getElementById('iconTypeNone').addEventListener('click', function() {
+        // 不执行任何操作，让setIconType函数处理
+      });
+      
+      document.getElementById('iconTypeFont').addEventListener('click', function() {
+        // 不执行任何操作，让setIconType函数处理
+      });
+      
+      // 背景图片链接预览
+      document.getElementById('bgImage').addEventListener('input', function(e) {
+        const url = e.target.value.trim();
+        if (url) {
+          const preview = document.getElementById('bgImagePreview');
+          preview.classList.remove('hidden');
+          preview.querySelector('img').src = url;
+        } else {
+          const preview = document.getElementById('bgImagePreview');
+          preview.classList.add('hidden');
+          preview.querySelector('img').src = '';
+        }
+      });
+      
+      // 编辑模式下，当切换到背景图片时，保留之前的链接
+      document.getElementById('bgTypeImage').addEventListener('click', function() {
+        const bgImageInput = document.getElementById('bgImage');
+        if (bgImageInput.value.trim()) {
+          const preview = document.getElementById('bgImagePreview');
+          preview.classList.remove('hidden');
+          preview.querySelector('img').src = bgImageInput.value.trim();
+        }
+      });
+      
+      // 确保在设置背景类型时不清除输入框的值
+      document.getElementById('bgTypeNone').addEventListener('click', function() {
+        // 不执行任何操作，让setBgType函数处理
+      });
+      // 菜单按钮
+      document.getElementById('menuButton').addEventListener('click', toggleSideMenu);
+      document.getElementById('closeMenuButton').addEventListener('click', toggleSideMenu);
+      document.getElementById('sideMenu').addEventListener('click', function(e) {
+        if (e.target === this) {
+          toggleSideMenu();
+        }
+      });
+
+      // 保存配置按钮
+      document.getElementById('saveConfig').addEventListener('click', saveConfig);
+
+      // 添加按钮
+      document.getElementById('addButton').addEventListener('click', function() {
+        openButtonModal();
+      });
+
+      // 清空按钮
+      document.getElementById('clearButtons').addEventListener('click', clearButtons);
+
+      // 导出配置
+      document.getElementById('exportConfig').addEventListener('click', exportConfig);
+
+      // 导入配置
+      document.getElementById('importConfig').addEventListener('click', function() {
+        document.getElementById('importFile').click();
+      });
+      document.getElementById('importFile').addEventListener('change', importConfig);
+
+      // 模态框按钮
+      document.getElementById('closeModalButton').addEventListener('click', closeButtonModal);
+      document.getElementById('cancelButton').addEventListener('click', closeButtonModal);
+      document.getElementById('buttonModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+          closeButtonModal();
+        }
+      });
+
+      // 表单提交
+      document.getElementById('buttonForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        saveButton();
+      });
+
+      // 操作类型变更
+      document.getElementById('operation').addEventListener('change', function() {
+        const operation = this.value;
+        const actionField = document.getElementById('actionField');
+        const dataField = document.getElementById('dataField');
+        
+        // 隐藏所有可选字段
+        actionField.classList.add('hidden');
+        dataField.classList.add('hidden');
+        
+        // 根据操作类型显示相应字段
+        if (operation === 'action') {
+          actionField.classList.remove('hidden');
+          dataField.classList.remove('hidden');
+        } else if (operation === 'open' || operation === 'input' || operation === 'inputtext' || operation === 'inputscript' || operation === 'downloadfile' || operation === 'copy') {
+          dataField.classList.remove('hidden');
+        }
+      });
+
+      // 是否等待变更
+      document.getElementById('wait').addEventListener('change', function() {
+        const wait = this.value === 'true';
+        const maxWaitMsField = document.getElementById('maxWaitMsField');
+        
+        if (wait) {
+          maxWaitMsField.classList.remove('hidden');
+        } else {
+          maxWaitMsField.classList.add('hidden');
+        }
+      });
+    }
+
+    // 加载配置
+    function loadConfig() {
+      const savedConfig = localStorage.getItem('quickPanelConfig');
+      if (savedConfig) {
+        config = JSON.parse(savedConfig);
+        const panelName = config.panelName || '快捷面板';
+        document.getElementById('panelName').value = panelName;
+        document.getElementById('toUser').value = config.toUser || '';
+        document.getElementById('code').value = config.code || '';
+        
+        // 更新面板标题
+        document.querySelector('header h1').textContent = panelName;
+      }
+    }
+
+    // 保存配置
+    function saveConfig() {
+      const panelName = document.getElementById('panelName').value.trim() || '快捷面板';
+      const toUser = document.getElementById('toUser').value.trim();
+      const code = document.getElementById('code').value.trim();
+      
+      if (!toUser) {
+        showNotification('错误', '请输入目标用户邮箱', 'error');
+        return;
+      }
+      
+      if (!code) {
+        showNotification('错误', '请输入推送验证码', 'error');
+        return;
+      }
+      
+      config.panelName = panelName;
+      config.toUser = toUser;
+      config.code = code;
+      
+      localStorage.setItem('quickPanelConfig', JSON.stringify(config));
+      
+      // 更新面板标题
+      document.querySelector('header h1').textContent = panelName;
+      
+      showNotification('成功', '配置已保存', 'success');
+    }
+
+    // 加载按钮
+    function loadButtons() {
+      const savedButtons = localStorage.getItem('quickPanelButtons');
+      if (savedButtons) {
+        buttons = JSON.parse(savedButtons);
+        renderButtons();
+      }
+    }
+
+    // 渲染按钮
+    function renderButtons() {
+      const buttonGrid = document.getElementById('buttonGrid');
+      buttonGrid.innerHTML = '';
+      
+      if (buttons.length === 0) {
+        // 如果没有按钮，显示提示信息
+        const emptyState = document.createElement('div');
+        emptyState.className = 'col-span-full flex flex-col items-center justify-center py-12 text-gray-500';
+        emptyState.innerHTML = `
+          <i class="fa fa-info-circle text-4xl mb-4"></i>
+          <p class="text-lg">暂无按钮</p>
+          <p class="text-sm mt-2">点击左上角菜单添加按钮</p>
+        `;
+        buttonGrid.appendChild(emptyState);
+        return;
+      }
+      
+      // 渲染每个按钮
+      buttons.forEach(button => {
+        const buttonElement = document.createElement('div');
+        buttonElement.className = 'aspect-square relative group';
+        
+        // 构建按钮内容
+        let buttonContent = '';
+        
+        // 添加背景图片（如果有）
+        if (button.bgType === 'image' && button.bgImage) {
+          buttonContent += `<div class="absolute inset-0 rounded-lg overflow-hidden z-0" style="background-image: url('${button.bgImage}'); background-size: cover; background-position: center;"></div>`;
+        }
+        
+        // 添加按钮主体
+        const opacity = button.opacity !== undefined ? button.opacity / 100 : 1;
+        buttonContent += `<button class="w-full h-full rounded-lg shadow-md flex flex-col items-center justify-center p-2 transition-all duration-200 hover:shadow-lg button-shadow relative z-10" 
+                               style="background-color: ${button.color || '#3b82f6'}; opacity: ${opacity}"
+                               onclick="executeButton('${button.id}')">`;
+        
+        // 添加图标（如果有）
+        if (button.iconType === 'font' && button.fontIcon) {
+          buttonContent += `<i class="fa ${button.fontIcon} text-white text-6xl mb-1"></i>`;
+        } else if (button.iconType === 'image' && button.imageIcon) {
+          buttonContent += `<img src="${button.imageIcon}" alt="图标" class="w-16 h-16 mb-1 object-contain">`;
+        }
+        
+        // 添加按钮文字
+        buttonContent += `<span class="text-white font-medium text-center">${button.name}</span>
+                          </button>`;
+        
+        // 添加设置菜单
+        buttonContent += `<div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20">
+                           <div class="relative">
+                             <button class="bg-white rounded-full p-1 shadow-md text-gray-700 hover:text-primary focus:outline-none"
+                                     id="editMenuButton_${button.id}"
+                                     onclick="event.stopPropagation(); toggleEditMenu('${button.id}')">
+                               <i class="fa fa-cog"></i>
+                             </button>
+                             <div class="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg hidden z-20" id="editMenu_${button.id}">
+                               <div class="py-1">
+                                 <button class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                         onclick="event.stopPropagation(); editButton('${button.id}')">
+                                   <i class="fa fa-pencil mr-2"></i> 编辑
+                                 </button>
+                                 <button class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                         id="deleteButton_${button.id}">
+                                   <i class="fa fa-trash mr-2"></i> 删除
+                                 </button>
+                               </div>
+                             </div>
+                           </div>
+                         </div>`;
+        
+        buttonElement.innerHTML = buttonContent;
+        
+        // 添加按钮到网格
+        buttonGrid.appendChild(buttonElement);
+      });
+      
+      // 为所有删除按钮绑定事件
+      bindDeleteButtonEvents();
+    }
+    
+    // 为删除按钮绑定事件
+    function bindDeleteButtonEvents() {
+      buttons.forEach(button => {
+        const deleteBtn = document.getElementById(`deleteButton_${button.id}`);
+        if (deleteBtn) {
+          // 移除之前可能存在的事件监听器
+          deleteBtn.removeEventListener('click', function() {
+            deleteButton(button.id);
+          });
+          
+          // 添加新的事件监听器
+          deleteBtn.addEventListener('click', function(event) {
+            event.stopPropagation();
+            deleteButton(button.id);
+          });
+        }
+      });
+    }
+
+    // 设置图标类型
+    function setIconType(type) {
+      // 重置所有按钮样式
+      document.getElementById('iconTypeNone').classList.remove('bg-primary', 'text-white');
+      document.getElementById('iconTypeFont').classList.remove('bg-primary', 'text-white');
+      document.getElementById('iconTypeImage').classList.remove('bg-primary', 'text-white');
+      
+      // 隐藏所有图标容器
+      document.getElementById('fontIconContainer').classList.add('hidden');
+      document.getElementById('imageIconContainer').classList.add('hidden');
+      
+      // 根据类型显示相应的容器
+      if (type === 'none') {
+        document.getElementById('iconTypeNone').classList.add('bg-primary', 'text-white');
+        document.getElementById('fontIcon').value = '';
+        // 保留图片预览状态
+      } else if (type === 'font') {
+        document.getElementById('iconTypeFont').classList.add('bg-primary', 'text-white');
+        document.getElementById('fontIconContainer').classList.remove('hidden');
+        // 保留图片预览状态
+      } else if (type === 'image') {
+        document.getElementById('iconTypeImage').classList.add('bg-primary', 'text-white');
+        document.getElementById('imageIconContainer').classList.remove('hidden');
+        // 保留图片预览状态
+      }
+      
+      // 更新隐藏输入值
+      document.getElementById('iconType').value = type;
+    }
+    
+    // 设置背景类型
+    function setBgType(type) {
+      // 重置所有按钮样式
+      document.getElementById('bgTypeNone').classList.remove('bg-primary', 'text-white');
+      document.getElementById('bgTypeImage').classList.remove('bg-primary', 'text-white');
+      
+      // 隐藏所有背景容器
+      document.getElementById('bgImageContainer').classList.add('hidden');
+      
+      // 根据类型显示相应的容器
+      if (type === 'none') {
+        document.getElementById('bgTypeNone').classList.add('bg-primary', 'text-white');
+        // 保留图片预览状态
+      } else if (type === 'image') {
+        document.getElementById('bgTypeImage').classList.add('bg-primary', 'text-white');
+        document.getElementById('bgImageContainer').classList.remove('hidden');
+        // 保留图片预览状态
+        
+        // 当设置背景图片时，如果是新建按钮，则默认将按钮背景透明度调整为70%
+        // 如果是编辑按钮，则保持原有的透明度设置
+        const buttonId = document.getElementById('buttonId').value;
+        if (!buttonId) {
+          document.getElementById('buttonOpacity').value = 70;
+          document.getElementById('buttonOpacityInput').value = 70;
+        }
+      }
+      
+      // 更新隐藏输入值
+      document.getElementById('bgType').value = type;
+    }
+    
+    // 打开按钮模态框
+    function openButtonModal(buttonId = null) {
+      const modal = document.getElementById('buttonModal');
+      const modalContent = document.getElementById('modalContent');
+      const modalTitle = document.getElementById('modalTitle');
+      const form = document.getElementById('buttonForm');
+      
+      // 重置表单
+      form.reset();
+      
+      // 隐藏所有可选字段
+      document.getElementById('actionField').classList.add('hidden');
+      document.getElementById('dataField').classList.add('hidden');
+      document.getElementById('maxWaitMsField').classList.add('hidden');
+      
+      // 重置图标和背景设置
+      setIconType('none');
+      setBgType('none');
+      
+      // 重置图标选择状态
+      document.querySelectorAll('.icon-option').forEach(opt => {
+        opt.classList.remove('bg-primary', 'text-white');
+      });
+      
+      // 重置透明度滑块和输入框为默认值
+      document.getElementById('buttonOpacity').value = 100;
+      document.getElementById('buttonOpacityInput').value = 100;
+      
+      // 确保模态框内容可滚动
+      modalContent.style.maxHeight = '80vh';
+      modalContent.style.overflowY = 'auto';
+      
+      if (buttonId) {
+        // 编辑模式
+        const button = buttons.find(b => b.id === buttonId);
+        if (button) {
+          modalTitle.textContent = '编辑按钮';
+          document.getElementById('buttonId').value = button.id;
+          document.getElementById('buttonName').value = button.name;
+          document.getElementById('buttonColor').value = button.color || '#3b82f6';
+          document.getElementById('operation').value = button.operation;
+          document.getElementById('action').value = button.action || '';
+          document.getElementById('data').value = button.data || '';
+          document.getElementById('toDevice').value = button.toDevice || '';
+          document.getElementById('wait').value = button.wait ? 'true' : 'false';
+          document.getElementById('maxWaitMs').value = button.maxWaitMs || 5000;
+          
+          // 设置图标类型
+          const iconType = button.iconType || 'none';
+          
+          // 设置图标
+          if (iconType === 'font' && button.fontIcon) {
+            document.getElementById('fontIcon').value = button.fontIcon;
+            // 选中对应的图标
+            const iconOption = document.querySelector(`.icon-option[data-icon="${button.fontIcon}"]`);
+            if (iconOption) {
+              iconOption.classList.add('bg-primary', 'text-white');
+            }
+          } else if (iconType === 'image' && button.imageIcon) {
+            document.getElementById('imageIcon').value = button.imageIcon;
+            // 显示图片预览
+            const preview = document.getElementById('imageIconPreview');
+            preview.classList.remove('hidden');
+            preview.querySelector('img').src = button.imageIcon;
+          }
+          
+          // 设置背景类型
+          const bgType = button.bgType || 'none';
+          
+          // 设置背景图片
+          if (bgType === 'image' && button.bgImage) {
+            document.getElementById('bgImage').value = button.bgImage;
+            // 显示图片预览
+            const preview = document.getElementById('bgImagePreview');
+            preview.classList.remove('hidden');
+            preview.querySelector('img').src = button.bgImage;
+          }
+          
+          // 设置按钮透明度
+          const opacityValue = button.opacity !== undefined ? button.opacity : 100;
+          document.getElementById('buttonOpacity').value = opacityValue;
+          document.getElementById('buttonOpacityInput').value = opacityValue;
+          
+          // 最后设置类型，这样可以保留图片链接
+          setIconType(iconType);
+          setBgType(bgType);
+          
+          // 触发操作类型变更事件，显示相应字段
+          const operationEvent = new Event('change');
+          document.getElementById('operation').dispatchEvent(operationEvent);
+          
+          // 触发是否等待变更事件，显示相应字段
+          const waitEvent = new Event('change');
+          document.getElementById('wait').dispatchEvent(waitEvent);
+          
+          editingButtonId = buttonId;
+        }
+      } else {
+        // 添加模式
+        modalTitle.textContent = '添加按钮';
+        document.getElementById('buttonId').value = '';
+        editingButtonId = null;
+      }
+      
+      // 显示模态框
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modalContent.classList.remove('scale-95', 'opacity-0');
+        modalContent.classList.add('scale-100', 'opacity-100');
+      }, 10);
+    }
+
+    // 关闭按钮模态框
+    function closeButtonModal() {
+      const modal = document.getElementById('buttonModal');
+      const modalContent = document.getElementById('modalContent');
+      
+      modalContent.classList.remove('scale-100', 'opacity-100');
+      modalContent.classList.add('scale-95', 'opacity-0');
+      
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 300);
+    }
+
+    // 保存按钮
+    function saveButton() {
+      const buttonId = document.getElementById('buttonId').value;
+      const name = document.getElementById('buttonName').value.trim();
+      const color = document.getElementById('buttonColor').value;
+      const operation = document.getElementById('operation').value;
+      const action = document.getElementById('action').value.trim();
+      const data = document.getElementById('data').value.trim();
+      const toDevice = document.getElementById('toDevice').value.trim();
+      const wait = document.getElementById('wait').value === 'true';
+      const maxWaitMs = document.getElementById('maxWaitMs').value;
+      
+      // 获取图标设置
+      const iconType = document.getElementById('iconType').value;
+      let fontIcon = '';
+      let imageIcon = '';
+      
+      if (iconType === 'font') {
+        fontIcon = document.getElementById('fontIcon').value;
+        if (!fontIcon) {
+          showNotification('错误', '请选择字体图标', 'error');
+          return;
+        }
+      } else if (iconType === 'image') {
+        // 获取图片图标链接
+        imageIcon = document.getElementById('imageIcon').value.trim();
+        if (!imageIcon) {
+          showNotification('错误', '请输入图标图片链接', 'error');
+          return;
+        }
+      }
+      
+      // 获取背景设置
+      const bgType = document.getElementById('bgType').value;
+      let bgImage = '';
+      
+      if (bgType === 'image') {
+        // 获取背景图片链接
+        bgImage = document.getElementById('bgImage').value.trim();
+        if (!bgImage) {
+          showNotification('错误', '请输入背景图片链接', 'error');
+          return;
+        }
+      }
+      
+      // 验证必填字段
+      if (!name) {
+        showNotification('错误', '请输入按钮名称', 'error');
+        return;
+      }
+      
+      if (!operation) {
+        showNotification('错误', '请选择操作类型', 'error');
+        return;
+      }
+      
+      // 根据操作类型验证其他字段
+      if (operation === 'action' && !action) {
+        showNotification('错误', '请输入动作 ID 或名称', 'error');
+        return;
+      }
+      
+      if ((operation === 'open' || operation === 'input' || operation === 'inputtext' || operation === 'inputscript' || operation === 'downloadfile' || operation === 'copy') && !data) {
+        showNotification('错误', '请输入数据参数', 'error');
+        return;
+      }
+      
+      // 创建按钮对象
+      const button = {
+        id: buttonId || generateId(),
+        name,
+        color,
+        opacity: parseInt(document.getElementById('buttonOpacity').value),
+        operation,
+        action,
+        data,
+        toDevice,
+        wait,
+        maxWaitMs: wait ? parseInt(maxWaitMs) : undefined,
+        iconType,
+        fontIcon,
+        imageIcon,
+        bgType,
+        bgImage
+      };
+      
+      // 保存按钮
+      saveButtonToStorage(button);
+      
+
+      
+      // 保存按钮到存储
+      function saveButtonToStorage(button) {
+        // 保存按钮
+        if (editingButtonId) {
+          // 编辑现有按钮
+          const index = buttons.findIndex(b => b.id === editingButtonId);
+          if (index !== -1) {
+            buttons[index] = button;
+          }
+        } else {
+          // 添加新按钮
+          buttons.push(button);
+        }
+        
+        // 保存到本地存储
+        localStorage.setItem('quickPanelButtons', JSON.stringify(buttons));
+        
+        // 重新渲染按钮
+        renderButtons();
+        
+        // 关闭模态框
+        closeButtonModal();
+        
+        // 显示通知
+        showNotification('成功', editingButtonId ? '按钮已更新' : '按钮已添加', 'success');
+      }
+      
+      // 保存按钮
+      if (editingButtonId) {
+        // 编辑现有按钮
+        const index = buttons.findIndex(b => b.id === editingButtonId);
+        if (index !== -1) {
+          buttons[index] = button;
+        }
+      } else {
+        // 添加新按钮
+        buttons.push(button);
+      }
+      
+      // 保存到本地存储
+      localStorage.setItem('quickPanelButtons', JSON.stringify(buttons));
+      
+      // 重新渲染按钮
+      renderButtons();
+      
+      // 关闭模态框
+      closeButtonModal();
+      
+      // 显示通知
+      showNotification('成功', editingButtonId ? '按钮已更新' : '按钮已添加', 'success');
+    }
+
+    // 切换编辑菜单
+    function toggleEditMenu(buttonId) {
+      // 先关闭所有其他菜单
+      document.querySelectorAll('[id^="editMenu_"]').forEach(menu => {
+        menu.classList.add('hidden');
+      });
+      
+      // 切换当前菜单
+      const menu = document.getElementById(`editMenu_${buttonId}`);
+      menu.classList.toggle('hidden');
+      
+      // 移除之前可能存在的事件监听器
+      document.removeEventListener('click', window.closeMenuHandler);
+      
+      // 添加点击外部关闭菜单的事件
+      window.closeMenuHandler = function(e) {
+        const menuButton = document.getElementById(`editMenuButton_${buttonId}`);
+        const deleteBtn = document.getElementById(`deleteButton_${buttonId}`);
+        
+        // 如果点击的是删除按钮，不关闭菜单
+        if (deleteBtn && deleteBtn.contains(e.target)) {
+          return;
+        }
+        
+        if (menu && !menu.contains(e.target) && menuButton && !menuButton.contains(e.target)) {
+          menu.classList.add('hidden');
+          document.removeEventListener('click', window.closeMenuHandler);
+        }
+      };
+      
+      document.addEventListener('click', window.closeMenuHandler);
+    }
+
+    // 编辑按钮
+    function editButton(buttonId) {
+      // 关闭编辑菜单
+      const menu = document.getElementById(`editMenu_${buttonId}`);
+      if (menu) {
+        menu.classList.add('hidden');
+      }
+      
+      openButtonModal(buttonId);
+      toggleSideMenu(); // 关闭侧边菜单
+    }
+
+    // 删除按钮
+    function deleteButton(buttonId) {
+      console.log('删除按钮被点击，ID:', buttonId);
+      
+      // 关闭编辑菜单
+      const menu = document.getElementById(`editMenu_${buttonId}`);
+      if (menu) {
+        menu.classList.add('hidden');
+      }
+      
+      // 移除点击外部关闭菜单的事件监听器
+      document.removeEventListener('click', window.closeMenuHandler);
+      
+      // 直接显示确认框
+      if (confirm('确定要删除此按钮吗？')) {
+        console.log('用户确认删除');
+        // 确保buttonId是字符串类型
+        const stringId = String(buttonId);
+        console.log('过滤前按钮数量:', buttons.length);
+        buttons = buttons.filter(b => String(b.id) !== stringId);
+        console.log('过滤后按钮数量:', buttons.length);
+        localStorage.setItem('quickPanelButtons', JSON.stringify(buttons));
+        renderButtons();
+        showNotification('成功', '按钮已删除', 'success');
+      } else {
+        console.log('用户取消删除');
+      }
+    }
+
+    // 清空按钮
+    function clearButtons() {
+      if (confirm('确定要清空所有按钮吗？此操作不可恢复。')) {
+        buttons = [];
+        localStorage.removeItem('quickPanelButtons');
+        renderButtons();
+        showNotification('成功', '所有按钮已清空', 'success');
+      }
+    }
+
+    // 执行按钮操作
+    function executeButton(buttonId) {
+      const button = buttons.find(b => b.id === buttonId);
+      if (!button) {
+        showNotification('错误', '按钮不存在', 'error');
+        return;
+      }
+      
+      // 检查配置
+      if (!config.toUser || !config.code) {
+        showNotification('错误', '请先设置通用配置', 'error');
+        toggleSideMenu();
+        return;
+      }
+      
+      // 构建请求 URL
+      let url = `https://push.getquicker.cn/to/quicker?toUser=${encodeURIComponent(config.toUser)}&code=${encodeURIComponent(config.code)}`;
+      
+      // 添加操作类型
+      url += `&operation=${encodeURIComponent(button.operation)}`;
+      
+      // 添加可选参数
+      if (button.toDevice) {
+        url += `&toDevice=${encodeURIComponent(button.toDevice)}`;
+      }
+      
+      if (button.action) {
+        url += `&action=${encodeURIComponent(button.action)}`;
+      }
+      
+      if (button.data) {
+        url += `&data=${encodeURIComponent(button.data)}`;
+      }
+      
+      if (button.wait !== undefined) {
+        url += `&wait=${button.wait}`;
+        
+        if (button.wait && button.maxWaitMs) {
+          url += `&maxWaitMs=${button.maxWaitMs}`;
+        }
+      }
+      
+      // 发送请求
+      showNotification('请求中', `正在执行 ${button.name}...`, 'info');
+      
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          if (data.isSuccess) {
+            showNotification('成功', `${button.name} 执行成功`, 'success');
+          } else {
+            showNotification('错误', `${button.name} 执行失败: ${data.errorMessage || '未知错误'}`, 'error');
+          }
+        })
+        .catch(error => {
+          showNotification('错误', `${button.name} 执行失败: ${error.message}`, 'error');
+        });
+    }
+
+    // 导出配置
+    function exportConfig() {
+      const exportData = {
+        config,
+        buttons
+      };
+      
+      const dataStr = JSON.stringify(exportData, null, 2);
+      const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+      
+      const exportFileDefaultName = `quick-panel-config-${new Date().toISOString().split('T')[0]}.json`;
+      
+      const linkElement = document.createElement('a');
+      linkElement.setAttribute('href', dataUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
+      linkElement.click();
+      
+      showNotification('成功', '配置已导出', 'success');
+    }
+
+    // 导入配置
+    function importConfig(event) {
+      const file = event.target.files[0];
+      if (!file) {
+        return;
+      }
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const importData = JSON.parse(e.target.result);
+          
+          if (importData.config) {
+            config = importData.config;
+            localStorage.setItem('quickPanelConfig', JSON.stringify(config));
+            document.getElementById('toUser').value = config.toUser || '';
+            document.getElementById('code').value = config.code || '';
+          }
+          
+          if (importData.buttons) {
+            buttons = importData.buttons;
+            localStorage.setItem('quickPanelButtons', JSON.stringify(buttons));
+            renderButtons();
+          }
+          
+          showNotification('成功', '配置已导入', 'success');
+        } catch (error) {
+          showNotification('错误', '导入失败：文件格式不正确', 'error');
+        }
+      };
+      
+      reader.readAsText(file);
+      
+      // 重置文件输入
+      event.target.value = '';
+    }
+
+    // 生成唯一 ID
+    function generateId() {
+      return 'button_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
+    }
+
+    // 切换侧边菜单
+    function toggleSideMenu() {
+      const sideMenu = document.getElementById('sideMenu');
+      const sideMenuContent = document.getElementById('sideMenuContent');
+      
+      if (sideMenu.classList.contains('hidden')) {
+        sideMenu.classList.remove('hidden');
+        setTimeout(() => {
+          sideMenuContent.classList.remove('-translate-x-full');
+        }, 10);
+      } else {
+        sideMenuContent.classList.add('-translate-x-full');
+        setTimeout(() => {
+          sideMenu.classList.add('hidden');
+        }, 300);
+      }
+    }
+
+    // 显示通知
+    function showNotification(title, message, type = 'info') {
+      const notification = document.getElementById('notification');
+      const notificationTitle = document.getElementById('notificationTitle');
+      const notificationMessage = document.getElementById('notificationMessage');
+      const notificationIcon = document.getElementById('notificationIcon');
+      
+      notificationTitle.textContent = title;
+      notificationMessage.textContent = message;
+      
+      // 设置图标和颜色
+      notificationIcon.className = 'mr-3 text-lg';
+      
+      switch (type) {
+        case 'success':
+          notificationIcon.classList.add('text-success');
+          notificationIcon.innerHTML = '<i class="fa fa-check-circle"></i>';
+          break;
+        case 'error':
+          notificationIcon.classList.add('text-danger');
+          notificationIcon.innerHTML = '<i class="fa fa-times-circle"></i>';
+          break;
+        case 'warning':
+          notificationIcon.classList.add('text-warning');
+          notificationIcon.innerHTML = '<i class="fa fa-exclamation-triangle"></i>';
+          break;
+        case 'info':
+        default:
+          notificationIcon.classList.add('text-info');
+          notificationIcon.innerHTML = '<i class="fa fa-info-circle"></i>';
+          break;
+      }
+      
+      // 显示通知
+      notification.classList.remove('hidden');
+      
+      // 3秒后自动隐藏
+      clearTimeout(window.notificationTimeout);
+      window.notificationTimeout = setTimeout(hideNotification, 3000);
+    }
+
+    // 隐藏通知
+    function hideNotification() {
+      const notification = document.getElementById('notification');
+      notification.classList.add('hidden');
+    }
+  </script>
+</body>
+</html>

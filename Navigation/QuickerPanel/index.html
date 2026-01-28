@@ -66,6 +66,16 @@
         <h1 class="text-2xl font-bold text-gray-800">快捷面板</h1>
       </div>
       <div class="flex items-center space-x-4">
+        <div class="relative">
+          <select id="categorySelector" class="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent appearance-none cursor-pointer pr-8">
+            <option value="all">所有分类</option>
+            <!-- 分类选项将在这里动态生成 -->
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+            <i class="fa fa-chevron-down"></i>
+          </div>
+        </div>
+      <div class="flex items-center space-x-4">
         <div id="notification" class="hidden fixed top-4 right-4 bg-white rounded-lg shadow-lg p-4 z-50 max-w-xs">
           <div class="flex items-start">
             <div id="notificationIcon" class="mr-3 text-lg"></div>
@@ -92,7 +102,7 @@
             </button>
           </div>
         </div>
-        <div class="p-4">
+        <div class="p-4 overflow-y-auto max-h-[calc(100vh-8rem)]">
           <h3 class="font-medium text-gray-700 mb-2">通用配置</h3>
           <div class="mb-4">
             <label for="panelName" class="block text-sm font-medium text-gray-700 mb-1">快捷面板名称</label>
@@ -112,6 +122,21 @@
 
           <hr class="my-6 border-gray-200">
 
+          <h3 class="font-medium text-gray-700 mb-4">分类管理</h3>
+          <div class="mb-4">
+            <div class="flex space-x-2 mb-3">
+              <input type="text" id="newCategoryName" class="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="分类名称">
+              <button onclick="addCategory()" class="px-3 py-2 bg-primary text-white rounded-md hover:bg-primary/90 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                添加
+              </button>
+            </div>
+            <div id="categoriesList" class="space-y-2 max-h-40 overflow-y-auto">
+              <!-- 分类列表将在这里动态生成 -->
+            </div>
+          </div>
+
+          <hr class="my-6 border-gray-200">
+
           <h3 class="font-medium text-gray-700 mb-4">按钮管理</h3>
           <div class="flex space-x-2 mb-4">
             <button id="addButton" class="flex-1 bg-success text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-success transition-colors duration-200">
@@ -128,7 +153,33 @@
             <button id="importConfig" class="flex-1 bg-secondary text-white py-2 px-4 rounded-md hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary transition-colors duration-200">
               <i class="fa fa-upload mr-1"></i> 导入
             </button>
-            <input type="file" id="importFile" accept=".json" class="hidden">
+          </div>
+
+          <hr class="my-6 border-gray-200">
+
+          <h3 class="font-medium text-gray-700 mb-4">导入导出配置</h3>
+          <div class="mb-4">
+            <div class="space-y-3">
+              <button id="exportConfigBtn" class="w-full flex items-center justify-center bg-secondary text-white py-2 px-4 rounded-md hover:bg-slate-600 text-sm">
+                <i class="fa fa-download mr-2"></i> 导出配置文件
+              </button>
+              <div class="border border-gray-300 rounded-md p-3">
+                <label class="block text-sm font-medium text-gray-700 mb-2">从文本导入配置</label>
+                <textarea id="importTextArea" rows="5" placeholder="粘贴JSON配置数据到此处..." 
+                          class="w-full text-sm p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                <div class="flex justify-end mt-2">
+                  <button onclick="importConfigFromText()" 
+                          class="px-3 py-1 bg-primary text-white text-sm rounded hover:bg-primary-dark">
+                    <i class="fa fa-paste mr-1"></i> 导入
+                  </button>
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">从文件导入配置</label>
+                <input type="file" id="importFileInput" accept=".json" onchange="importConfigFromFile(event)" 
+                       class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-primary-dark">
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -148,12 +199,18 @@
             <i class="fa fa-times"></i>
           </button>
         </div>
-        <div class="p-4">
+        <div class="p-4 overflow-y-auto max-h-[calc(100vh-8rem)]">
           <form id="buttonForm">
             <input type="hidden" id="buttonId">
             <div class="mb-4">
               <label for="buttonName" class="block text-sm font-medium text-gray-700 mb-1">按钮名称</label>
               <input type="text" id="buttonName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入按钮名称" required>
+            </div>
+            <div class="mb-4">
+              <label for="buttonCategory" class="block text-sm font-medium text-gray-700 mb-1">所属分类</label>
+              <select id="buttonCategory" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <!-- 分类选项将在这里动态生成 -->
+              </select>
             </div>
             <div class="mb-4">
               <label for="buttonColor" class="block text-sm font-medium text-gray-700 mb-1">按钮颜色</label>
@@ -285,9 +342,12 @@
   <script>
     // 全局变量
     let buttons = [];
+    let categories = [];
+    let currentCategoryId = 'all';
     let config = {
       toUser: '',
-      code: ''
+      code: '',
+      panelName: '快捷面板'
     };
     let editingButtonId = null;
 
@@ -295,6 +355,9 @@
     document.addEventListener('DOMContentLoaded', function() {
       // 加载配置
       loadConfig();
+      
+      // 加载分类
+      loadCategories();
       
       // 加载按钮
       loadButtons();
@@ -317,6 +380,16 @@
           if (value > 100) value = 100;
           this.value = value;
           opacitySlider.value = value;
+        });
+      }
+      
+      // 绑定分类选择器事件
+      const categorySelector = document.getElementById('categorySelector');
+      if (categorySelector) {
+        categorySelector.addEventListener('change', function() {
+          currentCategoryId = this.value;
+          localStorage.setItem('quickPanelCurrentCategory', currentCategoryId);
+          renderButtons();
         });
       }
       
@@ -444,12 +517,7 @@
 
       // 导出配置
       document.getElementById('exportConfig').addEventListener('click', exportConfig);
-
-      // 导入配置
-      document.getElementById('importConfig').addEventListener('click', function() {
-        document.getElementById('importFile').click();
-      });
-      document.getElementById('importFile').addEventListener('change', importConfig);
+      document.getElementById('exportConfigBtn').addEventListener('click', exportConfig);
 
       // 模态框按钮
       document.getElementById('closeModalButton').addEventListener('click', closeButtonModal);
@@ -511,6 +579,12 @@
         // 更新面板标题
         document.querySelector('header h1').textContent = panelName;
       }
+      
+      // 加载当前选中的分类
+      const savedCategory = localStorage.getItem('quickPanelCurrentCategory');
+      if (savedCategory) {
+        currentCategoryId = savedCategory;
+      }
     }
 
     // 保存配置
@@ -541,13 +615,259 @@
       showNotification('成功', '配置已保存', 'success');
     }
 
+    // 加载分类
+    function loadCategories() {
+      const savedCategories = localStorage.getItem('quickPanelCategories');
+      if (savedCategories) {
+        categories = JSON.parse(savedCategories);
+      } else {
+        // 创建默认分类
+        const defaultCategory = {
+          id: generateCategoryId(),
+          name: '默认分类',
+          createdAt: Date.now(),
+          updatedAt: Date.now()
+        };
+        categories = [defaultCategory];
+        saveCategories();
+      }
+      renderCategorySelector();
+      renderCategoriesList();
+    }
+
+    // 保存分类
+    function saveCategories() {
+      localStorage.setItem('quickPanelCategories', JSON.stringify(categories));
+      renderCategorySelector();
+      renderCategoriesList();
+    }
+
+    // 渲染分类选择器
+    function renderCategorySelector() {
+      const selector = document.getElementById('categorySelector');
+      if (!selector) return;
+      
+      // 清空现有选项（保留"所有分类"）
+      while (selector.options.length > 1) {
+        selector.remove(1);
+      }
+      
+      // 添加分类选项
+      categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category.id;
+        option.textContent = category.name;
+        selector.appendChild(option);
+      });
+      
+      // 设置当前选中分类
+      selector.value = currentCategoryId;
+    }
+
+    // 渲染分类列表
+    function renderCategoriesList() {
+      const list = document.getElementById('categoriesList');
+      if (!list) return;
+      
+      list.innerHTML = '';
+      categories.forEach(category => {
+        // 计算该分类下的按钮数量
+        const buttonCount = buttons.filter(button => button.categoryId === category.id).length;
+        
+        const categoryItem = document.createElement('div');
+        categoryItem.className = 'flex items-center justify-between bg-gray-50 p-2 rounded mb-2';
+        categoryItem.innerHTML = `
+          <div class="flex items-center space-x-2">
+            <span class="text-sm font-medium">${category.name}</span>
+            <span class="text-xs text-gray-500">(${buttonCount}个按钮)</span>
+          </div>
+          <div class="flex items-center space-x-1">
+            <button onclick="editCategoryName('${category.id}')" 
+                    class="text-blue-500 hover:text-blue-700 text-xs px-2 py-1 rounded hover:bg-blue-100">
+              编辑
+            </button>
+            <button onclick="deleteCategory('${category.id}')" 
+                    class="text-red-500 hover:text-red-700 text-xs px-2 py-1 rounded hover:bg-red-100">
+              删除
+            </button>
+          </div>
+        `;
+        list.appendChild(categoryItem);
+      });
+    }
+
+    // 添加分类
+    function addCategory() {
+      const nameInput = document.getElementById('newCategoryName');
+      const name = nameInput.value.trim();
+      
+      if (!name) {
+        showNotification('错误', '请输入分类名称', 'error');
+        return;
+      }
+      
+      // 检查分类名称是否已存在
+      if (categories.some(cat => cat.name === name)) {
+        showNotification('错误', '分类名称已存在', 'error');
+        return;
+      }
+      
+      const category = {
+        id: generateCategoryId(),
+        name: name,
+        createdAt: Date.now(),
+        updatedAt: Date.now()
+      };
+      
+      categories.push(category);
+      saveCategories();
+      
+      // 清空输入框
+      nameInput.value = '';
+      
+      showNotification('成功', '分类已添加', 'success');
+    }
+
+    // 编辑分类名称
+    function editCategoryName(categoryId) {
+      const category = categories.find(cat => cat.id === categoryId);
+      if (!category) return;
+      
+      const newName = prompt('请输入新的分类名称:', category.name);
+      if (newName === null) return; // 用户取消了操作
+      
+      const trimmedName = newName.trim();
+      if (!trimmedName) {
+        showNotification('错误', '分类名称不能为空', 'error');
+        return;
+      }
+      
+      // 检查分类名称是否已存在
+      if (categories.some(cat => cat.id !== categoryId && cat.name === trimmedName)) {
+        showNotification('错误', '分类名称已存在', 'error');
+        return;
+      }
+      
+      // 更新分类名称
+      category.name = trimmedName;
+      category.updatedAt = Date.now();
+      
+      saveCategories();
+      showNotification('成功', '分类名称已更新', 'success');
+    }
+
+    // 删除分类
+    function deleteCategory(categoryId) {
+      if (categories.length <= 1) {
+        showNotification('错误', '至少保留一个分类', 'error');
+        return;
+      }
+      
+      const category = categories.find(cat => cat.id === categoryId);
+      if (!category) return;
+      
+      // 计算该分类下的按钮数量
+      const buttonCount = buttons.filter(button => button.categoryId === categoryId).length;
+      
+      // 确认删除
+      const confirmMessage = buttonCount > 0 
+        ? `确定要删除"${category.name}"分类吗？该分类下的${buttonCount}个按钮将被移到默认分类。`
+        : `确定要删除"${category.name}"分类吗？`;
+        
+      if (!confirm(confirmMessage)) {
+        return;
+      }
+      
+      // 找到默认分类（第一个分类）
+      const defaultCategory = categories[0];
+      
+      // 将该分类下的按钮移到默认分类
+      let movedCount = 0;
+      buttons.forEach(button => {
+        if (button.categoryId === categoryId) {
+          button.categoryId = defaultCategory.id;
+          movedCount++;
+        }
+      });
+      
+      // 保存按钮数据
+      localStorage.setItem('quickPanelButtons', JSON.stringify(buttons));
+      
+      // 删除分类
+      categories = categories.filter(cat => cat.id !== categoryId);
+      saveCategories();
+      
+      // 如果当前选中的是被删除的分类，切换到默认分类
+      if (currentCategoryId === categoryId) {
+        currentCategoryId = defaultCategory.id;
+        localStorage.setItem('quickPanelCurrentCategory', currentCategoryId);
+        renderButtons();
+      }
+      
+      let message = `分类"${category.name}"已删除`;
+      if (movedCount > 0) {
+        message += `，${movedCount}个按钮已移至"${defaultCategory.name}"分类`;
+      }
+      showNotification('成功', message, 'success');
+    }
+
+    // 生成分类ID
+    function generateCategoryId() {
+      return 'category_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
+    }
+    
+    // 渲染按钮分类选择器
+    function renderButtonCategorySelector() {
+      const selector = document.getElementById('buttonCategory');
+      if (!selector) return;
+      
+      // 清空现有选项
+      selector.innerHTML = '';
+      
+      // 添加分类选项
+      categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category.id;
+        option.textContent = category.name;
+        selector.appendChild(option);
+      });
+      
+      // 如果没有分类，创建默认分类
+      if (categories.length === 0) {
+        const defaultCategory = {
+          id: generateCategoryId(),
+          name: '默认分类',
+          createdAt: Date.now(),
+          updatedAt: Date.now()
+        };
+        categories.push(defaultCategory);
+        saveCategories();
+        
+        const option = document.createElement('option');
+        option.value = defaultCategory.id;
+        option.textContent = defaultCategory.name;
+        selector.appendChild(option);
+      }
+    }
+
     // 加载按钮
     function loadButtons() {
       const savedButtons = localStorage.getItem('quickPanelButtons');
       if (savedButtons) {
         buttons = JSON.parse(savedButtons);
-        renderButtons();
+        
+        // 数据迁移：为旧按钮添加默认分类
+        const defaultCategory = categories[0];
+        buttons.forEach(button => {
+          if (!button.categoryId) {
+            button.categoryId = defaultCategory.id;
+          }
+        });
+        
+        // 保存迁移后的数据
+        localStorage.setItem('quickPanelButtons', JSON.stringify(buttons));
       }
+      renderButtons();
     }
 
     // 渲染按钮
@@ -555,21 +875,38 @@
       const buttonGrid = document.getElementById('buttonGrid');
       buttonGrid.innerHTML = '';
       
-      if (buttons.length === 0) {
+      // 根据当前分类筛选按钮
+      let filteredButtons = buttons;
+      if (currentCategoryId !== 'all') {
+        filteredButtons = buttons.filter(button => button.categoryId === currentCategoryId);
+      }
+      
+      if (filteredButtons.length === 0) {
         // 如果没有按钮，显示提示信息
         const emptyState = document.createElement('div');
         emptyState.className = 'col-span-full flex flex-col items-center justify-center py-12 text-gray-500';
+        
+        let message = '暂无按钮';
+        let subMessage = '点击左上角菜单添加按钮';
+        
+        if (currentCategoryId !== 'all') {
+          const currentCategory = categories.find(cat => cat.id === currentCategoryId);
+          if (currentCategory) {
+            message = `分类"${currentCategory.name}"下暂无按钮`;
+          }
+        }
+        
         emptyState.innerHTML = `
           <i class="fa fa-info-circle text-4xl mb-4"></i>
-          <p class="text-lg">暂无按钮</p>
-          <p class="text-sm mt-2">点击左上角菜单添加按钮</p>
+          <p class="text-lg">${message}</p>
+          <p class="text-sm mt-2">${subMessage}</p>
         `;
         buttonGrid.appendChild(emptyState);
         return;
       }
       
       // 渲染每个按钮
-      buttons.forEach(button => {
+      filteredButtons.forEach(button => {
         const buttonElement = document.createElement('div');
         buttonElement.className = 'aspect-square relative group';
         
@@ -739,6 +1076,9 @@
       document.getElementById('buttonOpacity').value = 100;
       document.getElementById('buttonOpacityInput').value = 100;
       
+      // 渲染分类选择器
+      renderButtonCategorySelector();
+      
       // 确保模态框内容可滚动
       modalContent.style.maxHeight = '80vh';
       modalContent.style.overflowY = 'auto';
@@ -793,6 +1133,9 @@
           const opacityValue = button.opacity !== undefined ? button.opacity : 100;
           document.getElementById('buttonOpacity').value = opacityValue;
           document.getElementById('buttonOpacityInput').value = opacityValue;
+          
+          // 设置按钮分类
+          document.getElementById('buttonCategory').value = button.categoryId || categories[0].id;
           
           // 最后设置类型，这样可以保留图片链接
           setIconType(iconType);
@@ -907,6 +1250,27 @@
       const button = {
         id: buttonId || generateId(),
         name,
+        categoryId: document.getElementById('buttonCategory').value,
+        color,
+        opacity: parseInt(document.getElementById('buttonOpacity').value),
+        operation,
+        action,
+        data,
+        toDevice,
+        wait,
+        maxWaitMs: wait ? parseInt(maxWaitMs) : undefined,
+        iconType,
+        fontIcon,
+        imageIcon,
+        bgType,
+        bgImage
+      };
+      
+      // 创建按钮对象并保存
+      const buttonObj = {
+        id: buttonId || generateId(),
+        name,
+        categoryId: document.getElementById('buttonCategory').value,
         color,
         opacity: parseInt(document.getElementById('buttonOpacity').value),
         operation,
@@ -923,60 +1287,7 @@
       };
       
       // 保存按钮
-      saveButtonToStorage(button);
-      
-
-      
-      // 保存按钮到存储
-      function saveButtonToStorage(button) {
-        // 保存按钮
-        if (editingButtonId) {
-          // 编辑现有按钮
-          const index = buttons.findIndex(b => b.id === editingButtonId);
-          if (index !== -1) {
-            buttons[index] = button;
-          }
-        } else {
-          // 添加新按钮
-          buttons.push(button);
-        }
-        
-        // 保存到本地存储
-        localStorage.setItem('quickPanelButtons', JSON.stringify(buttons));
-        
-        // 重新渲染按钮
-        renderButtons();
-        
-        // 关闭模态框
-        closeButtonModal();
-        
-        // 显示通知
-        showNotification('成功', editingButtonId ? '按钮已更新' : '按钮已添加', 'success');
-      }
-      
-      // 保存按钮
-      if (editingButtonId) {
-        // 编辑现有按钮
-        const index = buttons.findIndex(b => b.id === editingButtonId);
-        if (index !== -1) {
-          buttons[index] = button;
-        }
-      } else {
-        // 添加新按钮
-        buttons.push(button);
-      }
-      
-      // 保存到本地存储
-      localStorage.setItem('quickPanelButtons', JSON.stringify(buttons));
-      
-      // 重新渲染按钮
-      renderButtons();
-      
-      // 关闭模态框
-      closeButtonModal();
-      
-      // 显示通知
-      showNotification('成功', editingButtonId ? '按钮已更新' : '按钮已添加', 'success');
+      saveButtonToStorage(buttonObj);
     }
 
     // 切换编辑菜单
@@ -1022,6 +1333,36 @@
       
       openButtonModal(buttonId);
       toggleSideMenu(); // 关闭侧边菜单
+    }
+
+    // 保存按钮到存储
+    function saveButtonToStorage(button) {
+      // 保存按钮
+      if (editingButtonId) {
+        // 编辑现有按钮
+        const index = buttons.findIndex(b => b.id === editingButtonId);
+        if (index !== -1) {
+          buttons[index] = button;
+        }
+      } else {
+        // 添加新按钮
+        buttons.push(button);
+      }
+      
+      // 保存到本地存储
+      localStorage.setItem('quickPanelButtons', JSON.stringify(buttons));
+      
+      // 重新渲染按钮
+      renderButtons();
+      
+      // 更新分类列表中的按钮数量
+      renderCategoriesList();
+      
+      // 关闭模态框
+      closeButtonModal();
+      
+      // 显示通知
+      showNotification('成功', editingButtonId ? '按钮已更新' : '按钮已添加', 'success');
     }
 
     // 删除按钮
@@ -1126,7 +1467,8 @@
     function exportConfig() {
       const exportData = {
         config,
-        buttons
+        buttons,
+        categories
       };
       
       const dataStr = JSON.stringify(exportData, null, 2);
@@ -1142,8 +1484,8 @@
       showNotification('成功', '配置已导出', 'success');
     }
 
-    // 导入配置
-    function importConfig(event) {
+    // 从文件导入配置
+    function importConfigFromFile(event) {
       const file = event.target.files[0];
       if (!file) {
         return;
@@ -1154,21 +1496,43 @@
         try {
           const importData = JSON.parse(e.target.result);
           
+          let hasChanges = false;
+          
+          // 导入配置
           if (importData.config) {
             config = importData.config;
             localStorage.setItem('quickPanelConfig', JSON.stringify(config));
             document.getElementById('toUser').value = config.toUser || '';
             document.getElementById('code').value = config.code || '';
+            document.getElementById('panelName').value = config.panelName || '快捷面板';
+            hasChanges = true;
           }
           
+          // 导入按钮
           if (importData.buttons) {
             buttons = importData.buttons;
             localStorage.setItem('quickPanelButtons', JSON.stringify(buttons));
             renderButtons();
+            hasChanges = true;
           }
           
-          showNotification('成功', '配置已导入', 'success');
+          // 导入分类
+          if (importData.categories) {
+            categories = importData.categories;
+            saveCategories();
+            renderCategories();
+            renderCategoriesList();
+            hasChanges = true;
+          }
+          
+          if (hasChanges) {
+            showNotification('成功', '配置已从文件导入', 'success');
+          } else {
+            showNotification('提示', '未找到有效的配置数据', 'info');
+          }
+          
         } catch (error) {
+          console.error('导入失败:', error);
           showNotification('错误', '导入失败：文件格式不正确', 'error');
         }
       };
@@ -1177,6 +1541,66 @@
       
       // 重置文件输入
       event.target.value = '';
+    }
+
+    // 从文本导入配置
+    function importConfigFromText() {
+      const textArea = document.getElementById('importTextArea');
+      const textContent = textArea.value.trim();
+      
+      if (!textContent) {
+        showNotification('提示', '请先粘贴JSON配置数据', 'info');
+        return;
+      }
+      
+      let hasChanges = false;
+      
+      try {
+        const importData = JSON.parse(textContent);
+        
+        // 导入配置
+        if (importData.config) {
+          config = importData.config;
+          localStorage.setItem('quickPanelConfig', JSON.stringify(config));
+          document.getElementById('toUser').value = config.toUser || '';
+          document.getElementById('code').value = config.code || '';
+          hasChanges = true;
+        }
+        
+        // 导入按钮
+        if (importData.buttons) {
+          buttons = importData.buttons;
+          localStorage.setItem('quickPanelButtons', JSON.stringify(buttons));
+          renderButtons();
+          hasChanges = true;
+        }
+        
+        // 导入分类
+        if (importData.categories) {
+          categories = importData.categories;
+          saveCategories();
+          renderCategories();
+          renderCategoriesList();
+          hasChanges = true;
+        }
+        
+        if (hasChanges) {
+          showNotification('成功', '配置已从文本导入', 'success');
+          // 清空文本区域
+          textArea.value = '';
+        } else {
+          showNotification('提示', '未找到有效的配置数据', 'info');
+        }
+        
+      } catch (error) {
+        console.error('导入过程中出现错误:', error);
+        // 检查是否已经有数据被导入
+        if (hasChanges) {
+          showNotification('提示', '部分配置已导入，但可能有格式问题', 'warning');
+        } else {
+          showNotification('错误', '导入失败：JSON格式不正确', 'error');
+        }
+      }
     }
 
     // 生成唯一 ID

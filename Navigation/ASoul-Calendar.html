@@ -9,12 +9,12 @@
     <link rel="icon" type="image/svg+xml"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M5 3H17C18 3 19 4 19 5V15C19 16 18 17 17 17H5C4 17 3 16 3 15V5C3 4 4 3 5 3M7 15 15 15H16C17 15 17 14 17 14V6C17 5 16 5 16 5H6C5 5 5 6 5 6V14C5 14 5 15 6 15H7M12 8 18 22 13 20 11 10 9 20 4 22 10 8'/></svg>">
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.0/dist/tailwind.min.js"></script>
     <!-- React & ReactDOM -->
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <!-- Babel for JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -73,7 +73,14 @@
 </head>
 
 <body class="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
-    <div id="root"></div>
+    <div id="root">
+        <div id="loading" class="flex items-center justify-center h-screen">
+            <div class="text-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                <p class="text-slate-600 dark:text-slate-400">加载中...</p>
+            </div>
+        </div>
+    </div>
 
     <script type="text/babel">
         const { useState, useMemo, useEffect, Fragment, useRef } = React;
@@ -1474,8 +1481,39 @@
             );
         };
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        // 等待DOM加载完成后再渲染React应用
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                const loadingElement = document.getElementById('loading');
+                if (loadingElement) {
+                    loadingElement.style.display = 'none';
+                }
+
+                const rootElement = document.getElementById('root');
+                if (rootElement && typeof React !== 'undefined' && typeof ReactDOM !== 'undefined') {
+                    const root = ReactDOM.createRoot(rootElement);
+                    root.render(React.createElement(App));
+                } else {
+                    throw new Error('React或ReactDOM未正确加载');
+                }
+            } catch (error) {
+                console.error('应用初始化失败:', error);
+                const rootElement = document.getElementById('root');
+                if (rootElement) {
+                    rootElement.innerHTML = `
+                        <div class="flex items-center justify-center h-screen bg-slate-100 dark:bg-slate-900">
+                            <div class="text-center p-8 bg-white dark:bg-slate-800 rounded-lg shadow-lg">
+                                <h2 class="text-xl font-bold text-red-600 mb-4">应用加载失败</h2>
+                                <p class="text-slate-600 dark:text-slate-400 mb-4">${error.message}</p>
+                                <button onclick="location.reload()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                                    重新加载
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+        });
     </script>
 </body>
 

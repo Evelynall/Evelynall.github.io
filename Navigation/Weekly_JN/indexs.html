@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>每周金诺 - 周报生成器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- html-to-image 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+        :root {
+            --primary-gold: #c5a059;
+            --dark-gold: #a68548;
+            --text-main: #2c2c2c;
+            --bg-light: #f9f9f7;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f0f0f0;
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .serif {
+            font-family: 'Noto Serif SC', serif;
+        }
+
+        /* 模拟手机容器 */
+        .phone-preview {
+            width: 100%;
+            max-width: 375px;
+            min-height: 667px;
+            background: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .report-header {
+            background-color: rgba(39, 66, 93, 1);
+            color: white;
+            padding: 40px 24px;
+            text-align: center;
+            letter-spacing: 0.15em;
+        }
+
+        .gold-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+            margin: 24px 0;
+        }
+
+        /* 栏目标题放大 */
+        .section-title {
+            color: var(--primary-gold);
+            font-size: 1.1rem; /* 显著放大标题 */
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            border-bottom: 2px solid #f2f2f2;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title span {
+            font-size: 0.7rem;
+            margin-left: 8px;
+            opacity: 0.6;
+            letter-spacing: 0.2em;
+        }
+
+        .content-card {
+            padding: 25px 30px;
+            background: white;
+        }
+
+        .dept-tag {
+            font-weight: 700;
+            color: #1a1a1a;
+            font-size: 0.85rem; /* 回归较小尺寸 */
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .item-list {
+            margin-bottom: 20px;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .item-list li {
+            position: relative;
+            padding-left: 14px;
+            margin-bottom: 8px;
+            font-size: 0.8rem; /* 回归正文较小尺寸 */
+            line-height: 1.6;
+            color: #555;
+            text-align: justify;
+        }
+
+        /* 斜杠装饰 */
+        .item-list li::before {
+            content: "/";
+            position: absolute;
+            left: 0;
+            color: var(--primary-gold);
+            font-weight: 300;
+            font-size: 0.8rem;
+        }
+
+        .company-update-box {
+            background-color: #fafaf8;
+            padding: 12px;
+            border-left: 2px solid var(--primary-gold);
+            margin-bottom: 20px;
+        }
+
+        .company-update-text {
+            font-size: 0.8rem; /* 正文缩小 */
+            line-height: 1.6;
+            color: #555;
+            font-style: italic;
+        }
+
+        strong {
+            font-weight: 700;
+            color: #111;
+        }
+
+        @media print {
+            .no-print { display: none; }
+            body { background: white; padding: 0; }
+            .phone-preview { box-shadow: none; max-width: 100%; width: 100%; border: none; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-8">
+        
+        <!-- 左侧：编辑器 -->
+        <div class="flex-1 bg-white p-8 rounded-2xl shadow-sm no-print h-fit sticky top-6 border border-gray-100">
+            <h2 class="text-xl font-bold mb-6 border-b pb-4 flex items-center">
+                内容编辑
+            </h2>
+            
+            <div class="space-y-5">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-2">日期设置</label>
+                    <input type="date" id="dateInput" class="w-full p-2 border border-gray-200 rounded focus:ring-2 focus:ring-amber-200 outline-none" oninput="updatePreview()">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-2">行业资讯 (支持 **加粗**)</label>
+                    <textarea id="newsInput" rows="4" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-amber-200 outline-none" oninput="updatePreview()">**Nature** | 杨剑/沈贤团队构建迄今最大规模人类泛基因组参考图谱，全面解析中国人群遗传多样性
+**Nat Med** | 蛋白质组学AI模型ProtAIDe-Dx单次采血即可同步诊断6种神经退行性疾病</textarea>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-2">公司动态</label>
+                    <textarea id="companyUpdateInput" rows="3" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-amber-200 outline-none" oninput="updatePreview()">**OmniSeek® v2.0** 增强型全外显子组测序项目推广计划筹备中</textarea>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-2">部门事项 (格式：部门名|事项1,事项2...)</label>
+                    <textarea id="deptInput" rows="8" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-amber-200 outline-none" oninput="updatePreview()">客服部|本周客户咨询**57**例 主要涉及检测前项目咨询及报告答疑
+销售部|**成功中标** 台州市路桥区妇幼健康服务中心：耳聋基因携带者筛查采购项目</textarea>
+                </div>
+            </div>
+
+            <button onclick="window.print()" class="w-full mt-8 py-4 bg-neutral-900 text-white rounded-xl font-bold hover:bg-black transition-all shadow-lg">
+                生成预览 / 导出 PDF
+            </button>
+
+            <button id="downloadImgBtn" class="w-full mt-3 py-4 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-xl font-bold hover:from-amber-700 hover:to-amber-800 transition-all shadow-lg flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                下载为图片
+            </button>
+            <div id="downloadStatus" class="mt-2 text-center text-sm text-gray-400 hidden"></div>
+        </div>
+
+        <!-- 右侧：手机预览 -->
+        <div class="flex-1">
+            <div class="phone-preview" id="captureArea">
+                <!-- 页眉 -->
+                <div class="report-header">
+                    <h1 class="serif text-5xl font-bold mb-4">每周金诺</h1>
+                    <div class="gold-divider"></div>
+                    <p id="displayDate" class="text-[11px] opacity-70 tracking-[0.4em] uppercase">2023.10.27 FRIDAY</p>
+                </div>
+
+                <!-- 行业资讯 -->
+                <div class="content-card">
+                    <h2 class="section-title">行业资讯 <span>/ INDUSTRY</span></h2>
+                    <ul id="newsList" class="item-list">
+                        <!-- JS 填充 -->
+                    </ul>
+                </div>
+
+                <!-- 一周小结 -->
+                <div class="content-card pt-0">
+                    <h2 class="section-title">一周小结 <span>/ SUMMARY</span></h2>
+                    
+                    <div class="company-update-box">
+                        <span class="dept-tag" style="color:var(--primary-gold); font-size: 0.75rem;">公司动态</span>
+                        <div id="companyUpdateDisplay" class="company-update-text">
+                            <!-- JS 填充 -->
+                        </div>
+                    </div>
+
+                    <div id="deptListDisplay">
+                        <!-- JS 填充 -->
+                    </div>
+                </div>
+
+                <!-- 页脚 -->
+                <div class="p-5 text-center bg-white mt-4 border-t border-gray-50">
+                    <p class="text-[9px] text-gray-300 tracking-[0.2em] uppercase">Juno Genomics</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('dateInput').valueAsDate = new Date();
+
+        function parseFormat(text) {
+            return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        }
+
+        function updatePreview() {
+            const dateVal = new Date(document.getElementById('dateInput').value);
+            const weekday = dateVal.toLocaleDateString('en-US', { weekday: 'long' }).toUpperCase();
+            document.getElementById('displayDate').innerText = `${dateVal.getFullYear()}.${(dateVal.getMonth()+1).toString().padStart(2,'0')}.${dateVal.getDate().toString().padStart(2,'0')} ${weekday}`;
+
+            // 行业资讯
+            const news = document.getElementById('newsInput').value.split('\n').filter(t => t.trim());
+            document.getElementById('newsList').innerHTML = news.map(item => `<li>${parseFormat(item)}</li>`).join('');
+
+            // 公司动态
+            document.getElementById('companyUpdateDisplay').innerHTML = parseFormat(document.getElementById('companyUpdateInput').value);
+
+            // 部门事项
+            const deptsRaw = document.getElementById('deptInput').value.split('\n').filter(t => t.trim());
+            let html = '';
+            deptsRaw.forEach(line => {
+                const parts = line.split('|');
+                if (parts.length >= 2) {
+                    const name = parts[0];
+                    const itemsStr = parts.slice(1).join('|');
+                    const items = itemsStr.split(/[,，]/);
+                    html += `
+                        <div class="mb-5">
+                            <span class="dept-tag">${name}</span>
+                            <ul class="item-list mb-2">
+                                ${items.map(i => `<li>${parseFormat(i.trim())}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
+            });
+            document.getElementById('deptListDisplay').innerHTML = html;
+        }
+
+        window.onload = updatePreview;
+
+        // --- 下载为图片功能 ---
+        document.getElementById('downloadImgBtn').addEventListener('click', async function () {
+            const node = document.getElementById('captureArea');
+            if (!node) return;
+
+            const btn = this;
+            const status = document.getElementById('downloadStatus');
+
+            // 显示加载状态
+            btn.disabled = true;
+            btn.innerHTML = `
+                <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+                正在生成图片...
+            `;
+            status.classList.remove('hidden');
+            status.textContent = '⏳ 正在渲染，请稍候...';
+            status.style.color = '#999';
+
+            // 保存原始样式（phone-preview 有 margin: 0 auto 居中）
+            const originalMargin = node.style.margin;
+            const originalMaxWidth = node.style.maxWidth;
+            const originalWidth = node.style.width;
+
+            try {
+                // 截图前：固定宽度 + 取消居中，避免截到空白
+                const rect = node.getBoundingClientRect();
+                const targetWidth = Math.ceil(rect.width);
+                const targetHeight = Math.ceil(rect.height);
+
+                node.style.margin = '0';
+                node.style.maxWidth = 'none';
+                node.style.width = `${targetWidth}px`;
+                void node.offsetHeight;
+
+                // 使用 2 倍像素密度以获得高清图片
+                const dataUrl = await htmlToImage.toPng(node, {
+                    quality: 1,
+                    pixelRatio: 2,
+                    cacheBust: true,
+                    width: targetWidth,
+                    height: targetHeight,
+                    canvasWidth: targetWidth,
+                    canvasHeight: targetHeight,
+                    fetchRequestInit: { mode: 'cors' },
+                    imagePlaceholder: undefined,
+                    style: { transform: 'none' },
+                });
+
+                // 生成文件名
+                const dateText = document.getElementById('displayDate').textContent.trim();
+                const link = document.createElement('a');
+                link.download = `每周金诺_${dateText.replace(/\s+/g, '_')}.png`;
+                link.href = dataUrl;
+                link.click();
+
+                status.textContent = '✅ 图片已生成并开始下载！';
+                status.style.color = '#16a34a';
+            } catch (error) {
+                console.error('生成图片失败:', error);
+                status.textContent = '❌ 生成失败，请尝试刷新页面后重试。';
+                status.style.color = '#dc2626';
+            } finally {
+                // 恢复容器原始样式
+                node.style.margin = originalMargin;
+                node.style.maxWidth = originalMaxWidth;
+                node.style.width = originalWidth;
+
+                // 恢复按钮状态
+                btn.disabled = false;
+                btn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    下载为图片
+                `;
+                setTimeout(() => status.classList.add('hidden'), 3000);
+            }
+        });
+    </script>
+</body>
+</html>

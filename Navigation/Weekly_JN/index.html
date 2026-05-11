@@ -163,6 +163,13 @@
 
                 <div>
                     <label class="block text-xs font-bold text-gray-500 mb-2">公司动态</label>
+                    <div class="flex items-center gap-3 mb-2">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="companyUpdateToggle" class="sr-only peer" checked onchange="updatePreview()">
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-amber-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-600"></div>
+                        </label>
+                        <span id="toggleLabel" class="text-sm text-gray-600">显示</span>
+                    </div>
                     <textarea id="companyUpdateInput" rows="3" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-amber-200 outline-none" oninput="updatePreview()">**OmniSeek® v2.0** 增强型全外显子组测序项目推广计划筹备中</textarea>
                 </div>
 
@@ -208,7 +215,7 @@
                 <div class="content-card pt-0">
                     <h2 class="section-title">一周小结 <span>/ SUMMARY</span></h2>
                     
-                    <div class="company-update-box">
+                    <div id="companyUpdateBox" class="company-update-box">
                         <span class="dept-tag" style="color:var(--primary-gold); font-size: 0.75rem;">公司动态</span>
                         <div id="companyUpdateDisplay" class="company-update-text">
                             <!-- JS 填充 -->
@@ -244,8 +251,17 @@
             const news = document.getElementById('newsInput').value.split('\n').filter(t => t.trim());
             document.getElementById('newsList').innerHTML = news.map(item => `<li>${parseFormat(item)}</li>`).join('');
 
-            // 公司动态
-            document.getElementById('companyUpdateDisplay').innerHTML = parseFormat(document.getElementById('companyUpdateInput').value);
+            // 公司动态开关
+            const showCompanyUpdate = document.getElementById('companyUpdateToggle').checked;
+            const companyUpdateBox = document.getElementById('companyUpdateBox');
+            const toggleLabel = document.getElementById('toggleLabel');
+            
+            companyUpdateBox.style.display = showCompanyUpdate ? 'block' : 'none';
+            toggleLabel.textContent = showCompanyUpdate ? '显示' : '隐藏';
+            
+            if (showCompanyUpdate) {
+                document.getElementById('companyUpdateDisplay').innerHTML = parseFormat(document.getElementById('companyUpdateInput').value);
+            }
 
             // 部门事项
             const deptsRaw = document.getElementById('deptInput').value.split('\n').filter(t => t.trim());

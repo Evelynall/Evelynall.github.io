@@ -156,18 +156,37 @@
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-gray-500 mb-2">行业资讯 (支持 **加粗**)</label>
+                    <label class="block text-xs font-bold text-gray-500 mb-2">行业资讯 (支持 **加粗** 和 *斜体*)</label>
+                    <div class="flex gap-2 mb-2">
+                        <button type="button" onclick="insertBold('newsInput')" class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md text-sm font-bold transition border border-gray-200">加粗</button>
+                        <button type="button" onclick="insertItalic('newsInput')" class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md text-sm italic transition border border-gray-200">斜体</button>
+                    </div>
                     <textarea id="newsInput" rows="4" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-amber-200 outline-none" oninput="updatePreview()">**Nature** | 杨剑/沈贤团队构建迄今最大规模人类泛基因组参考图谱，全面解析中国人群遗传多样性
 **Nat Med** | 蛋白质组学AI模型ProtAIDe-Dx单次采血即可同步诊断6种神经退行性疾病</textarea>
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-gray-500 mb-2">公司动态</label>
+                    <div class="flex items-center gap-3 mb-2">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="companyUpdateToggle" class="sr-only peer" checked onchange="updatePreview()">
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-amber-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-600"></div>
+                        </label>
+                        <span id="toggleLabel" class="text-sm text-gray-600">显示</span>
+                    </div>
+                    <div class="flex gap-2 mb-2">
+                        <button type="button" onclick="insertBold('companyUpdateInput')" class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md text-sm font-bold transition border border-gray-200">加粗</button>
+                        <button type="button" onclick="insertItalic('companyUpdateInput')" class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md text-sm italic transition border border-gray-200">斜体</button>
+                    </div>
                     <textarea id="companyUpdateInput" rows="3" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-amber-200 outline-none" oninput="updatePreview()">**OmniSeek® v2.0** 增强型全外显子组测序项目推广计划筹备中</textarea>
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-gray-500 mb-2">部门事项 (格式：部门名|事项1,事项2...)</label>
+                    <div class="flex gap-2 mb-2">
+                        <button type="button" onclick="insertBold('deptInput')" class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md text-sm font-bold transition border border-gray-200">加粗</button>
+                        <button type="button" onclick="insertItalic('deptInput')" class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md text-sm italic transition border border-gray-200">斜体</button>
+                    </div>
                     <textarea id="deptInput" rows="8" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-amber-200 outline-none" oninput="updatePreview()">客服部|本周客户咨询**57**例 主要涉及检测前项目咨询及报告答疑
 销售部|**成功中标** 台州市路桥区妇幼健康服务中心：耳聋基因携带者筛查采购项目</textarea>
                 </div>
@@ -208,7 +227,7 @@
                 <div class="content-card pt-0">
                     <h2 class="section-title">一周小结 <span>/ SUMMARY</span></h2>
                     
-                    <div class="company-update-box">
+                    <div id="companyUpdateBox" class="company-update-box">
                         <span class="dept-tag" style="color:var(--primary-gold); font-size: 0.75rem;">公司动态</span>
                         <div id="companyUpdateDisplay" class="company-update-text">
                             <!-- JS 填充 -->
@@ -232,7 +251,47 @@
         document.getElementById('dateInput').valueAsDate = new Date();
 
         function parseFormat(text) {
-            return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>');
+        }
+
+        function insertBold(textareaId) {
+            const textarea = document.getElementById(textareaId);
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const text = textarea.value;
+            const selectedText = text.substring(start, end);
+
+            if (selectedText) {
+                textarea.value = text.substring(0, start) + '**' + selectedText + '**' + text.substring(end);
+                textarea.selectionStart = start;
+                textarea.selectionEnd = start + 2 + selectedText.length + 2;
+            } else {
+                textarea.value = text.substring(0, start) + '****' + text.substring(end);
+                textarea.selectionStart = start + 2;
+                textarea.selectionEnd = start + 2;
+            }
+            textarea.focus();
+            textarea.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+
+        function insertItalic(textareaId) {
+            const textarea = document.getElementById(textareaId);
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const text = textarea.value;
+            const selectedText = text.substring(start, end);
+
+            if (selectedText) {
+                textarea.value = text.substring(0, start) + '*' + selectedText + '*' + text.substring(end);
+                textarea.selectionStart = start;
+                textarea.selectionEnd = start + 1 + selectedText.length + 1;
+            } else {
+                textarea.value = text.substring(0, start) + '**' + text.substring(end);
+                textarea.selectionStart = start + 1;
+                textarea.selectionEnd = start + 1;
+            }
+            textarea.focus();
+            textarea.dispatchEvent(new Event('input', { bubbles: true }));
         }
 
         function updatePreview() {
@@ -244,8 +303,17 @@
             const news = document.getElementById('newsInput').value.split('\n').filter(t => t.trim());
             document.getElementById('newsList').innerHTML = news.map(item => `<li>${parseFormat(item)}</li>`).join('');
 
-            // 公司动态
-            document.getElementById('companyUpdateDisplay').innerHTML = parseFormat(document.getElementById('companyUpdateInput').value);
+            // 公司动态开关
+            const showCompanyUpdate = document.getElementById('companyUpdateToggle').checked;
+            const companyUpdateBox = document.getElementById('companyUpdateBox');
+            const toggleLabel = document.getElementById('toggleLabel');
+            
+            companyUpdateBox.style.display = showCompanyUpdate ? 'block' : 'none';
+            toggleLabel.textContent = showCompanyUpdate ? '显示' : '隐藏';
+            
+            if (showCompanyUpdate) {
+                document.getElementById('companyUpdateDisplay').innerHTML = parseFormat(document.getElementById('companyUpdateInput').value);
+            }
 
             // 部门事项
             const deptsRaw = document.getElementById('deptInput').value.split('\n').filter(t => t.trim());

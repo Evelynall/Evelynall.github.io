@@ -1,390 +1,357 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- html-to-image 库 -->
-  <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
-  <style>
-    /* 页面背景图样式 */
-    .backgroundimg {
-      background-image: url('img/background.png');
-      background-size: cover;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>每周金诺 - 周报生成器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- html-to-image 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
 
-    /* 内容区域背景，带透明度 */
-    .backgrounds {
-      background-color: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(10px);
-    }
-    
-    /* 列表文本样式 */
-    .texts {
-      list-style-type: disc;
-      padding: 0 20px;
-      text-align: justify;
-    }
+        :root {
+            --primary-gold: #c5a059;
+            --dark-gold: #a68548;
+            --text-main: #2c2c2c;
+            --bg-light: #f9f9f7;
+        }
 
-    /* 内容文本外边距 */
-    .text-frame {
-      padding: 20px 25px;
-    }
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f0f0f0;
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+        }
 
-    /* 日期和周数容器 */
-    .date-week {
-      letter-spacing: 2px;
-      display: inline-flex;
-      align-items: center;
-    }
+        .serif {
+            font-family: 'Noto Serif SC', serif;
+        }
 
-    /* 日期图标内边距 */
-    .date-week img {
-      padding-right: 10px;
-    }
-    
-    /* 全局字体设置 */
-    body, div, p, li, span, button, label, textarea {
-      font-family: "思源黑体", "Helvetica Neue", Arial, sans-serif;
-    }
+        /* 模拟手机容器 */
+        .phone-preview {
+            width: 100%;
+            max-width: 375px;
+            min-height: 667px;
+            background: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
 
-    /* 标题样式 */
-    .titles {
-      font-size: 16px;
-      letter-spacing: 2px;
-      color: white;
-    }
-  </style>
+        .report-header {
+            background-color: rgba(39, 66, 93, 1);
+            color: white;
+            padding: 40px 24px;
+            text-align: center;
+            letter-spacing: 0.15em;
+        }
+
+        .gold-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+            margin: 24px 0;
+        }
+
+        /* 栏目标题放大 */
+        .section-title {
+            color: var(--primary-gold);
+            font-size: 1.1rem; /* 显著放大标题 */
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            border-bottom: 2px solid #f2f2f2;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title span {
+            font-size: 0.7rem;
+            margin-left: 8px;
+            opacity: 0.6;
+            letter-spacing: 0.2em;
+        }
+
+        .content-card {
+            padding: 25px 30px;
+            background: white;
+        }
+
+        .dept-tag {
+            font-weight: 700;
+            color: #1a1a1a;
+            font-size: 0.85rem; /* 回归较小尺寸 */
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .item-list {
+            margin-bottom: 20px;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .item-list li {
+            position: relative;
+            padding-left: 14px;
+            margin-bottom: 8px;
+            font-size: 0.8rem; /* 回归正文较小尺寸 */
+            line-height: 1.6;
+            color: #555;
+            text-align: justify;
+        }
+
+        /* 斜杠装饰 */
+        .item-list li::before {
+            content: "/";
+            position: absolute;
+            left: 0;
+            color: var(--primary-gold);
+            font-weight: 300;
+            font-size: 0.8rem;
+        }
+
+        .company-update-box {
+            background-color: #fafaf8;
+            padding: 12px;
+            border-left: 2px solid var(--primary-gold);
+            margin-bottom: 20px;
+        }
+
+        .company-update-text {
+            font-size: 0.8rem; /* 正文缩小 */
+            line-height: 1.6;
+            color: #555;
+            font-style: italic;
+        }
+
+        strong {
+            font-weight: 700;
+            color: #111;
+        }
+
+        @media print {
+            .no-print { display: none; }
+            body { background: white; padding: 0; }
+            .phone-preview { box-shadow: none; max-width: 100%; width: 100%; border: none; }
+        }
+    </style>
 </head>
+<body class="p-4 md:p-10">
 
-<body class="bg-gray-100">
-  <!-- 主内容容器，添加了 ID 用于脚本控制 -->
-  <div id="content-container" class="mx-auto bg-white dark:bg-zinc-800">
-    <div class="backgroundimg">
-      <div style="padding: 40px 30px;">
-        <div class="md:flex rounded-xl mx-auto backgrounds shadow-lg">
-          <div class="text-frame w-full">
-            <div class="flex items-center justify-between">
-              <div style="color: #397CB8;font-size: 11.5px;">
-                <p class="date-week"><img src="img/img1.png" width="29px">
-                  <b id="date-week">2024.06.07 第二十三周</b>
-                </p>
-              </div>
-              <img class="h-7 w-auto" src="img/HLb-LOGO-red.png" alt="logo" onerror="this.style.display='none'">
-            </div>
-            <div class="mt-4">
-              <div class="text-center">
-                <span class="inline-block px-8 py-1 rounded-full font-semibold titles"
-                  style="background-color: #EAA783;">行业资讯</span>
-              </div>
-              <ul id="newsList" class="mt-4 text-sm space-y-2 texts" style="color: #F69A3D;">
-                <li>近日，国家卫生健康委等14个部门联合发布《2024年纠正医药购销领域和医疗服务中不正之风工作要点》。重点关注借学术讲课取酬、外送检验、外等方式收受回扣的问题。</li>
-                <li>
-                  2024年5月21日起，2024年第一批北京市临床检验结果互认医疗机构，共798家医疗机构将对181项临床检验结果实施互认，对报告单中互认项目的检验结果予以认可，在不影响疾病诊断治疗的情况下将不再对患者进行重复检查。
-                </li>
-                <li>性病检测领域唯一的国家行业标准《梅毒非特异性抗体检测指南》正式颁布。将于2024年11月1日正式实施。</li>
-              </ul>
-            </div>
-            <img src="img/Division line.png" class="mt-5" onerror="this.style.display='none'">
-            <div class="mt-5">
-              <div class="text-center">
-                <span class="inline-block px-8 py-1 rounded-full font-semibold titles"
-                  style="background-color: #0993F3;">一周小结</span>
-              </div>
-              <!-- 公司动态区块 -->
-              <div id="companyNewsBlock" class="mt-4 px-3 py-2 rounded-lg text-sm" style="background-color: rgba(9,147,243,0.08); border-left: 3px solid #0993F3;">
-                <p class="font-semibold mb-1" style="color: #0993F3; letter-spacing: 1px;">金诺动态</p>
-                <ul id="companyNewsList" class="space-y-1" style="color: #0993F3; list-style: none; padding: 0; margin: 0;">
-                  <li>📢 本周公司无特别动态。</li>
-                </ul>
-              </div>
-              <ul id="summaryList" class="mt-4 text-zinc-700 dark:text-zinc-300 text-sm space-y-2 texts"
-                style="color: #5E8FDB;">
-                <li><span class="font-semibold">实验室</span>
-                  <p style="color: #A3848F;">➤ 分子实验室本周共接收样本1489例，其中呼13为993例
-                  </p>
-                </li>
-                <li><span class="font-semibold">客服部</span>
-                  <p style="color: #A3848F;">➤ 本周客户咨询量49，主要涉及内容包括检测前项目咨询及报告内容答疑
-                </li>
-                <li><span class="font-semibold">销售部</span>
-                  <p style="color: #A3848F;">➤ 新签科研协议：湖州市妇幼保健院 <br>➤ 续签医院：衢州市妇幼保健院
-                </li>
-                <li><span class="font-semibold">行政部</span>
-                  <p style="color: #A3848F;">➤ 北京大学信息技术高等研究院副院长方赞一行参访金诺诊断
-                </li>
-              </ul>
-            </div>
-            <div class="mt-8 flex justify-end">
-              <img class="h-7 w-auto" src="img/JN-LOGO-blue.png" alt="Juno Genomics" onerror="this.style.display='none'">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- 下载按钮区域 -->
-  <div class="max-w-xl mx-auto mt-4 px-4">
-    <button id="downloadBtn" class="w-full p-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-lg hover:from-purple-600 hover:to-indigo-600 transition font-medium shadow-md hover:shadow-lg active:scale-[0.98] flex items-center justify-center gap-2">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-      </svg>
-      下载为图片
-    </button>
-    <div id="downloadStatus" class="mt-2 text-center text-sm text-gray-500 hidden"></div>
-  </div>
-
-  <!-- 控制面板 -->
-  <div class="max-w-xl mx-auto mt-4 space-y-4 p-4 bg-white rounded-lg shadow">
-    
-
-    <!-- 宽度调整滑块 -->
-    <div>
-        <label for="width-slider" class="block text-sm font-medium text-gray-700">调整内容宽度</label>
-        <input id="width-slider" type="range" min="320" max="1200" value="516" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
-    </div>
-
-    <!-- 更新行业资讯 -->
-    <div>
-        <textarea id="textInput" class="w-full p-2 border border-gray-300 rounded-md" rows="4"
-        placeholder="在此处输入行业资讯，每条资讯占一行。"></textarea>
-        <button id="updateButton" class="w-full mt-2 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">更新行业资讯</button>
-    </div>
-
-    <!-- 更新公司动态 + 一周小结（共用一个按钮） -->
-    <div>
-        <label class="block text-xs font-medium text-gray-400 mb-1">金诺动态（留空则隐藏）</label>
-        <textarea id="companyNewsInput" class="w-full p-2 border border-gray-300 rounded-md" rows="2"
-        placeholder="在此处输入公司动态，每条占一行。留空则隐藏此区块。"></textarea>
-        <label class="block text-xs font-medium text-gray-400 mt-3 mb-1">一周小结</label>
-        <textarea id="summaryInput" class="w-full p-2 border border-gray-300 rounded-md" rows="4"
-        placeholder="在此处输入一周总结。使用'部门 ➤ 内容'格式来创建带箭头的条目。"></textarea>
-        <button id="updateSummaryButton" class="w-full mt-2 p-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition">更新金诺动态 &amp; 一周小结</button>
-    </div>
-        <!-- 操作提示信息 -->
-    <div class="p-3 bg-blue-50 text-blue-800 text-sm rounded-md border border-blue-100 shadow-sm">
-      💡 <strong>排版规则：使用 <code>^文字^</code> 包裹以添加上标。
-    </div>
-  </div>
-
-  <script>
-    /**
-     * 获取当前格式化的日期和周数。
-     * @returns {string} 格式为 "YYYY.MM.DD 第WW周" 的字符串。
-     */
-    function getCurrentDate() {
-      const now = new Date();
-      const year = now.getFullYear();
-      const month = String(now.getMonth() + 1).padStart(2, '0');
-      const day = String(now.getDate()).padStart(2, '0');
-      const weekNumber = getWeekNumber(now);
-      // 使用中文模板字符串
-      return `${year}.${month}.${day} 第${weekNumber}周`;
-    }
-
-    /**
-     * 根据ISO 8601标准计算给定日期的周数。
-     */
-    function getWeekNumber(date) {
-      const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-      const dayNum = d.getUTCDay() || 7;
-      d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-      return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
-    }
-
-    /**
-     * 解析文本，转义特殊符号并支持将 ^文字^ 转换为 HTML 上标标签 <sup>文字</sup>
-     */
-    function parseTextFormatting(text) {
-      // 1. 转义HTML，防止输入内容中的 < 或 > 破坏页面结构
-      const div = document.createElement('div');
-      div.textContent = text;
-      let safeText = div.innerHTML;
-
-      // 2. 将 ^上标^ 替换为 <sup>上标</sup>
-      return safeText.replace(/\^([^\^]+)\^/g, '<sup>$1</sup>');
-    }
-
-    // 当DOM完全加载后执行所有脚本
-    document.addEventListener('DOMContentLoaded', function () {
-      
-      // --- 1. 更新日期显示 ---
-      const dateElement = document.getElementById('date-week');
-      if (dateElement) {
-        dateElement.textContent = getCurrentDate();
-      }
-
-      // --- 2. 宽度调整滑块功能 ---
-      const widthSlider = document.getElementById('width-slider');
-      const contentContainer = document.getElementById('content-container');
-      
-      if (widthSlider && contentContainer) {
-        // 设置初始宽度
-        const initialWidth = 516; // 对应于 "max-w-md" (28rem)
-        widthSlider.value = initialWidth;
-        contentContainer.style.maxWidth = `${initialWidth}px`;
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-8">
         
-        // 添加事件监听器以在滑块移动时更新宽度
-        widthSlider.addEventListener('input', function() {
-            contentContainer.style.maxWidth = `${this.value}px`;
-        });
-      }
+        <!-- 左侧：编辑器 -->
+        <div class="flex-1 bg-white p-8 rounded-2xl shadow-sm no-print h-fit sticky top-6 border border-gray-100">
+            <h2 class="text-xl font-bold mb-6 border-b pb-4 flex items-center">
+                内容编辑
+            </h2>
+            
+            <div class="space-y-5">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-2">日期设置</label>
+                    <input type="date" id="dateInput" class="w-full p-2 border border-gray-200 rounded focus:ring-2 focus:ring-amber-200 outline-none" oninput="updatePreview()">
+                </div>
 
-      // --- 3. 更新公司动态 + 一周小结（合并按钮）---
-      document.getElementById('updateSummaryButton').addEventListener('click', function () {
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-2">行业资讯 (支持 **加粗**)</label>
+                    <textarea id="newsInput" rows="4" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-amber-200 outline-none" oninput="updatePreview()">**Nature** | 杨剑/沈贤团队构建迄今最大规模人类泛基因组参考图谱，全面解析中国人群遗传多样性
+**Nat Med** | 蛋白质组学AI模型ProtAIDe-Dx单次采血即可同步诊断6种神经退行性疾病</textarea>
+                </div>
 
-        // —— 3a. 更新金诺动态 ——
-        const companyText = document.getElementById('companyNewsInput').value;
-        const companyNewsList = document.getElementById('companyNewsList');
-        const companyNewsBlock = document.getElementById('companyNewsBlock');
-        companyNewsList.innerHTML = '';
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-2">公司动态</label>
+                    <textarea id="companyUpdateInput" rows="3" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-amber-200 outline-none" oninput="updatePreview()">**OmniSeek® v2.0** 增强型全外显子组测序项目推广计划筹备中</textarea>
+                </div>
 
-        if (companyText.trim() === '') {
-          companyNewsBlock.style.display = 'none';
-        } else {
-          companyNewsBlock.style.display = '';
-          companyText.split('\n').forEach(line => {
-            if (line.trim() !== '') {
-              const li = document.createElement('li');
-              li.innerHTML = parseTextFormatting(line.trim());
-              companyNewsList.appendChild(li);
-            }
-          });
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-2">部门事项 (格式：部门名|事项1,事项2...)</label>
+                    <textarea id="deptInput" rows="8" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-amber-200 outline-none" oninput="updatePreview()">客服部|本周客户咨询**57**例 主要涉及检测前项目咨询及报告答疑
+销售部|**成功中标** 台州市路桥区妇幼健康服务中心：耳聋基因携带者筛查采购项目</textarea>
+                </div>
+            </div>
+
+            <button onclick="window.print()" class="w-full mt-8 py-4 bg-neutral-900 text-white rounded-xl font-bold hover:bg-black transition-all shadow-lg">
+                生成预览 / 导出 PDF
+            </button>
+
+            <button id="downloadImgBtn" class="w-full mt-3 py-4 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-xl font-bold hover:from-amber-700 hover:to-amber-800 transition-all shadow-lg flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                下载为图片
+            </button>
+            <div id="downloadStatus" class="mt-2 text-center text-sm text-gray-400 hidden"></div>
+        </div>
+
+        <!-- 右侧：手机预览 -->
+        <div class="flex-1">
+            <div class="phone-preview" id="captureArea">
+                <!-- 页眉 -->
+                <div class="report-header">
+                    <h1 class="serif text-5xl font-bold mb-4">每周金诺</h1>
+                    <div class="gold-divider"></div>
+                    <p id="displayDate" class="text-[11px] opacity-70 tracking-[0.4em] uppercase">2023.10.27 FRIDAY</p>
+                </div>
+
+                <!-- 行业资讯 -->
+                <div class="content-card">
+                    <h2 class="section-title">行业资讯 <span>/ INDUSTRY</span></h2>
+                    <ul id="newsList" class="item-list">
+                        <!-- JS 填充 -->
+                    </ul>
+                </div>
+
+                <!-- 一周小结 -->
+                <div class="content-card pt-0">
+                    <h2 class="section-title">一周小结 <span>/ SUMMARY</span></h2>
+                    
+                    <div class="company-update-box">
+                        <span class="dept-tag" style="color:var(--primary-gold); font-size: 0.75rem;">公司动态</span>
+                        <div id="companyUpdateDisplay" class="company-update-text">
+                            <!-- JS 填充 -->
+                        </div>
+                    </div>
+
+                    <div id="deptListDisplay">
+                        <!-- JS 填充 -->
+                    </div>
+                </div>
+
+                <!-- 页脚 -->
+                <div class="p-5 text-center bg-white mt-4 border-t border-gray-50">
+                    <p class="text-[9px] text-gray-300 tracking-[0.2em] uppercase">Juno Genomics</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('dateInput').valueAsDate = new Date();
+
+        function parseFormat(text) {
+            return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
         }
 
-        // —— 3b. 更新一周小结 ——
-        const summaryText = document.getElementById('summaryInput').value;
-        const summaryList = document.getElementById('summaryList');
-        summaryList.innerHTML = '';
+        function updatePreview() {
+            const dateVal = new Date(document.getElementById('dateInput').value);
+            const weekday = dateVal.toLocaleDateString('en-US', { weekday: 'long' }).toUpperCase();
+            document.getElementById('displayDate').innerText = `${dateVal.getFullYear()}.${(dateVal.getMonth()+1).toString().padStart(2,'0')}.${dateVal.getDate().toString().padStart(2,'0')} ${weekday}`;
 
-        let currentLi = null;
-        summaryText.split('\n').forEach(line => {
-          if (line.trim() !== '') {
-            const processedLine = parseTextFormatting(line);
-            if (line.includes('➤')) {
-              const parts = processedLine.split('➤');
-              if (currentLi) {
-                currentLi.innerHTML += `<p style="color: #A3848F;">➤ ${parts[1].trim()}</p>`;
-              } else {
-                currentLi = document.createElement('li');
-                currentLi.innerHTML = `<span class="font-semibold">${parts[0].trim()}</span><p style="color: #A3848F;">➤ ${parts[1].trim()}</p>`;
-                summaryList.appendChild(currentLi);
-              }
-            } else {
-              currentLi = document.createElement('li');
-              currentLi.innerHTML = `<span class="font-semibold">${processedLine.trim()}</span>`;
-              summaryList.appendChild(currentLi);
-            }
-          }
-        });
-      });
+            // 行业资讯
+            const news = document.getElementById('newsInput').value.split('\n').filter(t => t.trim());
+            document.getElementById('newsList').innerHTML = news.map(item => `<li>${parseFormat(item)}</li>`).join('');
 
-      // --- 4. 下载为图片功能 ---
-      const downloadBtn = document.getElementById('downloadBtn');
-      const downloadStatus = document.getElementById('downloadStatus');
+            // 公司动态
+            document.getElementById('companyUpdateDisplay').innerHTML = parseFormat(document.getElementById('companyUpdateInput').value);
 
-      downloadBtn.addEventListener('click', async function () {
-        const node = document.getElementById('content-container');
-        if (!node) return;
-
-        // 显示加载状态
-        downloadBtn.disabled = true;
-        downloadBtn.innerHTML = `
-          <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-          </svg>
-          正在生成图片...
-        `;
-        downloadStatus.classList.remove('hidden');
-        downloadStatus.textContent = '⏳ 正在渲染，请稍候...';
-
-        // 保存原始样式
-        const originalMargin = node.style.margin;
-        const originalMaxWidth = node.style.maxWidth;
-        const originalWidth = node.style.width;
-
-        try {
-          // 截图前：固定宽度 + 取消居中，让内容靠左对齐
-          const rect = node.getBoundingClientRect();
-          const targetWidth = Math.ceil(rect.width);
-          const targetHeight = Math.ceil(rect.height);
-
-          node.style.margin = '0';
-          node.style.maxWidth = 'none';
-          node.style.width = `${targetWidth}px`;
-          void node.offsetHeight;
-
-          // 使用 2 倍像素密度以获得高清图片
-          const dataUrl = await htmlToImage.toPng(node, {
-            quality: 1,
-            pixelRatio: 2,
-            cacheBust: true,
-            width: targetWidth,
-            height: targetHeight,
-            canvasWidth: targetWidth,
-            canvasHeight: targetHeight,
-            fetchRequestInit: { mode: 'cors' },
-            imagePlaceholder: undefined,
-            style: { transform: 'none' },
-          });
-
-          // 创建下载链接
-          const link = document.createElement('a');
-          const dateStr = document.getElementById('date-week').textContent.trim();
-          link.download = `周报_${dateStr.replace(/\s+/g, '_')}.png`;
-          link.href = dataUrl;
-          link.click();
-
-          downloadStatus.textContent = '✅ 图片已生成并开始下载！';
-          downloadStatus.style.color = '#16a34a';
-        } catch (error) {
-          console.error('生成图片失败:', error);
-          downloadStatus.textContent = '❌ 生成失败，请尝试刷新页面后重试。';
-          downloadStatus.style.color = '#dc2626';
-        } finally {
-          // 恢复容器原始样式
-          node.style.margin = originalMargin;
-          node.style.maxWidth = originalMaxWidth;
-          node.style.width = originalWidth;
-
-          // 恢复按钮状态
-          downloadBtn.disabled = false;
-          downloadBtn.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
-            下载为图片
-          `;
-          // 3秒后隐藏状态提示
-          setTimeout(() => {
-            downloadStatus.classList.add('hidden');
-          }, 3000);
+            // 部门事项
+            const deptsRaw = document.getElementById('deptInput').value.split('\n').filter(t => t.trim());
+            let html = '';
+            deptsRaw.forEach(line => {
+                const parts = line.split('|');
+                if (parts.length >= 2) {
+                    const name = parts[0];
+                    const itemsStr = parts.slice(1).join('|');
+                    const items = itemsStr.split(/[,，]/);
+                    html += `
+                        <div class="mb-5">
+                            <span class="dept-tag">${name}</span>
+                            <ul class="item-list mb-2">
+                                ${items.map(i => `<li>${parseFormat(i.trim())}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
+            });
+            document.getElementById('deptListDisplay').innerHTML = html;
         }
-      });
 
-      // --- 5. 更新行业资讯功能 ---
-      document.getElementById('updateButton').addEventListener('click', function () {
-        const text = document.getElementById('textInput').value;
-        const newsList = document.getElementById('newsList');
-        newsList.innerHTML = ''; // 清空现有列表
+        window.onload = updatePreview;
 
-        if (text.trim() === '') return;
+        // --- 下载为图片功能 ---
+        document.getElementById('downloadImgBtn').addEventListener('click', async function () {
+            const node = document.getElementById('captureArea');
+            if (!node) return;
 
-        const lines = text.split('\n');
-        lines.forEach(line => {
-          if (line.trim() !== '') { // 忽略空行
-            const li = document.createElement('li');
-            // 使用 innerHTML 解析并渲染上标标签
-            li.innerHTML = parseTextFormatting(line);
-            newsList.appendChild(li);
-          }
+            const btn = this;
+            const status = document.getElementById('downloadStatus');
+
+            // 显示加载状态
+            btn.disabled = true;
+            btn.innerHTML = `
+                <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+                正在生成图片...
+            `;
+            status.classList.remove('hidden');
+            status.textContent = '⏳ 正在渲染，请稍候...';
+            status.style.color = '#999';
+
+            // 保存原始样式（phone-preview 有 margin: 0 auto 居中）
+            const originalMargin = node.style.margin;
+            const originalMaxWidth = node.style.maxWidth;
+            const originalWidth = node.style.width;
+
+            try {
+                // 截图前：固定宽度 + 取消居中，避免截到空白
+                const rect = node.getBoundingClientRect();
+                const targetWidth = Math.ceil(rect.width);
+                const targetHeight = Math.ceil(rect.height);
+
+                node.style.margin = '0';
+                node.style.maxWidth = 'none';
+                node.style.width = `${targetWidth}px`;
+                void node.offsetHeight;
+
+                // 使用 2 倍像素密度以获得高清图片
+                const dataUrl = await htmlToImage.toPng(node, {
+                    quality: 1,
+                    pixelRatio: 2,
+                    cacheBust: true,
+                    width: targetWidth,
+                    height: targetHeight,
+                    canvasWidth: targetWidth,
+                    canvasHeight: targetHeight,
+                    fetchRequestInit: { mode: 'cors' },
+                    imagePlaceholder: undefined,
+                    style: { transform: 'none' },
+                });
+
+                // 生成文件名
+                const dateText = document.getElementById('displayDate').textContent.trim();
+                const link = document.createElement('a');
+                link.download = `每周金诺_${dateText.replace(/\s+/g, '_')}.png`;
+                link.href = dataUrl;
+                link.click();
+
+                status.textContent = '✅ 图片已生成并开始下载！';
+                status.style.color = '#16a34a';
+            } catch (error) {
+                console.error('生成图片失败:', error);
+                status.textContent = '❌ 生成失败，请尝试刷新页面后重试。';
+                status.style.color = '#dc2626';
+            } finally {
+                // 恢复容器原始样式
+                node.style.margin = originalMargin;
+                node.style.maxWidth = originalMaxWidth;
+                node.style.width = originalWidth;
+
+                // 恢复按钮状态
+                btn.disabled = false;
+                btn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    下载为图片
+                `;
+                setTimeout(() => status.classList.add('hidden'), 3000);
+            }
         });
-      });
-    });
-  </script>
+    </script>
 </body>
-
 </html>
